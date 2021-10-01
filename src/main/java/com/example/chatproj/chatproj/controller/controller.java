@@ -14,6 +14,11 @@ public class controller {
 		return "signup";
 	}
 	
+	@RequestMapping("/test1")
+	public String test1() {
+		return "test1";
+	}
+	
 	@GetMapping("/hello")
 	public String hello() {
 		return "hello";
