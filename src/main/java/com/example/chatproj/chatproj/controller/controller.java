@@ -29,6 +29,11 @@ public class controller {
 		return "ChatPg";
 	}
 	
+	@RequestMapping("/signin")
+	public String signin() {
+		return "signin";
+	}
+	
 	@GetMapping("/hello")
 	public String hello() {
 		return "hello";
