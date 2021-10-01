@@ -24,10 +24,16 @@ public class controller {
 		return "find_password";
 	}
 	
+	@RequestMapping("/cpg")
+	public String cpg() {
+		return "ChatPg";
+	}
+	
 	@GetMapping("/hello")
 	public String hello() {
 		return "hello";
 		
 	}
+	
 }
 
