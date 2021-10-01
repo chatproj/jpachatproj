@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>

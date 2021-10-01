@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html" charset="EUC-KR">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 <title>Signup</title>
 <link rel="stylesheet" href="/css/signup.css">
 <script src="/js/signup.js" type="text/javascript" charset="UTF-8"></script>
@@ -16,7 +16,7 @@
             <div class="form">
                 <form action="#">
                     <div class="signup-input-box">
-                        <div class="signuplabel">æ∆¿Ãµ</div>
+                        <div class="signuplabel">ÏïÑÏù¥Îîî</div>
                        	<span class="input-box-detail">
 	                        <input type="text" name="username" id="username">
 	                    </span>
@@ -25,7 +25,7 @@
                     
                     <div class="signup-input-box">
                         <!-- <label for="email">E-MAIL :</label> -->
-                        <div class="signuplabel">¿Ã∏ﬁ¿œ</div>
+                        <div class="signuplabel">Ïù¥Î©îÏùº</div>
                         <span class="input-box-detail">
                         	<input type="email" name="email" id="email">
                         </span>
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="signup-input-box">
-                    	<div class="signuplabel">∫Òπ–π¯»£</div>
+                    	<div class="signuplabel">ÎπÑÎ∞ÄÎ≤àÌò∏</div>
                     	<span class="input-box-detail">
                         	<input type="password" name="password" id="password">
                         </span>
@@ -41,7 +41,7 @@
                     </div>
                     
                     <div class="signup-input-box">
-                        <div class="signuplabel">∫Òπ–π¯»£ ¿Á»Æ¿Œ</div>
+                        <div class="signuplabel">ÎπÑÎ∞ÄÎ≤àÌò∏ Ïû¨ÌôïÏù∏</div>
                         <span class="input-box-detail">
                         	<input type="password" name="password_check" id="password_check">
                         </span>
@@ -49,14 +49,14 @@
                     </div>
                     
                     <div class="signup-input-box">
-                        <div class="signuplabel">»ﬁ¥Î¿¸»≠</div>
+                        <div class="signuplabel">Ìú¥ÎåÄÏ†ÑÌôî</div>
                         <span class="input-box-detail">
                         	<input type="text" name="phone_num" id="phone_num">
                         </span>
                         <div id="phone_num_error" class="error"></div>
                     </div>
                     
-                    <input type="submit" id="submit_btn" value="»∏ø¯∞°¿‘" class="submit_btn">
+                    <input type="submit" id="submit_btn" value="ÌöåÏõêÍ∞ÄÏûÖ" class="submit_btn">
                     
                 </form>
             </div>

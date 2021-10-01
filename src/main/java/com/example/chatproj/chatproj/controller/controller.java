@@ -19,6 +19,11 @@ public class controller {
 		return "test1";
 	}
 	
+	@RequestMapping("/fpw")
+	public String fpw() {
+		return "find_password";
+	}
+	
 	@GetMapping("/hello")
 	public String hello() {
 		return "hello";
