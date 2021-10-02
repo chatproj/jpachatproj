@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			setErrorMessage("pass_error", "필수 정보입니다.");
 		}else{
 			if(level == 1 || level == 2 || level == 3){
-				setErrorMessage("pass_error", "영문,숫자,특수문자를 사용항세요.")
+				setErrorMessage("pass_error", "영문,숫자,특수문자를 사용하세요.")
 			}else{
 				removeErrorMessage("pass_error");
 			}

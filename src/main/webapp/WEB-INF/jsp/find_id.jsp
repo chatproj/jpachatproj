@@ -1,25 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- css file -->
+<%@ include file="./common/title.jsp"%>
 </head>
 <body>
-			<form action="findacc.jsp">
-				<div style="color: #56b7ba; margin-top: 5%; margin-bottom: 1%;">아이디</div>
-				<input name="birth" type="text" id="id" style="text-align: center;">
-				<div style="color: #56b7ba; margin-top: 5%; margin-bottom: 1%;">이메일</div>
-				<input name="email" type="text" id="email" style="text-align: center;">
-				<div style="color: #56b7ba; margin-top: 5%; margin-bottom: 1%;">성별</div>
-				<div>
-				<input type="radio" name="gender" value="male" style="font-size:17px; width:23px;height:23px" onclick="male()">남
-				<input type="radio" name="gender" value="female" style="font-size:17px; width:23px;height:23px" onclick="female()">여<br>
-				<button type="submit" id="signup_btn" class="signup_btn">
-					비밀번호 찾기
-				</button>
-				</div>
-			</form>	
+
+	<!-- Header -->
+	<%@ include file="./common/header.jsp"%>
+
+	<div id="main_container">
+		<div class="form_container">
+			<div class="form">
+				<form action="#">
+					<div class="input-box">
+						<div class="inputlabel">아이디</div>
+						<input type="text" name="username" id="username">
+						<div id="username_error" class="error"></div>
+					</div>
+
+					<div class="input-box">
+						<div class="inputlabel">이메일</div>
+						<input type="email" name="email" id="email">
+						<div id="email_error" class="error"></div>
+					</div>
+
+					<input type="submit" id="submit_btn" value="아이디 찾기"
+						class="submit_btn">
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Script -->
+	<script src="/js/account_form.js" type="text/javascript" charset="UTF-8"></script>
 </body>
 </html>

@@ -1,0 +1,93 @@
+#main_container{
+    padding-top: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+#main_container .inputlabel {
+	font-size: 15px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	color: #56b7ba;
+}
+
+#main_container .form_container {
+	width: 355px;
+}
+
+.form_container .form {
+	display: inline-block;
+	border: 1px solid white;
+	border-radius: 20px;
+	background: white;
+	box-shadow: 10px 10px 60px #8bbbbd;
+	padding: 30px;
+}
+
+.form_container .form .input-box {
+	margin-bottom: 20px;
+}
+
+.input-box input {
+	border: 1px solid gray;
+	border-radius: 10px;
+	background: white;
+	width: 260px;
+	height: 50px;
+	color: black;
+	padding-left: 20px;
+	padding-right: 20px;
+
+}
+
+input:focus {
+	outline: none;
+}
+
+.input-box .error {
+	font-size: 15px;
+	margin-top: 5px;
+	margin-left: 10px;
+	color: red;
+}
+
+.submit_btn {
+	border-radius: 10px;
+	width: 300px;
+	height: 50px;
+	outline: none;
+	font-size: 16px;
+	font: monospace;
+	background: #e1e1e1;
+	color: #4a6363;
+	font-weight: bold;
+	border: none;
+	margin-top: 5%;
+	
+}
+
+.submit_btn:hover {
+	border-radius: 10px;
+	width: 300px;
+	height: 50px;
+	outline: none;
+	background: #8bbbbd;
+}
+
+.nouser {
+	font-size: 15px;
+	margin-top: 30px;
+	margin-left: 45px;
+	margin-bottom: 10px;
+	color: #56b7ba;
+}
+
+.nouser a {
+	text-decoration: none;
+	color: red;
+}
+
+.nouser a:hover {
+	text-decoration: underline;
+}

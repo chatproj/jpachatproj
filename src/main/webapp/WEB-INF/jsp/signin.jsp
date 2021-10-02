@@ -1,36 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- css file -->
+<%@ include file="./common/title.jsp"%>
 </head>
 <body>
-		<form method="method" id="idForm" >
-	
-	<div>
-	
-	<label for="loginid">아이디</label>
-	
-	<input type="email" id="loginid" name="loginid" placeholder="id" >
-	
-	<label for="loginpw">비밀번호</label>
-	
-	<input type="password" id="loginpw" name="password" placeholder="password" >
-	
+
+	<!-- Header -->
+	<%@ include file="./common/header.jsp"%>
+
+	<div id="main_container">
+		<div class="form_container">
+			<div class="form">
+				<form action="#">
+					<div class="input-box">
+						<div class="inputlabel">아이디</div>
+						<input type="text" name="username" id="username">
+						<div id="username_error" class="error"></div>
+					</div>
+
+					<div class="input-box">
+						<div class="inputlabel">비밀번호</div>
+						<input type="password" name="password" id="password">
+						<div id="pass_error" class="error"></div>
+					</div>
+
+					<input type="submit" id="submit_btn" value="Log in"
+						class="submit_btn">
+						
+					<div class="nouser">아이디가 없으신가요? <a href="/signup">회원가입</a></div>
+
+				</form>
+			</div>
+		</div>
 	</div>
-	
-	<button type="submit" disabled="disabled">로그인</button>
-	
-	<div>
-	
-	<input type="checkbox" id="keeplogin" name="keeplogin">
-	
-	<label for="keeplogin"><span>로그인 중</span></label>
-	
-	</div>
-	
-	</form>
+
+	<!-- Script -->
+<!-- 	<script src="/js/signup.js" type="text/javascript" charset="UTF-8"></script> -->
 </body>
 </html>
