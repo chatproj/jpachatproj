@@ -34,6 +34,11 @@ public class controller {
 		return "signin";
 	}
 	
+	@RequestMapping("/fid")
+	public String fid() {
+		return "find_id";
+	}
+	
 	@GetMapping("/hello")
 	public String hello() {
 		return "hello";
