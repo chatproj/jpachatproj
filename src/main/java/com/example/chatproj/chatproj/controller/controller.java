@@ -9,40 +9,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class controller {
 	
+	// 회원가입
 	@RequestMapping("/signup")
 	public String signup() {
 		return "signup";
 	}
 	
-	@RequestMapping("/test1")
-	public String test1() {
-		return "test1";
-	}
-	
-	@RequestMapping("/fpw")
-	public String fpw() {
-		return "find_password";
-	}
-	
-	@RequestMapping("/cpg")
-	public String cpg() {
-		return "ChatPg";
-	}
-	
+	// 로그인
 	@RequestMapping("/signin")
 	public String signin() {
 		return "signin";
 	}
 	
-	@RequestMapping("/fid")
-	public String fid() {
+	// 아이디 찾기
+	@RequestMapping("/findid")
+	public String findid() {
 		return "find_id";
 	}
 	
-	@GetMapping("/hello")
-	public String hello() {
-		return "hello";
-		
+	// 비밀번호 찾기
+	@RequestMapping("/findpw")
+	public String findpass() {
+		return "find_password";
+	}
+	
+	// 채팅방
+	@RequestMapping("/chatpg")
+	public String chatpg() {
+		return "ChatPg";
 	}
 	
 }
