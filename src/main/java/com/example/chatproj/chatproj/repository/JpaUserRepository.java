@@ -16,15 +16,15 @@ public class JpaUserRepository implements UserRepository{
 	}
 	
 	@Override
-	public User save(User member) {
-		em.persist(member);
-		return member;
+	public User save(User user) {
+		em.persist(user);
+		return user;
 	}
 
 	@Override
 	public Optional<User> findByNum(int unum) {
-		User member = em.find(User.class, unum);
-		return Optional.ofNullable(member);
+		User user = em.find(User.class, unum);
+		return Optional.ofNullable(user);
 	}
 
 	@Override

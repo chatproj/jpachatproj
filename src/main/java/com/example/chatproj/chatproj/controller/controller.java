@@ -14,11 +14,11 @@ import com.example.chatproj.chatproj.service.UserService;
 @Controller
 public class controller {
 	
-	private final UserService memberService;
+	private final UserService userService;
 	
 	@Autowired
-	public controller(UserService memberService) {
-		this.memberService = memberService;
+	public controller(UserService userService) {
+		this.userService = userService;
 	}
 	
 	// 회원가입
@@ -28,15 +28,15 @@ public class controller {
 	}
 	
 	@PostMapping("/signup")
-	public String create(UserForm form) {
-		User member = new User();
-		member.setUid(form.getUid());
-		member.setUpw(form.getUpw());
-		member.setUname(form.getUname());
-		member.setEmail(form.getEmail());
-		member.setPhone_num(form.getPhone_num());
+	public String create_user(UserForm form) {
+		User user = new User();
+		user.setUid(form.getUid());
+		user.setUpw(form.getUpw());
+		user.setUname(form.getUname());
+		user.setEmail(form.getEmail());
+		user.setPhone_num(form.getPhone_num());
 		
-		memberService.join(member);
+		userService.join(user);
 		
 		return "redirect:/";
 	}

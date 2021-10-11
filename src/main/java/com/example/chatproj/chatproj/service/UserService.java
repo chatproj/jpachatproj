@@ -11,22 +11,22 @@ import com.example.chatproj.chatproj.repository.UserRepository;
 
 @Transactional
 public class UserService {
-	private final UserRepository memberRepository;
+	private final UserRepository userRepository;
 	
-	public UserService(UserRepository memberRepository) {
-		this.memberRepository = memberRepository;
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 	
 	// 회원가입
-	public int join(User member) {
-		validateDuplicateMember(member);
-		memberRepository.save(member);
-		return member.getUnum();
+	public int join(User user) {
+		validateDuplicateuser(user);
+		userRepository.save(user);
+		return user.getUnum();
 	}
 	
-	private void validateDuplicateMember(User member) {
-		System.out.println("22222222222" + member.getUid());
-		memberRepository.findById(member.getUid())
+	private void validateDuplicateuser(User user) {
+		System.out.println("22222222222" + user.getUid());
+		userRepository.findById(user.getUid())
 		.ifPresent(m -> {
 			throw new IllegalStateException("이미 존재하는 회원입니다.");
 		});
