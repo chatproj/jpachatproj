@@ -20,12 +20,12 @@ public class SpringConfig {
 	}
 	
 	@Bean
-	public UserService memberService() {
-		return new UserService(memberRepository());
+	public UserService userService() {
+		return new UserService(userRepository());
 	}
 	
 	@Bean
-	public UserRepository memberRepository() {
+	public UserRepository userRepository() {
 		return new JpaUserRepository(em);
 	}
 }
