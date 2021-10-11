@@ -18,10 +18,16 @@
 		<div class="form_container">
 
 			<div class="form">
-				<form action="#">
+				<form method="POST" action="/signup">
 					<div class="input-box">
 						<div class="inputlabel">아이디</div>
-						<input type="text" name="username" id="username">
+						<input type="text" name="uid" id="uid">
+						<div id="username_error" class="error"></div>
+					</div>
+
+					<div class="input-box">
+						<div class="inputlabel">이름</div>
+						<input type="text" name="uname" id="uname">
 						<div id="username_error" class="error"></div>
 					</div>
 
@@ -33,7 +39,7 @@
 
 					<div class="input-box">
 						<div class="inputlabel">비밀번호</div>
-						<input type="password" name="password" id="password">
+						<input type="password" name="upw" id="upw">
 						<div id="pass_error" class="error"></div>
 					</div>
 
