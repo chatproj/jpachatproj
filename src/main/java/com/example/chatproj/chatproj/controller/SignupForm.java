@@ -1,6 +1,6 @@
 package com.example.chatproj.chatproj.controller;
 
-public class UserForm {
+public class SignupForm {
 	private String uid;
 	private String upw;
 	private String uname;

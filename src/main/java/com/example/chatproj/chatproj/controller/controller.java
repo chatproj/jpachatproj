@@ -28,7 +28,7 @@ public class controller {
 	}
 	
 	@PostMapping("/signup")
-	public String create_user(UserForm form) {
+	public String create_user(SignupForm form) {
 		User user = new User();
 		user.setUid(form.getUid());
 		user.setUpw(form.getUpw());
@@ -45,6 +45,25 @@ public class controller {
 	@RequestMapping("/signin")
 	public String signin() {
 		return "signin";
+	}
+	
+	@PostMapping("/signin")
+	public String login_user(SigninForm form) {
+		User user = new User();
+		user.setUid(form.getUid());
+		user.setUpw(form.getUpw());
+		
+		String result = userService.login(user);
+		
+		System.out.println("result : " + result );
+		
+		if(result.equals("matchX")) {
+			return "signin";
+		}else if(result.equals("noid")) {
+			return "signin";
+		}else {
+			return "redirect:/";
+		}	
 	}
 	
 	// 아이디 찾기

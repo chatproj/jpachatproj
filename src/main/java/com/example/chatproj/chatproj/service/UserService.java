@@ -1,5 +1,6 @@
 package com.example.chatproj.chatproj.service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -25,11 +26,39 @@ public class UserService {
 	}
 	
 	private void validateDuplicateuser(User user) {
-		System.out.println("22222222222" + user.getUid());
 		userRepository.findById(user.getUid())
 		.ifPresent(m -> {
 			throw new IllegalStateException("이미 존재하는 회원입니다.");
 		});
 	}
+	
+	// 로그인
+	public String login(User user) {
+		String uid = user.getUid();
+		String upw = user.getUpw();
+		String result = unmatch(uid, upw, user);
+		
+		return result;
+	}
+	
+	public String unmatch(String uid, String upw, User user) {
+		Optional<User> DBUid = userRepository.findById(user.getUid());
+		
+		String result = null;
+		
+		try {
+			if(uid.equals(DBUid.get().getUid()) && upw.equals(DBUid.get().getUpw())){
+				result = "matchO";
+			}else {
+				result = "matchX";
+			}
+		}catch(NoSuchElementException e) {
+			result = "noid";
+		}
+		
+		return result;
+		
+	}
+	
 	
 }
