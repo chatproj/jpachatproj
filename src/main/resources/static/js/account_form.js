@@ -1,28 +1,28 @@
 window.addEventListener("DOMContentLoaded", function(){
 
-	var username = document.getElementById("username");
+	var uid = document.getElementById("uid");
 	var email = document.getElementById("email");
-	var pass = document.getElementById("password");
-	var pass_check = document.getElementById("password_check");
+	var upw = document.getElementById("upw");
+	var upw_check = document.getElementById("upw_check");
 	var phone_num = document.getElementById("phone_num");
 
 /*	
-	var username_error = document.getElementById("username_error");
+	var uid_error = document.getElementById("uid_error");
 	var email_error = document.getElementById("email_error");
-	var pass_error = document.getElementById("pass_error");
-	var pass_check_error = document.getElementById("pass_check_error");
+	var upw_error = document.getElementById("upw_error");
+	var upw_check_error = document.getElementById("upw_check_error");
 	var phone_num_error = document.getElementById("phone_num_error");
 */
 	
-	username.addEventListener("keyup", function(){
-		if(username.value == "" || username.value.length == 0){
-			setErrorMessage("username_error", "필수 정보입니다.");		
+	uid.addEventListener("keyup", function(){
+		if(uid.value == "" || uid.value.length == 0){
+			setErrorMessage("uid_error", "필수 정보입니다.");		
 		}else{
 			var pattern = /[^a-zA-Z0-9]/;
-			if(pattern.test(username.value)){
-				setErrorMessage("username_error", "영어와 숫자를 조합해주세요.");
+			if(pattern.test(uid.value)){
+				setErrorMessage("uid_error", "영어와 숫자를 조합해주세요.");
 			}else{
-				removeErrorMessage("username_error");
+				removeErrorMessage("uid_error");
 			}
 		}
 	});
@@ -40,37 +40,37 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 	});
 	
-	pass.addEventListener("keyup", function(){
-		var level = passwordLevel(pass.value);
+	upw.addEventListener("keyup", function(){
+		var level = passwordLevel(upw.value);
 		if(level == 0){
-			setErrorMessage("pass_error", "필수 정보입니다.");
+			setErrorMessage("upw_error", "필수 정보입니다.");
 		}else{
 			if(level == 1 || level == 2 || level == 3){
-				setErrorMessage("pass_error", "영문,숫자,특수문자를 사용하세요.")
+				setErrorMessage("upw_error", "영문,숫자,특수문자를 사용하세요.")
 			}else{
-				removeErrorMessage("pass_error");
+				removeErrorMessage("upw_error");
 			}
 		}
 	});
 	
-	pass_check.addEventListener("keyup", function(){
-		var level = passwordLevel(pass_check.value);
+	upw_check.addEventListener("keyup", function(){
+		var level = passwordLevel(upw_check.value);
 		if(level == 0){
-			setErrorMessage("pass_check_error", "필수 정보입니다.");
+			setErrorMessage("upw_check_error", "필수 정보입니다.");
 		}else{
 			if(level == 1 || level == 2 || level == 3){
-				setErrorMessage("pass_check_error", "영문,숫자,특수문자를 사용하세요.")
+				setErrorMessage("upw_check_error", "영문,숫자,특수문자를 사용하세요.")
 			}else{
-				removeErrorMessage("pass_check_error");
+				removeErrorMessage("upw_check_error");
 			}
 		}
 	});
 	
-	pass_check.addEventListener("keyup", function(){
-		if(pass.value != pass_check.value){
-			setErrorMessage("pass_check_error", "비밀번호가 일치하지 않습니다.");
+	upw_check.addEventListener("keyup", function(){
+		if(upw.value != upw_check.value){
+			setErrorMessage("upw_check_error", "비밀번호가 일치하지 않습니다.");
 		}else{
-			removeErrorMessage("pass_check_error");
+			removeErrorMessage("upw_check_error");
 		}
 	});
 	
@@ -89,9 +89,9 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	
 	
-	pass.addEventListener("keyup", function(){
-		document.getElementById("pass_error").className = "error";
-		var level = passwordLevel(pass.value);
+	upw.addEventListener("keyup", function(){
+		document.getElementById("upw_error").className = "error";
+		var level = passwordLevel(upw.value);
 	})
 	
 	function setErrorMessage(id, message){
