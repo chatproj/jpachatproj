@@ -58,9 +58,9 @@ public class controller {
 		System.out.println("result : " + result );
 		
 		if(result.equals("matchX")) {
-			return "signin";
+			return "redirect:/signin?message=FAILURE_matchX";
 		}else if(result.equals("noid")) {
-			return "signin";
+			return "redirect:/signin?message=FAILURE_noid";
 		}else {
 			return "redirect:/";
 		}	
