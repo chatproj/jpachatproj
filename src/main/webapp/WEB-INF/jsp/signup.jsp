@@ -22,7 +22,7 @@
 					<div class="input-box">
 						<div class="inputlabel">아이디</div>
 						<input type="text" name="uid" id="uid">
-						<div id="username_error" class="error"></div>
+						<div id="uid_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
@@ -40,13 +40,13 @@
 					<div class="input-box">
 						<div class="inputlabel">비밀번호</div>
 						<input type="password" name="upw" id="upw">
-						<div id="pass_error" class="error"></div>
+						<div id="upw_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
 						<div class="inputlabel">비밀번호 재확인</div>
-						<input type="password" name="password_check" id="password_check">
-						<div id="pass_check_error" class="error"></div>
+						<input type="password" name="upw_check" id="upw_check">
+						<div id="upw_check_error" class="error"></div>
 					</div>
 
 					<div class="input-box">

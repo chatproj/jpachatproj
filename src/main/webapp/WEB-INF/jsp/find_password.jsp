@@ -19,8 +19,8 @@
 				<form action="#">
 					<div class="input-box">
 						<div class="inputlabel">아이디</div>
-						<input type="text" name="username" id="username">
-						<div id="username_error" class="error"></div>
+						<input type="text" name="uid" id="uid">
+						<div id="uid_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
