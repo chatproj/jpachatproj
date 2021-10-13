@@ -16,16 +16,16 @@
 	<div id="main_container">
 		<div class="form_container">
 			<div class="form">
-				<form action="#">
+				<form method="POST" action="/signin">
 					<div class="input-box">
 						<div class="inputlabel">아이디</div>
-						<input type="text" name="username" id="username">
+						<input type="text" name="uid" id="uid">
 						<div id="username_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
 						<div class="inputlabel">비밀번호</div>
-						<input type="password" name="password" id="password">
+						<input type="password" name="upw" id="upw">
 						<div id="pass_error" class="error"></div>
 					</div>
 
