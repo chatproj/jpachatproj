@@ -7,6 +7,33 @@
 <head>
 <!-- css file -->
 <%@ include file="./common/title.jsp"%>
+<script type="text/javascript">
+	window.addEventListener("DOMContentLoaded", function(){
+		<%
+			if(request.getParameter("message") != null && request.getParameter("message").equals("FAILURE_matchX")){
+		%>
+				setErrorMessage("upw_error", "비밀번호를 확인해주세요.");
+		<%
+			}
+		%>
+		
+		<%
+			if(request.getParameter("message") != null && request.getParameter("message").equals("FAILURE_noid")){
+		%>
+				setErrorMessage("upw_error", "존재하지 않는 사용자입니다.");
+		<%		
+			}
+		%>
+		
+		function setErrorMessage(id, message){
+			document.getElementById(id).innerText = message;
+		}
+		
+		function removeErrorMessage(id){
+			document.getElementById(id).innerText = "";
+		}
+	});
+</script>
 </head>
 <body>
 
