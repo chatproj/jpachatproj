@@ -1,6 +1,10 @@
 package com.example.chatproj.chatproj.controller;
 
+import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,7 +60,7 @@ public class controller {
 	}
 	
 	@PostMapping("/signin")
-	public String login_user(SigninForm form) {
+	public String login_user(SigninForm form, HttpServletRequest request) {
 		User user = new User();
 		user.setUid(form.getUid());
 		user.setUpw(form.getUpw());
@@ -70,6 +74,9 @@ public class controller {
 		}else if(result.equals("noid")) {
 			return "redirect:/signin?message=FAILURE_noid";
 		}else {
+			HttpSession session = request.getSession();
+			String name = form.getUid();
+			session.setAttribute("sessionId", name);
 			return "redirect:/";
 		}	
 	}
@@ -99,11 +106,9 @@ public class controller {
 	}
 	
 	@PostMapping("/inviteuser")
-	public String invite_user(SigninForm form) {
+	public String invite_user(SigninForm form, InviteUserForm form1, HttpServletRequest request) {
 		User user = new User();
 		user.setUid(form.getUid());
-		
-		Chatroom_Table user1 = new Chatroom_Table();
 		
 		String result = userService.article(user);
 		
@@ -112,8 +117,37 @@ public class controller {
 		}else if(result.equals("noid")) {
 			return "redirect:/signin?message=FAILURE_noid";
 		}else {
+			// session
+			HttpSession session = request.getSession();
+			String sessionName = (String)session.getAttribute("sessionId");		
+			
+			// insert chatroom_table
 			Optional<Chatroom_Table> ct = chatService.join();
-			System.out.println("Chatroom_MAX_NUM : "+ ct.get().getCnum());
+			System.out.println("ct....." + ct);
+			
+			Chatroom_Table user1 = new Chatroom_Table();
+			user1.setCnum(ct.get().getCnum() + 1);
+			user1.setCname(form1.getCname());			
+			chatService.insChatTable(user1);
+			
+			// select m from user_table m where uid in ( 내 id값, 초대한 사람의 id값);
+			String inviteuser = form1.getCname();
+			
+			List<User> result2 = userService.getIdbyUid(sessionName, inviteuser);
+			System.out.println("Session : " + sessionName);
+			
+			System.out.println("SessionNum : " + result2.get(0).getUnum());
+			System.out.println("Invite : " + result2.get(1).getUnum());
+			
+			// session, invite 기반 insert
+			
+			for(int i = 0; i<result2.size(); i++) {
+				UC_Table user2 = new UC_Table();
+				user2.setUnum(result2.get(i).getUnum());
+				user2.setCnum(ct.get().getCnum() + 1);
+				chatService.insUCTable(user2);
+			}
+			
 			return "redirect:/chatpg";
 		}	
 	

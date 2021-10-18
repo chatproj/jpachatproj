@@ -1,5 +1,6 @@
 package com.example.chatproj.chatproj.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -87,5 +88,9 @@ public class UserService {
 		
 	}
 	
+	public List<User> getIdbyUid(String sessionName, String inviteuser) {
+		List<User> result = userRepository.getIdbyUid(sessionName, inviteuser);
+		return result;
+	}
 	
 }

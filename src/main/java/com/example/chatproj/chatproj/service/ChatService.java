@@ -21,8 +21,18 @@ public class ChatService {
 			this.chatRepository = chatRepository;
 		}
 
-		// chattable 등록
+		// chat table 등록
 		public Optional<Chatroom_Table> join() {
             return chatRepository.findByCNum();
         }
+		
+		public void insChatTable(Chatroom_Table user1) {
+			chatRepository.save(user1);
+			
+		}
+		
+		public void insUCTable(UC_Table user2) {
+			chatRepository.insUCTable(user2);
+		}
+		
 }

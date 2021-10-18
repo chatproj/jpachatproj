@@ -21,9 +21,9 @@ public class JpaChatRepository implements ChatRepository{
 	}
 
 	@Override
-	public Chatroom_Table save(Chatroom_Table user) {
-		em.persist(user);
-		return user;
+	public Chatroom_Table save(Chatroom_Table user1) {
+		em.persist(user1);
+		return user1;
 	}
 
 	@Override
@@ -36,6 +36,12 @@ public class JpaChatRepository implements ChatRepository{
     public Optional<Chatroom_Table> findByCNum() {
         List<Chatroom_Table> result = em.createQuery("select m from Chatroom_Table m Order By cnum desc", Chatroom_Table.class).getResultList();
         return result.stream().findAny();
+    }
+    
+    @Override
+    public UC_Table insUCTable(UC_Table user2) {
+    	em.persist(user2);
+    	return user2;
     }
 
 
