@@ -1,5 +1,7 @@
 package com.example.chatproj.chatproj.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
+import com.example.chatproj.chatproj.repository.ChatRepository;
 import com.example.chatproj.chatproj.service.UserService;
 import com.example.chatproj.chatproj.service.ChatService;
 
@@ -109,8 +112,8 @@ public class controller {
 		}else if(result.equals("noid")) {
 			return "redirect:/signin?message=FAILURE_noid";
 		}else {
-			chatService.join();
-			System.out.println("1111111111111"+user1);
+			Optional<Chatroom_Table> ct = chatService.join();
+			System.out.println("Chatroom_MAX_NUM : "+ ct.get().getCnum());
 			return "redirect:/chatpg";
 		}	
 	

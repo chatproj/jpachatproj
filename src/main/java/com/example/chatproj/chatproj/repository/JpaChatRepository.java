@@ -33,12 +33,10 @@ public class JpaChatRepository implements ChatRepository{
 	}
 
 	@Override
-	public int find() {
-		TypedQuery<Chatroom_Table> query = em.createQuery("select max(cnum) from Chatroom_Table", Chatroom_Table.class);
-		int num = query.getSingleResult().getCnum();
-		
-		return num;
-	}
+    public Optional<Chatroom_Table> findByCNum() {
+        List<Chatroom_Table> result = em.createQuery("select m from Chatroom_Table m Order By cnum desc", Chatroom_Table.class).getResultList();
+        return result.stream().findAny();
+    }
 
 
 }
