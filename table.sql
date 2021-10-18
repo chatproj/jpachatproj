@@ -1,3 +1,8 @@
+// auto increment 초기화
+ALTER TABLE chatroom_table auto_increment = 1;
+SET @COUNT = 0;
+UPDATE chatroom_table SET cnum = @COUNT:=@COUNT+1;
+
 create table User_Table( 
 unum int(11) primary key,
 uid varchar(32), 
@@ -13,8 +18,9 @@ cname varchar(32)
 );
 
 create table UC_Table(
+id int(11) primary key,
 cnum int(11),
-unum int(11) primary key
+unum int(11)
 );
 
 create table Chatlog_Table(

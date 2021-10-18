@@ -19,7 +19,7 @@
 			<div class="form">
 				<form method="POST" action="/inviteuser">
 					<div class="invite-box">
-						<input type="text" name="invite-room" id="invite-room" value="방제목">
+						<input type="text" name=cname id="cname" value="방제목">
 						<input type="text" name="uid" id="uid" value="아이디">
 						<input type="submit" id="invite-btn" value="초대하기" class="submit_btn">
 					</div>
