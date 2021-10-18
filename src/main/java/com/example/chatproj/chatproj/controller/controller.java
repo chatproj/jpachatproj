@@ -8,17 +8,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.chatproj.chatproj.domain.Chatroom_Table;
+import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
 import com.example.chatproj.chatproj.service.UserService;
+import com.example.chatproj.chatproj.service.ChatService;
 
 @Controller
 public class controller {
-	
+
 	private final UserService userService;
+	private final ChatService chatService;
 	
 	@Autowired
-	public controller(UserService userService) {
+	public controller(UserService userService, ChatService chatService) {
 		this.userService = userService;
+		this.chatService = chatService;
 	}
 	
 	// 회원가입
@@ -38,7 +43,7 @@ public class controller {
 		
 		userService.join(user);
 		
-		return "redirect:/";
+		return "redirect:/signin";
 	}
 	
 	// 로그인
@@ -76,6 +81,39 @@ public class controller {
 	@RequestMapping("/findpw")
 	public String findpass() {
 		return "find_password";
+	}
+	
+	// 채팅룸
+	@RequestMapping("/chatroom")
+	public String chatroom() {
+		return "ChatRoom";
+	}
+	
+	// 초대
+	@RequestMapping("/inviteuser")
+	public String inviteuser() {
+		return "InviteUser";
+	}
+	
+	@PostMapping("/inviteuser")
+	public String invite_user(SigninForm form) {
+		User user = new User();
+		user.setUid(form.getUid());
+		
+		Chatroom_Table user1 = new Chatroom_Table();
+		
+		String result = userService.article(user);
+		
+		if(result.equals("matchX")) {
+			return "redirect:/signin?message=FAILURE_matchX";
+		}else if(result.equals("noid")) {
+			return "redirect:/signin?message=FAILURE_noid";
+		}else {
+			chatService.join();
+			System.out.println("1111111111111"+user1);
+			return "redirect:/chatpg";
+		}	
+	
 	}
 	
 	// 채팅방
