@@ -22,14 +22,7 @@ public class ChatService {
 		}
 
 		// chattable 등록
-		public int join() {	
-			
-			int num = chatRepository.find();
-			
-			System.out.println("1111111111111111" + num);
-			
-			
-			return (Integer) null;				
-		}
-
+		public Optional<Chatroom_Table> join() {
+            return chatRepository.findByCNum();
+        }
 }

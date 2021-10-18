@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name="chatroom_table")
 public class Chatroom_Table {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private int cnum;
 	
 	private String cname;
