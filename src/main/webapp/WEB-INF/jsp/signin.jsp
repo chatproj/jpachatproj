@@ -28,10 +28,6 @@
 		function setErrorMessage(id, message){
 			document.getElementById(id).innerText = message;
 		}
-		
-		function removeErrorMessage(id){
-			document.getElementById(id).innerText = "";
-		}
 	});
 </script>
 </head>

@@ -60,5 +60,32 @@ public class UserService {
 		
 	}
 	
+	//초대 중복체크
+	public String article(User user) {
+		String uid = user.getUid();
+		String result = articlematch(uid, user);
+		
+		return result;
+	}
+	
+	public String articlematch(String uid, User user) {
+		Optional<User> DBUid = userRepository.findById(user.getUid());
+		
+		String result = null;
+		
+		try {
+			if(uid.equals(DBUid.get().getUid())){
+				result = "matchO";
+			}else {
+				result = "matchX";
+			}
+		}catch(NoSuchElementException e) {
+			result = "noid";
+		}
+		
+		return result;
+		
+	}
+	
 	
 }

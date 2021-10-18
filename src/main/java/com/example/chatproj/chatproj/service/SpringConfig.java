@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.chatproj.chatproj.repository.ChatRepository;
+import com.example.chatproj.chatproj.repository.JpaChatRepository;
 import com.example.chatproj.chatproj.repository.JpaUserRepository;
 import com.example.chatproj.chatproj.repository.UserRepository;
 
@@ -28,4 +30,15 @@ public class SpringConfig {
 	public UserRepository userRepository() {
 		return new JpaUserRepository(em);
 	}
+	
+	@Bean
+	public ChatService chatService() {
+		return new ChatService(chatRepository());
+	}
+
+	private ChatRepository chatRepository() {
+		return new JpaChatRepository(em);
+	}
+	
+	
 }
