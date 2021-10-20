@@ -131,7 +131,7 @@ public class controller {
 			chatService.insChatTable(user1);
 			
 			// select m from user_table m where uid in ( 내 id값, 초대한 사람의 id값);
-			String inviteuser = form1.getCname();
+			String inviteuser = form1.getUid();
 			
 			List<User> result2 = userService.getIdbyUid(sessionName, inviteuser);
 			System.out.println("Session : " + sessionName);
