@@ -25,85 +25,56 @@
 	padding: 30px;
 }
 
-.chatList {
-	display: inline-block;
-	float: left;
+.form_container .form .invite-box {
+	margin-bottom: 20px;
 }
 
-.chatList #list {
+.invite-box input {
 	border: 1px solid gray;
 	border-radius: 10px;
 	background: white;
-	width: 100px;
-	height: 30px;
+	width: 260px;
+	height: 50px;
 	color: black;
 	padding-left: 20px;
 	padding-right: 20px;
+
 }
 
-.chatList #invite {
-	border: 1px solid gray;
+input:focus {
+	outline: none;
+}
+
+.invite-box .error {
+	font-size: 15px;
+	margin-top: 5px;
+	margin-left: 10px;
+	color: red;
+}
+
+.submit_btn {
 	border-radius: 10px;
-	background: white;
-	width: 100px;
-	height: 30px;
-	color: black;
-	padding-left: 20px;
-	padding-right: 20px;	
+	width: 300px;
+	height: 50px;
+	outline: none;
+	font-size: 16px;
+	font: monospace;
+	background: #e1e1e1;
+	color: #4a6363;
+	font-weight: bold;
+	border: none;
+	margin-top: 5%;
+	
 }
 
-.chatList_btn {
-	display: inline-block;
-	float: left;
-}
-
-.chatList_btn #create_room {
-	border: 1px solid gray;
+.submit_btn:hover {
 	border-radius: 10px;
-	background: white;
-	width: 100px;
-	height: 30px;
-	color: black;
-	padding-left: 20px;
-	padding-right: 20px;	
+	width: 300px;
+	height: 50px;
+	outline: none;
+	background: #8bbbbd;
 }
 
-.chatList_btn #delete_room {
-	border: 1px solid gray;
-	border-radius: 10px;
-	background: white;
-	width: 100px;
-	height: 30px;
-	color: black;
-	padding-left: 20px;
-	padding-right: 20px;	
-}
-
-.invite-box {
-	display: inline-block;
-	float: left;
-}
-
-.invite-box #invite-user {
-	border: 1px solid gray;
-	border-radius: 10px;
-	background: white;
-	width: 100px;
-	height: 30px;
-	color: black;
-	padding-left: 20px;
-	padding-right: 20px;		
-}
-
-.invite-box #invite-btn {
-	font-size: 12px;
-	border: 1px solid gray;
-	border-radius: 10px;
-	background: white;
-	width: 100px;
-	height: 30px;
-	color: black;	
-}
 
 
 

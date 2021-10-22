@@ -19,10 +19,20 @@
 			<div class="form">
 				<form method="POST" action="/inviteuser">
 					<div class="invite-box">
-						<input type="text" name=cname id="cname" value="방제목">
-						<input type="text" name="uid" id="uid" value="아이디">
-						<input type="submit" id="invite-btn" value="초대하기" class="submit_btn">
+						<div class="inputlabel">방제목</div>
+						<input type="text" name="cname" id="cname">
+						<div id="cname_error" class="error"></div>
 					</div>
+					
+					<div class="invite-box">
+						<div class="inputlabel">아이디</div>
+						<input type="text" name="uid" id="uid">
+						<div id="uid_error" class="error"></div>
+					</div>
+					
+					<input type="submit" id="submit_btn" value="초대하기"
+						class="submit_btn">
+
 				</form>
 			</div>
 		</div>
