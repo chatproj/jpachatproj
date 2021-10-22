@@ -62,14 +62,14 @@ public class UserService {
 	}
 	
 	//초대 중복체크
-	public String article(User user) {
+	public String duplicateMatch(User user) {
 		String uid = user.getUid();
-		String result = articlematch(uid, user);
+		String result = StringDuplicateMatch(uid, user);
 		
 		return result;
 	}
 	
-	public String articlematch(String uid, User user) {
+	public String StringDuplicateMatch(String uid, User user) {
 		Optional<User> DBUid = userRepository.findById(user.getUid());
 		
 		String result = null;
