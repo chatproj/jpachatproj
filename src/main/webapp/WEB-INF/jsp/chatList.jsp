@@ -17,7 +17,7 @@
 	<div id="main_container">
 		<div class="form_container">
 			<div class="form">
-				<form method="POST" action="#">
+				<form method="POST" action="/chatlist">
 					<div class="chatList">
 						<input type="submit" id="list" value="채팅1" class="submit_btn">
 					</div>
