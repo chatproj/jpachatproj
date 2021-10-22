@@ -1,6 +1,7 @@
 package com.example.chatproj.chatproj.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -119,33 +120,54 @@ public class controller {
 		}else {
 			// session
 			HttpSession session = request.getSession();
-			String sessionName = (String)session.getAttribute("sessionId");		
+			String sessionName = (String)session.getAttribute("sessionId");	
+			
+			System.out.println("sessionId : " + sessionName);
+			System.out.println("get uname : " + form1.getUid());
 			
 			// insert chatroom_table
-			Optional<Chatroom_Table> ct = chatService.join();
-			System.out.println("ct....." + ct);
+			if(form1.getUid() != sessionName && !form1.getUid().equals(sessionName)) {
+				System.out.println("not match........");
+				Optional<Chatroom_Table> ct = chatService.join();
+				System.out.println("ct....." + ct);
+				
+				Chatroom_Table user1 = new Chatroom_Table();
+				
+				try {
+					user1.setCnum(ct.get().getCnum() + 1);
+					user1.setCname(form1.getCname());			
+					chatService.insChatTable(user1);
+				}catch(NoSuchElementException e) {
+					user1.setCnum(1);
+					user1.setCname(form1.getCname());			
+					chatService.insChatTable(user1);		
+				}
+				
+				// select m from user_table m where uid in ( 내 id값, 초대한 사람의 id값);
+				String inviteuser = form1.getUid();
+				
+				List<User> result2 = userService.getIdbyUid(sessionName, inviteuser);
+				System.out.println("Session : " + sessionName);
+				
+				System.out.println("SessionNum : " + result2.get(0).getUnum());
+				System.out.println("Invite : " + result2.get(1).getUnum());
+				
+				// session, invite 기반 insert			
+				for(int i = 0; i<result2.size(); i++) {
+					UC_Table user2 = new UC_Table();
+					user2.setUnum(result2.get(i).getUnum());
+					try {
+						user2.setCnum(ct.get().getCnum() + 1);
+					}catch(NoSuchElementException e){
+						Optional<Chatroom_Table> ct1 = chatService.join();		
+						user2.setCnum(ct1.get().getCnum());
+					}
+					chatService.insUCTable(user2);
+				}
 			
-			Chatroom_Table user1 = new Chatroom_Table();
-			user1.setCnum(ct.get().getCnum() + 1);
-			user1.setCname(form1.getCname());			
-			chatService.insChatTable(user1);
-			
-			// select m from user_table m where uid in ( 내 id값, 초대한 사람의 id값);
-			String inviteuser = form1.getUid();
-			
-			List<User> result2 = userService.getIdbyUid(sessionName, inviteuser);
-			System.out.println("Session : " + sessionName);
-			
-			System.out.println("SessionNum : " + result2.get(0).getUnum());
-			System.out.println("Invite : " + result2.get(1).getUnum());
-			
-			// session, invite 기반 insert
-			
-			for(int i = 0; i<result2.size(); i++) {
-				UC_Table user2 = new UC_Table();
-				user2.setUnum(result2.get(i).getUnum());
-				user2.setCnum(ct.get().getCnum() + 1);
-				chatService.insUCTable(user2);
+			}else {
+				System.out.println("match........");
+				return "redirect:/signin?message=FAILURE_noid";				
 			}
 			
 			return "redirect:/chatpg";
