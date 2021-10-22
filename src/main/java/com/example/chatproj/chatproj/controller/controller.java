@@ -34,8 +34,24 @@ public class controller {
 		this.chatService = chatService;
 	}
 	
+	// 메인페이지
+	@RequestMapping("/")
+	public String main(HttpServletRequest request) {
+		// session
+		HttpSession session = request.getSession();
+		String sessionName = (String)session.getAttribute("sessionId");	
+		
+		System.out.println("sessionName : " + sessionName);
+		
+		if(sessionName != null) {
+			return "redirect:/chatList";
+		}else {
+			return "redirect:/signin";
+		}
+	}
+	
 	// 회원가입
-	@GetMapping("/signup")
+	@RequestMapping("/signup")
 	public String signup() {
 		return "signup";
 	}
@@ -78,7 +94,7 @@ public class controller {
 			HttpSession session = request.getSession();
 			String name = form.getUid();
 			session.setAttribute("sessionId", name);
-			return "redirect:/";
+			return "redirect:/chatList";
 		}	
 	}
 	
@@ -95,8 +111,8 @@ public class controller {
 	}
 	
 	// 채팅방 리스트
-	@RequestMapping("/chatlist")
-	public String chatroom() {
+	@RequestMapping("/chatList")
+	public String chatlist() {
 		return "chatList";
 	}
 	
