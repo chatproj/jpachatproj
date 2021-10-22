@@ -94,10 +94,10 @@ public class controller {
 		return "find_password";
 	}
 	
-	// 채팅룸
-	@RequestMapping("/chatroom")
+	// 채팅방 리스트
+	@RequestMapping("/chatlist")
 	public String chatroom() {
-		return "ChatRoom";
+		return "chatList";
 	}
 	
 	// 초대
@@ -160,7 +160,7 @@ public class controller {
 				return "redirect:/signin?message=FAILURE_noid";				
 			}
 			
-			return "redirect:/chatpg";
+			return "redirect:/chatPage";
 		}	
 	
 	}
@@ -168,7 +168,7 @@ public class controller {
 	// 채팅방
 	@RequestMapping("/chatpg")
 	public String chatpg() {
-		return "ChatPg";
+		return "chatPage";
 	}
 	
 }

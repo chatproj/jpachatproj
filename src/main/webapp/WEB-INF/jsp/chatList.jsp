@@ -20,20 +20,19 @@
 				<form method="POST" action="#">
 					<div class="chatList">
 						<input type="submit" id="list" value="채팅1" class="submit_btn">
-						<input type="submit" id="invite" value="초대" class="submit_btn">
 					</div>
 					<div class="chatList">
 						<input type="submit" id="list" value="채팅2" class="submit_btn">
-						<input type="submit" id="invite" value="초대" class="submit_btn">
 					</div>
 					<div class="chatList">
 						<input type="submit" id="list" value="채팅3" class="submit_btn">
-						<input type="submit" id="invite" value="초대" class="submit_btn">
 					</div>										
 					
-					<div class="chatList_btn">
-					<input type="submit" id="create_room" value="방만들기" class="submit_btn">
-					<input type="submit" id="delete_room" value="삭제" class="submit_btn">
+					<div class="borderline">
+						<div class="chatList_btn">
+						<input type="submit" id="create_room" value="방만들기" class="submit_btn">
+						<input type="submit" id="delete_room" value="삭제" class="submit_btn">
+						</div>
 					</div>
 				</form>
 			</div>
