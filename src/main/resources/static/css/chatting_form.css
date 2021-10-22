@@ -75,6 +75,30 @@ input:focus {
 	background: #8bbbbd;
 }
 
+/* 방만들기, 삭제 div */
 
+.borderline {
+	width: 100%;
+	border-top: 3px solid #8bbbbd;
+	margin-top: 15px;
+}
+
+.chatList_btn {
+	float: right;
+}
+
+.chatList_btn #create_room {
+	width: 100px;
+	height: 30px;
+	padding-left: 20px;
+	padding-right: 20px;	
+}
+
+.chatList_btn #delete_room {
+	width: 100px;
+	height: 30px;
+	padding-left: 20px;
+	padding-right: 20px;	
+}
 
 
