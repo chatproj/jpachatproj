@@ -27,14 +27,14 @@
 					<div class="chatList">
 						<input type="submit" id="list" value="채팅3" class="submit_btn">
 					</div>										
-					
-					<div class="borderline">
-						<div class="chatList_btn">
-						<input type="submit" id="create_room" value="방만들기" class="submit_btn">
-						<input type="submit" id="delete_room" value="삭제" class="submit_btn">
-						</div>
-					</div>
 				</form>
+				
+				<div class="borderline">
+					<div class="chatList_btn">
+					<input type="submit" id="create_room" value="방만들기" class="submit_btn" onclick="location.href='/inviteuser'">
+					<input type="submit" id="delete_room" value="삭제" class="submit_btn">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
