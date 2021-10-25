@@ -56,7 +56,10 @@
 						class="submit_btn">
 						
 					<div class="nouser">아이디가 없으신가요? <a href="/signup">회원가입</a></div>
-
+					<div class="finduser">
+						<a href="/findid">아이디 찾기</a>
+						<a href="/findpw">패스워드 찾기</a>
+					</div>
 				</form>
 			</div>
 		</div>

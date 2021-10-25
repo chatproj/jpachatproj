@@ -11,4 +11,5 @@ public interface UserRepository {
 	Optional<User> findByNum(int unum);
 	Optional<User> findById(String uid);
 	List<User> getIdbyUid(String sessionName, String inviteuser);
+	Optional<User> findUser(String uname, String email);
 }

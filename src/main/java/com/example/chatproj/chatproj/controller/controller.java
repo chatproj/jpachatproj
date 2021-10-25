@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
@@ -98,10 +100,39 @@ public class controller {
 		}	
 	}
 	
+	// 유저 처리 페이지
+	@RequestMapping("/userprocess")
+	public String uesrprocess(@RequestParam("redirectprocess") String redirectprocess) {
+		String result = redirectprocess;
+		
+		return "UserProcess";
+	}
+
 	// 아이디 찾기
 	@RequestMapping("/findid")
 	public String findid() {
 		return "find_id";
+	}
+	
+	@PostMapping("/findid")
+	public String find_userid(FindIdForm form, RedirectAttributes redirectAttributes) {
+		User user = new User();
+		user.setUname(form.getUname());
+		user.setEmail(form.getEmail());
+		
+		String redirectprocess = null;
+		
+		try {
+			String result = userService.findUser(user);
+			redirectprocess = result;
+		
+		}catch(NoSuchElementException e) {
+			redirectprocess = "존재하지 않는 ID 입니다.";
+		}
+		
+		System.out.println(redirectprocess);
+		redirectAttributes.addAttribute("redirectprocess", redirectprocess);
+		return "redirect:/userprocess";	
 	}
 	
 	// 비밀번호 찾기

@@ -16,11 +16,11 @@
 	<div id="main_container">
 		<div class="form_container">
 			<div class="form">
-				<form action="#">
+				<form method="POST" action="/findid">
 					<div class="input-box">
-						<div class="inputlabel">아이디</div>
-						<input type="text" name="uid" id="uid">
-						<div id="uid_error" class="error"></div>
+						<div class="inputlabel">이름</div>
+						<input type="text" name="uname" id="uname">
+						<div id="uname_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
