@@ -91,3 +91,56 @@ input:focus {
 .nouser a:hover {
 	text-decoration: underline;
 }
+
+.finduser {
+	font-size: 15px;
+	margin-top: 30px;
+	margin-left: 50px;
+	margin-bottom: 10px;
+}
+
+.finduser a {
+	margin-right: 25px;
+	text-decoration: none;
+	color: red;
+}
+
+.finduser a:hover {
+	text-decoration: underline;
+}
+
+.finduser_id {
+	color: #56b7ba;
+	margin-bottom: 40px;
+}
+
+.finduser_id .findinform {
+	color: red;
+}
+
+.finduser_btn {
+    display: flex;	
+}
+
+.find_submit_btn {
+	margin-left: 10px;
+    margin-right: 10px;
+	border-radius: 10px;
+	width: 120px;
+	height: 50px;
+	outline: none;
+	font-size: 16px;
+	font: monospace;
+	background: #e1e1e1;
+	color: #4a6363;
+	font-weight: bold;
+	border: none;
+}
+
+.find_submit_btn:hover {
+	border-radius: 10px;
+	width: 120px;
+	height: 50px;
+	outline: none;
+	background: #8bbbbd;
+}

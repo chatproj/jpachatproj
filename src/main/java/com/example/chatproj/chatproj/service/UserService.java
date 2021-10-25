@@ -88,9 +88,20 @@ public class UserService {
 		
 	}
 	
+	// 채팅방 만들 때 세션이름, 초대할 사람 이름 있는지 검사	
 	public List<User> getIdbyUid(String sessionName, String inviteuser) {
 		List<User> result = userRepository.getIdbyUid(sessionName, inviteuser);
 		return result;
+	}
+	
+	// 유저 찾기
+	public String findUser(User user) {
+		String uname = user.getUname();
+		String email = user.getEmail();
+		
+		Optional<User> DBUid = userRepository.findUser(uname, email);	
+		String result = DBUid.get().getUid();	
+		return result;	
 	}
 	
 }

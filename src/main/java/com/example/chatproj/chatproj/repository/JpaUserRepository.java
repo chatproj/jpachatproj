@@ -42,5 +42,14 @@ public class JpaUserRepository implements UserRepository{
 				.getResultList();
 		return result;
 	}
+	
+	@Override
+	public Optional<User> findUser(String uname, String email){
+		List<User> result = em.createQuery("select m from User m where m.uname = :uname and m.email = :email", User.class)
+				.setParameter("uname", uname)
+				.setParameter("email", email)
+				.getResultList();	
+		return result.stream().findAny();
+	}
 
 }
