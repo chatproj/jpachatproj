@@ -43,6 +43,13 @@ public class JpaChatRepository implements ChatRepository{
     	em.persist(user2);
     	return user2;
     }
+    
+    @Override
+    public List<UC_Table> getChatList(int sessionNum){
+    	List<UC_Table> result = em.createQuery("select m from UC_Table m where m.unum = :sessionNum Group By cname", UC_Table.class)
+    			.setParameter("sessionNum", sessionNum).getResultList();
 
+		return result;
+    }
 
 }

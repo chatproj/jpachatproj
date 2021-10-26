@@ -1,5 +1,6 @@
 package com.example.chatproj.chatproj.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -10,17 +11,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
-import com.example.chatproj.chatproj.repository.ChatRepository;
 import com.example.chatproj.chatproj.service.UserService;
 import com.example.chatproj.chatproj.service.ChatService;
 
@@ -103,7 +101,6 @@ public class controller {
 	// 유저 처리 페이지
 	@RequestMapping("/userprocess")
 	public String uesrprocess(@RequestParam("redirectprocess") String redirectprocess) {
-		String result = redirectprocess;
 		
 		return "UserProcess";
 	}
@@ -143,14 +140,40 @@ public class controller {
 	
 	// 채팅방 리스트
 	@RequestMapping("/chatList")
-	public String chatlist() {
+	public String chatlist(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		String sessionName = (String)session.getAttribute("sessionId");
+	
+		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
+		int sessionNum = getSessionName.get().getUnum();
+		
+		List<UC_Table> getChatList = chatService.getChatList(sessionNum);
+		ArrayList<String> list = new ArrayList<String>();
+		
+		for(int i = 0; i<getChatList.size(); i++) {
+			list.add(getChatList.get(i).getCname());
+			System.out.println("getChatList : " + list.get(i).toString());
+		}
+		model.addAttribute("list", list);
+		
 		return "chatList";
 	}
 	
+	
+	
 	// 초대
 	@RequestMapping("/inviteuser")
-	public String inviteuser() {
-		return "InviteUser";
+	public String inviteuser(HttpServletRequest request) {
+		// session
+		HttpSession session = request.getSession();
+		String sessionName = (String)session.getAttribute("sessionId");	
+		
+		if(sessionName != null) {
+			return "InviteUser";
+		}else {
+			return "redirect:signin";
+		}
+		
 	}
 	
 	@PostMapping("/inviteuser")
@@ -168,7 +191,6 @@ public class controller {
 			// session
 			HttpSession session = request.getSession();
 			String sessionName = (String)session.getAttribute("sessionId");	
-			
 			// insert chatroom_table
 			if(inviteuserform.getUid() != sessionName && !inviteuserform.getUid().equals(sessionName)) {
 				Optional<Chatroom_Table> selectcnum = chatService.join();
@@ -196,9 +218,11 @@ public class controller {
 					uc_table.setUnum(GetMyIdInviteId.get(i).getUnum());
 					try {
 						uc_table.setCnum(selectcnum.get().getCnum() + 1);
+						uc_table.setCname(inviteuserform.getCname());	
 					}catch(NoSuchElementException e){
 						Optional<Chatroom_Table> null_chatroom_table = chatService.join();		
 						uc_table.setCnum(null_chatroom_table.get().getCnum());
+						uc_table.setCname(inviteuserform.getCname());
 					}
 					chatService.insUCTable(uc_table);
 				}
@@ -207,7 +231,7 @@ public class controller {
 				return "redirect:/signin?message=FAILURE_noid";				
 			}
 			
-			return "redirect:/chatPage";
+			return "redirect:/chatpg";
 		}	
 	
 	}
@@ -215,7 +239,7 @@ public class controller {
 	// 채팅방
 	@RequestMapping("/chatpg")
 	public String chatpg() {
-		return "chatPage";
+		return "chatpg";
 	}
 	
 }
