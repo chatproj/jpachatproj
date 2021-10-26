@@ -1,5 +1,6 @@
 package com.example.chatproj.chatproj.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,5 @@ public class Chatroom_Table {
 	public void setCname(String cname) {
 		this.cname = cname;
 	}
-	
 	
 }

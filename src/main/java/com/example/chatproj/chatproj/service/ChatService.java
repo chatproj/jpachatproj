@@ -35,4 +35,10 @@ public class ChatService {
 			chatRepository.insUCTable(user2);
 		}
 		
+		public List<UC_Table> getChatList(int sessionNum) {
+			List<UC_Table> result = chatRepository.getChatList(sessionNum);
+			return result;	
+		}
+
+		
 }

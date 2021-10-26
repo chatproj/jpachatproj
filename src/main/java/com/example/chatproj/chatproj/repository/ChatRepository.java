@@ -1,5 +1,6 @@
 package com.example.chatproj.chatproj.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
@@ -11,5 +12,5 @@ public interface ChatRepository {
 	Optional<Chatroom_Table> findByUNum(int unum);
 	Optional<Chatroom_Table> findByCNum();
 	UC_Table insUCTable(UC_Table user2);
-	;
+	List<UC_Table> getChatList(int sessionNum);
 }
