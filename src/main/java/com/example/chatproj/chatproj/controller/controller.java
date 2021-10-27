@@ -1,6 +1,6 @@
 package com.example.chatproj.chatproj.controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -148,16 +148,21 @@ public class controller {
 		int sessionNum = getSessionName.get().getUnum();
 		
 		List<UC_Table> getChatList = chatService.getChatList(sessionNum);
-		ArrayList<String> list = new ArrayList<String>();
+		
+		HashMap<Integer, String> map = new HashMap<Integer, String>();
+		map.put(getChatList.get(0).getCnum(), getChatList.get(0).getCname());
 		
 		for(int i = 0; i<getChatList.size(); i++) {
-			list.add(getChatList.get(i).getCname());
-			System.out.println("getChatList : " + list.get(i).toString());
+			map.put(getChatList.get(i).getCnum(), getChatList.get(i).getCname());
+			System.out.println("getChatList : " + map.get(i+1));
 		}
-		model.addAttribute("list", list);
+		model.addAttribute("chatlist", map);
+	
 		
 		return "chatList";
 	}
+	
+	
 	
 	
 	

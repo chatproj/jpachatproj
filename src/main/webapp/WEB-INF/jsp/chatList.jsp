@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="org.springframework.ui.Model"%>
 <!doctype html>
 <html>
@@ -20,13 +20,13 @@
 			<div class="form">
 			<%
 				request.setCharacterEncoding("UTF-8");
-				ArrayList<String> CnameList = (ArrayList<String>)request.getAttribute("list");
+				HashMap<Integer, String> CnameList = (HashMap<Integer, String>)request.getAttribute("chatlist");
 
 			%>
 				<form method="POST" action="/chatlist">
-				<% for(String str : CnameList){ %>
+				<% for(Integer key : CnameList.keySet()){ %>
 					<div class="chatList">
-						<input type="submit" id="list" value=<%=str %> class="submit_btn">
+						<input type="submit" id="list" value=<%=CnameList.get(key) %> class="submit_btn">
 					</div>	
 				<% } %> 									
 				</form>
@@ -34,7 +34,9 @@
 				<div class="borderline">
 					<div class="chatList_btn">
 					<input type="submit" id="create_room" value="방만들기" class="submit_btn" onclick="location.href='/inviteuser'">
+					<form method="POST" action="/chatlist_del">
 					<input type="submit" id="delete_room" value="삭제" class="submit_btn">
+					</form>
 					</div>
 				</div>
 			</div>
