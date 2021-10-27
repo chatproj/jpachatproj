@@ -78,10 +78,11 @@ input:focus {
 /* 방만들기, 삭제 div */
 
 .borderline {
-	width: 100%;
+	width: 300px;
 	border-top: 3px solid #8bbbbd;
 	margin-top: 15px;
 }
+
 
 .chatList_btn {
 	float: right;
