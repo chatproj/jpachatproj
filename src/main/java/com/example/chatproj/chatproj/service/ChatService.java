@@ -39,6 +39,16 @@ public class ChatService {
 			List<UC_Table> result = chatRepository.getChatList(sessionNum);
 			return result;	
 		}
+		
+		public List<UC_Table> getstringToinfo(String submitList){
+			List<UC_Table> result = chatRepository.getstringToinfo(submitList);
+			return result;
+		}
+		
+		public List<UC_Table> getUserInfo(int cnumPK){
+			List<UC_Table> result = chatRepository.getUserInfo(cnumPK);
+			return result;
+		}
 
 		
 }

@@ -19,24 +19,20 @@
 		<div class="form_container">
 			<div class="form">
 			<%
-				request.setCharacterEncoding("UTF-8");
+				request.setCharacterEncoding("UTF-8");				
 				HashMap<Integer, String> CnameList = (HashMap<Integer, String>)request.getAttribute("chatlist");
-
 			%>
-				<form method="POST" action="/chatlist">
+				<form method="POST" action="/chatList">
 				<% for(Integer key : CnameList.keySet()){ %>
 					<div class="chatList">
-						<input type="submit" id="list" value=<%=CnameList.get(key) %> class="submit_btn">
+						<input type="submit" id="list" name="list" value=<%=CnameList.get(key) %> class="submit_btn">
 					</div>	
-				<% } %> 									
+				<% } %>
 				</form>
 				
 				<div class="borderline">
 					<div class="chatList_btn">
 					<input type="submit" id="create_room" value="방만들기" class="submit_btn" onclick="location.href='/inviteuser'">
-					<form method="POST" action="/chatlist_del">
-					<input type="submit" id="delete_room" value="삭제" class="submit_btn">
-					</form>
 					</div>
 				</div>
 			</div>

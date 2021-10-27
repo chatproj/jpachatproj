@@ -147,19 +147,39 @@ public class controller {
 		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
 		int sessionNum = getSessionName.get().getUnum();
 		
-		List<UC_Table> getChatList = chatService.getChatList(sessionNum);
+		System.out.println("sessionNum : " + sessionNum);
 		
-		HashMap<Integer, String> map = new HashMap<Integer, String>();
-		map.put(getChatList.get(0).getCnum(), getChatList.get(0).getCname());
-		
-		for(int i = 0; i<getChatList.size(); i++) {
-			map.put(getChatList.get(i).getCnum(), getChatList.get(i).getCname());
-			System.out.println("getChatList : " + map.get(i+1));
-		}
-		model.addAttribute("chatlist", map);
-	
-		
+			List<UC_Table> getChatList = chatService.getChatList(sessionNum);
+			
+			System.out.println("getchatlist all : " + getChatList);
+			
+			HashMap<Integer, String> map = new HashMap<Integer, String>();
+			
+			for(int i = 0; i<getChatList.size(); i++) {
+				map.put(getChatList.get(i).getCnum(), getChatList.get(i).getCname());
+				System.out.println("getChatLlist : " + getChatList.get(i).getCname());
+				System.out.println("getMap : " + map.get(i+1));
+			}
+			model.addAttribute("chatlist", map);
+			
 		return "chatList";
+	}
+	
+	@PostMapping("/chatList")
+	public String chatlistadd(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		String submitList = request.getParameter("list");
+		System.out.println("inttostring" + submitList);
+		
+		List<UC_Table> stringToinfo = chatService.getstringToinfo(submitList);
+		
+//		for(int i=0; i<stringToinfo.size(); i++) {
+//			System.out.println("stringtoinfo : " + stringToinfo.get(i));
+//		}
+		
+		int cnumPK = stringToinfo.get(0).getCnum();
+		redirectAttributes.addAttribute("cnumPK", cnumPK);
+		
+		return "redirect:/chatpg";
 	}
 	
 	
@@ -236,14 +256,47 @@ public class controller {
 				return "redirect:/signin?message=FAILURE_noid";				
 			}
 			
-			return "redirect:/chatpg";
+			return "redirect:/chatList";
 		}	
 	
 	}
 	
 	// 채팅방
 	@RequestMapping("/chatpg")
-	public String chatpg() {
+	public String chatpg(@RequestParam("cnumPK") int cnumPK, HttpServletRequest request) {
+		// session
+		HttpSession session = request.getSession();
+		String sessionName = (String)session.getAttribute("sessionId");	
+		
+		// sessionName to sessionNum
+		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
+		int sessionNum = getSessionName.get().getUnum();
+		
+		List<UC_Table> getUnum = chatService.getUserInfo(cnumPK);
+		
+		int unumPk[] = new int[getUnum.size()];
+		
+		for(int i=0; i<getUnum.size(); i++) {
+			System.out.println("unumPK : " + unumPk[i]);
+			unumPk[i] = getUnum.get(i).getUnum();
+		}
+		
+		int match = 0;
+		while(true) {
+			if(sessionNum != unumPk[match]) {
+				match++;
+				if(match == getUnum.size()) {
+					break;
+				}
+			}else {
+				System.out.println("매칭성공");
+				break;
+			}
+		}
+		
+		// ▲ 비정상적인 접근 차단
+		
+		
 		return "chatpg";
 	}
 	

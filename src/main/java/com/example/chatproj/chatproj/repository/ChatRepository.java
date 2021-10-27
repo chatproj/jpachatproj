@@ -13,4 +13,6 @@ public interface ChatRepository {
 	Optional<Chatroom_Table> findByCNum();
 	UC_Table insUCTable(UC_Table user2);
 	List<UC_Table> getChatList(int sessionNum);
+	List<UC_Table> getstringToinfo(String submitList);
+	List<UC_Table> getUserInfo(int cnumPK);
 }
