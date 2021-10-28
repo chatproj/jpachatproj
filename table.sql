@@ -17,11 +17,13 @@ cnum int(11) primary key,
 cname varchar(32)
 );
 
-create table UC_Table(
-id int(11) primary key,
+create table uc_table(
+unum int(11),
 cnum int(11),
-unum int(11)
+id int(11) PRIMARY KEY,
+cname varchar(32)
 );
+
 
 create table Chatlog_Table(
 unum int(11),
