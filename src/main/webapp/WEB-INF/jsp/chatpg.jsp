@@ -1,76 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-	*{ 
-		margin: 0; 
-		padding: 0; 
-	}
- 
-	.header { 
-		font-size: 20px; 
-		padding: 10px 0; 
-		background-color: gray; 
-		color: white; 
-		text-align: center;  
-	}
- 
-	.chat { 
-		padding-bottom: 80px; 
-	}
- 
-	.textbox { 
-		position: fixed; 
-		float: left;
-		bottom: 0; 
-		width: 100%; 
-		background-color: white; 
-		text-align: center; 
-		border-top: 1px solid black; 
-	}
+<!-- css file -->
+<%@ include file="./common/title.jsp"%>
+<script type="text/javascript">
 	
-	.textbox > textarea { 
-		width: 85%; 
-		height: 80px;
-		padding: 10px;
-		border: 0;
-		font-size: 15px;
-	}
-	
-	.send_btn {
-		float: right;
-	    line-height: 2.5;
-	    padding: 0 10px;
-	    border-radius: 10px;
-	    background-color: gray;
-	    color: white;
-	    text-align: center;
-	    font-size: 15px;
-	}
-	
-</style>
+</script>
+
 </head>
 <body>
-<div class="chat_room">
+	<!-- Header -->
+	<%@ include file="./common/header.jsp"%>
 	
-    	<div class="header">
-    		OOO chatting room
-    	</div>
-    	
-   		<div class="chat">
-        	<div>
-        		Chatting
-        	</div>
-    	</div>
-    	
-    	<div class="textbox" >
-        	<textarea placeholder="text input"></textarea>
-        	<button class="send_btn" type="button">send</button>
-    	</div>
+	<div id="main_container">
+		<div class="form_container">
+			<div class="form">
+				<form method="POST" action="/chatpg">
+					<div class="input-box">
+						<div class="inputlabel">OOO chatting room</div>
+					</div>
+					
+					<div class="chat_box">
+					</div>
+					
+					<div class="sendtest_box" >
+						<textarea placeholder="text input"></textarea>
+						<input type="submit" id="submit_btn" value="send" class="sendtext_btn">
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
