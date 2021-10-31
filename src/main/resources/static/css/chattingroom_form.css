@@ -1,0 +1,64 @@
+/* 채팅방 div */
+
+#main_container1{
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+#main_container1 .inputlabel1 {
+	font-size: 15px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	color: #56b7ba;
+}
+
+#main_container1 .form_container1 {
+	width: 500px;
+}
+
+.form_container1 .form1 {
+	display: inline-block;
+	border: 1px solid white;
+	border-radius: 20px;
+	background: white;
+	box-shadow: 10px 10px 60px #8bbbbd;
+	padding: 30px;
+}
+
+.chat_box {
+	display: block;
+	width: 400px;
+	height: 400px;
+	margin-top : 30px;
+	margin-bottom: 30px;
+	background-color: white; 
+	border: none; 
+}
+
+.chat_box .myLog {
+	text-align: right;
+}
+
+.sendtext_box > textarea {
+	width: 70%; 
+	height: 60px;
+	border: 0;
+	font-size: 15px;
+}
+
+.sendtext_btn {
+	float: right;
+	border-radius: 10px;
+	width: 20%;
+	height: 50px;
+	outline: none;
+	font-size: 16px;
+	font: monospace;
+	background: #e1e1e1;
+	color: #4a6363;
+	font-weight: bold;
+	border: none;
+	margin-top: 5%;
+}

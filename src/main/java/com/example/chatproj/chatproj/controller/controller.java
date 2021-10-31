@@ -1,5 +1,6 @@
 package com.example.chatproj.chatproj.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
 import com.example.chatproj.chatproj.service.UserService;
+
+import ch.qos.logback.classic.net.SyslogAppender;
+
 import com.example.chatproj.chatproj.service.ChatService;
 
 @Controller
@@ -172,10 +177,6 @@ public class controller {
 		
 		List<UC_Table> stringToinfo = chatService.getstringToinfo(submitList);
 		
-//		for(int i=0; i<stringToinfo.size(); i++) {
-//			System.out.println("stringtoinfo : " + stringToinfo.get(i));
-//		}
-		
 		int cnumPK = stringToinfo.get(0).getCnum();
 		redirectAttributes.addAttribute("cnumPK", cnumPK);
 		
@@ -263,7 +264,7 @@ public class controller {
 	
 	// 채팅방
 	@RequestMapping("/chatpg")
-	public String chatpg(@RequestParam("cnumPK") int cnumPK, HttpServletRequest request) {
+	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		// session
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");	
@@ -293,11 +294,50 @@ public class controller {
 				break;
 			}
 		}
-		
+		1
 		// ▲ 비정상적인 접근 차단
 		
+		// log 조회
+		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);
+		List<String> exLog = new ArrayList<>();
 		
+		for(int i=0; i<chatlog.size(); i++) {
+			exLog.add(chatlog.get(i).getLog());
+		}
+		
+
+		model.addAttribute("sessionNum", sessionNum);
+		model.addAttribute("chatlog",chatlog);
+		model.addAttribute("cnumPK", cnumPK);
 		return "chatpg";
+	}
+	
+	@PostMapping("/chatpg")
+	public String chatting_pg(sendTextForm form, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		// session
+		HttpSession session = request.getSession();
+		String sessionName = (String)session.getAttribute("sessionId");		
+		
+		int cnumPK = form.getCnumPK();
+		
+		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
+		int sessionNum = getSessionName.get().getUnum();
+		
+		List<UC_Table> getCnum = chatService.getUserInfo(sessionNum);
+		
+		// 메시지 insert
+		Chatlog_Table chatlog_table = new Chatlog_Table();
+		
+		chatlog_table.setUnum(sessionNum);
+		chatlog_table.setCnum(cnumPK);
+		chatlog_table.setLog(form.getLog());
+		chatlog_table.setTime(null);
+		
+		chatService.logjoin(chatlog_table);
+
+		redirectAttributes.addAttribute("cnumPK", cnumPK);
+		
+		return "redirect:chatpg";
 	}
 	
 }

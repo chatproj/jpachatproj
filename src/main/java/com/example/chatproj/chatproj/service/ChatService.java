@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
@@ -47,6 +48,16 @@ public class ChatService {
 		
 		public List<UC_Table> getUserInfo(int cnumPK){
 			List<UC_Table> result = chatRepository.getUserInfo(cnumPK);
+			return result;
+		}
+		
+		public void logjoin(Chatlog_Table chatlog_table) {
+			chatRepository.save(chatlog_table);
+			
+		}
+		
+		public List<Chatlog_Table> getChatLog(int cnumPK){
+			List<Chatlog_Table> result = chatRepository.getChatLog(cnumPK);
 			return result;
 		}
 

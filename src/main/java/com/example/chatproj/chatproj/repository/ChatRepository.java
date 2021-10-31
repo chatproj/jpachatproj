@@ -3,6 +3,7 @@ package com.example.chatproj.chatproj.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
@@ -15,4 +16,6 @@ public interface ChatRepository {
 	List<UC_Table> getChatList(int sessionNum);
 	List<UC_Table> getstringToinfo(String submitList);
 	List<UC_Table> getUserInfo(int cnumPK);
+	void save(Chatlog_Table chatlog_table);
+	List<Chatlog_Table> getChatLog(int cnumPK);
 }
