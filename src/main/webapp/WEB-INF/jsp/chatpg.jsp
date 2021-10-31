@@ -19,8 +19,13 @@
 	<div id="main_container1">
 		<div class="form_container1">
 			<div class="form1">
+			<%
+				request.setCharacterEncoding("UTF-8");				
+				int cnumPK = (int)request.getAttribute("cnumPK");
+			%>
 				<form method="POST" action="/chatpg">
 					<div class="input-box">
+					<input type="hidden" id="cnumPK" name="cnumPK" value="<%=cnumPK %>">
 						<div class="inputlabel1">OOO chatting room</div>
 					</div>
 					
@@ -29,8 +34,8 @@
 					<div>sdff</div>
 					</div>	
 									
-					<div class="sendtext_box" >
-						<textarea placeholder="text_input"></textarea>
+					<div class="sendtext_box">
+						<textarea id="log" name="log" placeholder="text_input"></textarea>
 						<input type="submit" id="sendtext_btn" value="send" class="sendtext_btn">
 					</div>
 				</form>

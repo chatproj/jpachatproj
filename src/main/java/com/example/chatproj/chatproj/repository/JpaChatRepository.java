@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.data.jpa.repository.Query;
 
+import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
@@ -67,5 +68,10 @@ public class JpaChatRepository implements ChatRepository{
     	
     	return result;
     }
+
+	@Override
+	public void save(Chatlog_Table chatlog_table) {
+		em.persist(chatlog_table);	
+	}
 
 }
