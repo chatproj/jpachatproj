@@ -16,20 +16,22 @@
 	<!-- Header -->
 	<%@ include file="./common/header.jsp"%>
 	
-	<div id="main_container">
-		<div class="form_container">
-			<div class="form">
+	<div id="main_container1">
+		<div class="form_container1">
+			<div class="form1">
 				<form method="POST" action="/chatpg">
 					<div class="input-box">
-						<div class="inputlabel">OOO chatting room</div>
+						<div class="inputlabel1">OOO chatting room</div>
 					</div>
 					
 					<div class="chat_box">
-					</div>
-					
-					<div class="sendtest_box" >
-						<textarea placeholder="text input"></textarea>
-						<input type="submit" id="submit_btn" value="send" class="sendtext_btn">
+					<div>sdf</div>
+					<div>sdff</div>
+					</div>	
+									
+					<div class="sendtext_box" >
+						<textarea placeholder="text_input"></textarea>
+						<input type="submit" id="sendtext_btn" value="send" class="sendtext_btn">
 					</div>
 				</form>
 			</div>
