@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.util.ArrayList"%>  
 <%@page import="com.example.chatproj.chatproj.domain.Chatlog_Table" %>
+<%@page import="javax.servlet.http.HttpSession" %>
     
 <!DOCTYPE html>
 <html>
@@ -22,9 +23,13 @@
 		<div class="form_container1">
 			<div class="form1">
 			<%
+				// session
+				int sessionNum = (Integer)request.getAttribute("sessionNum");
+				out.print(sessionNum);
+				
 				request.setCharacterEncoding("UTF-8");				
 				int cnumPK = (int)request.getAttribute("cnumPK");			
-				ArrayList<String> chatlog = (ArrayList)request.getAttribute("chatlog");
+				ArrayList<Chatlog_Table> chatlog = (ArrayList)request.getAttribute("chatlog");
 			%>
 				<form method="POST" action="/chatpg">
 					<div class="input-box">
@@ -35,7 +40,17 @@
 					<div class="chat_box">
   					<% for(int i=0; i<chatlog.size(); i++){ %>
 						<div>
-					<% 		out.println(chatlog.get(i));  %>
+					<% 	
+						if(chatlog.get(i).getUnum() == sessionNum){
+					%>
+							<div class="myLog">my : <%=chatlog.get(i).getLog() %></div>
+					<% 
+						}else{
+					%>	
+							<div class="yourLog">your : <%=chatlog.get(i).getLog() %></div>
+					<% 
+						}
+					%>
 						</div>	
 					<% } %>
 					</div>	

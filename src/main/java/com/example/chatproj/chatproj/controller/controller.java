@@ -306,8 +306,8 @@ public class controller {
 		}
 		
 
-		
-		model.addAttribute("chatlog",exLog);
+		model.addAttribute("sessionNum", sessionNum);
+		model.addAttribute("chatlog",chatlog);
 		model.addAttribute("cnumPK", cnumPK);
 		return "chatpg";
 	}
