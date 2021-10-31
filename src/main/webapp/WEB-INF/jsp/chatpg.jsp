@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="java.util.ArrayList"%>  
+<%@page import="com.example.chatproj.chatproj.domain.Chatlog_Table" %>
     
 <!DOCTYPE html>
 <html>
@@ -21,7 +23,8 @@
 			<div class="form1">
 			<%
 				request.setCharacterEncoding("UTF-8");				
-				int cnumPK = (int)request.getAttribute("cnumPK");
+				int cnumPK = (int)request.getAttribute("cnumPK");			
+				ArrayList<String> chatlog = (ArrayList)request.getAttribute("chatlog");
 			%>
 				<form method="POST" action="/chatpg">
 					<div class="input-box">
@@ -30,8 +33,11 @@
 					</div>
 					
 					<div class="chat_box">
-					<div>sdf</div>
-					<div>sdff</div>
+  					<% for(int i=0; i<chatlog.size(); i++){ %>
+						<div>
+					<% 		out.println(chatlog.get(i));  %>
+						</div>	
+					<% } %>
 					</div>	
 									
 					<div class="sendtext_box">

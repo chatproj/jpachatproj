@@ -73,5 +73,12 @@ public class JpaChatRepository implements ChatRepository{
 	public void save(Chatlog_Table chatlog_table) {
 		em.persist(chatlog_table);	
 	}
+	
+	@Override
+	public List<Chatlog_Table> getChatLog(int cnumPK){
+		List<Chatlog_Table> result = em.createQuery("select m from Chatlog_Table m where m.cnum = :cnumPK Order By id asc", Chatlog_Table.class)
+				.setParameter("cnumPK", cnumPK).getResultList();
+		return result;
+	}
 
 }

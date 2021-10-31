@@ -1,5 +1,6 @@
 package com.example.chatproj.chatproj.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,6 +22,9 @@ import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
 import com.example.chatproj.chatproj.service.UserService;
+
+import ch.qos.logback.classic.net.SyslogAppender;
+
 import com.example.chatproj.chatproj.service.ChatService;
 
 @Controller
@@ -294,7 +298,16 @@ public class controller {
 		// ▲ 비정상적인 접근 차단
 		
 		// log 조회
+		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);
+		List<String> exLog = new ArrayList<>();
+		
+		for(int i=0; i<chatlog.size(); i++) {
+			exLog.add(chatlog.get(i).getLog());
+		}
+		
 
+		
+		model.addAttribute("chatlog",exLog);
 		model.addAttribute("cnumPK", cnumPK);
 		return "chatpg";
 	}
@@ -321,13 +334,7 @@ public class controller {
 		chatlog_table.setTime(null);
 		
 		chatService.logjoin(chatlog_table);
-		
-		
-		
-		
-		
-		// 접근제어 :  send시 redirect (세션기반) 		
-//		int cnumPK = getCnum.get(0).getCnum();
+
 		redirectAttributes.addAttribute("cnumPK", cnumPK);
 		
 		return "redirect:chatpg";

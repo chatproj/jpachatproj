@@ -55,6 +55,11 @@ public class ChatService {
 			chatRepository.save(chatlog_table);
 			
 		}
+		
+		public List<Chatlog_Table> getChatLog(int cnumPK){
+			List<Chatlog_Table> result = chatRepository.getChatLog(cnumPK);
+			return result;
+		}
 
 		
 }
