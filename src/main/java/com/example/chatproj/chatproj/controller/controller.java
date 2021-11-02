@@ -180,7 +180,7 @@ public class controller {
 		int cnumPK = stringToinfo.get(0).getCnum();
 		redirectAttributes.addAttribute("cnumPK", cnumPK);
 		
-		return "redirect:/chatpg";
+		return "redirect:/chat";
 	}
 	
 	
@@ -294,7 +294,7 @@ public class controller {
 				break;
 			}
 		}
-		1
+
 		// ▲ 비정상적인 접근 차단
 		
 		// log 조회
@@ -309,36 +309,41 @@ public class controller {
 		model.addAttribute("sessionNum", sessionNum);
 		model.addAttribute("chatlog",chatlog);
 		model.addAttribute("cnumPK", cnumPK);
-		return "chatpg";
+		return "chat";
 	}
 	
-	@PostMapping("/chatpg")
-	public String chatting_pg(sendTextForm form, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		// session
-		HttpSession session = request.getSession();
-		String sessionName = (String)session.getAttribute("sessionId");		
-		
-		int cnumPK = form.getCnumPK();
-		
-		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
-		int sessionNum = getSessionName.get().getUnum();
-		
-		List<UC_Table> getCnum = chatService.getUserInfo(sessionNum);
-		
-		// 메시지 insert
-		Chatlog_Table chatlog_table = new Chatlog_Table();
-		
-		chatlog_table.setUnum(sessionNum);
-		chatlog_table.setCnum(cnumPK);
-		chatlog_table.setLog(form.getLog());
-		chatlog_table.setTime(null);
-		
-		chatService.logjoin(chatlog_table);
-
-		redirectAttributes.addAttribute("cnumPK", cnumPK);
-		
-		return "redirect:chatpg";
+	@RequestMapping("chat")
+	public String chat() {
+		return "chat";
 	}
+	
+//	@PostMapping("/chatpg")
+//	public String chatting_pg(sendTextForm form, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+//		// session
+//		HttpSession session = request.getSession();
+//		String sessionName = (String)session.getAttribute("sessionId");		
+//		
+//		int cnumPK = form.getCnumPK();
+//		
+//		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
+//		int sessionNum = getSessionName.get().getUnum();
+//		
+//		List<UC_Table> getCnum = chatService.getUserInfo(sessionNum);
+//		
+//		// 메시지 insert
+//		Chatlog_Table chatlog_table = new Chatlog_Table();
+//		
+//		chatlog_table.setUnum(sessionNum);
+//		chatlog_table.setCnum(cnumPK);
+//		chatlog_table.setLog(form.getLog());
+//		chatlog_table.setTime(null);
+//		
+//		chatService.logjoin(chatlog_table);
+//
+//		redirectAttributes.addAttribute("cnumPK", cnumPK);
+//		
+//		return "redirect:chatpg";
+//	}
 	
 }
 
