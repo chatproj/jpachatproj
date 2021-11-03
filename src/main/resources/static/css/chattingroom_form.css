@@ -27,7 +27,7 @@
 	padding: 30px;
 }
 
-.chat_box {
+.chating {
 	display: block;
 	width: 400px;
 	height: 400px;
@@ -37,7 +37,7 @@
 	border: none; 
 }
 
-.chat_box .myLog {
+.chating .myLog {
 	text-align: right;
 }
 

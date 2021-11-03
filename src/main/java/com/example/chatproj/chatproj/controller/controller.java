@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -263,8 +264,8 @@ public class controller {
 	}
 	
 	// 채팅방
-	@RequestMapping("/chatpg")
-	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	@RequestMapping("/chat")
+	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="msg", required=false) String msg, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		// session
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");	
@@ -297,6 +298,10 @@ public class controller {
 
 		// ▲ 비정상적인 접근 차단
 		
+		System.out.println("ajaxCnum : " + cnumPK);
+		System.out.println("ajaxmsg : " + msg);
+		
+		
 		// log 조회
 		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);
 		List<String> exLog = new ArrayList<>();
@@ -309,13 +314,26 @@ public class controller {
 		model.addAttribute("sessionNum", sessionNum);
 		model.addAttribute("chatlog",chatlog);
 		model.addAttribute("cnumPK", cnumPK);
+		
+		// get ajax data -> insert logtable
+		Chatlog_Table chatlog_table = new Chatlog_Table();		
+		try {
+			if(!msg.equals("") && msg != null) {
+				chatlog_table.setUnum(sessionNum);
+				chatlog_table.setCnum(cnumPK);
+				chatlog_table.setLog(msg);
+				chatlog_table.setTime(null);
+				
+				chatService.logjoin(chatlog_table);
+			}
+		}catch(NullPointerException e) {
+			
+		}
+		
 		return "chat";
 	}
+}
 	
-	@RequestMapping("chat")
-	public String chat() {
-		return "chat";
-	}
 	
 //	@PostMapping("/chatpg")
 //	public String chatting_pg(sendTextForm form, RedirectAttributes redirectAttributes, HttpServletRequest request) {
@@ -344,6 +362,6 @@ public class controller {
 //		
 //		return "redirect:chatpg";
 //	}
-	
-}
+//	
+//}
 
