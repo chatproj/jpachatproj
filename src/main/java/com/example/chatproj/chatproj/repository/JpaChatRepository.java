@@ -80,5 +80,12 @@ public class JpaChatRepository implements ChatRepository{
 				.setParameter("cnumPK", cnumPK).getResultList();
 		return result;
 	}
+	
+	@Override
+	public Optional<Chatroom_Table> getChatName(int cnumPK){
+		List<Chatroom_Table> result = em.createQuery("select m from Chatroom_Table m where m.cnum = :cnumPK", Chatroom_Table.class)
+				.setParameter("cnumPK", cnumPK).getResultList();
+		return result.stream().findAny();
+	}
 
 }

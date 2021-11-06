@@ -23,13 +23,13 @@
 				// session
 				int sessionNum = (Integer) request.getAttribute("sessionNum");
 				String sessionName = (String) request.getAttribute("sessionName");
-				out.print(sessionNum);
+				String cname = (String) request.getAttribute("cname");
 				request.setCharacterEncoding("UTF-8");
 				int cnumPK = (int) request.getAttribute("cnumPK");
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
 				%>
-				<h1>채팅</h1>
-				<div id="chating" class="chating">
+				<div class="chatroom_name"><%=cname %></div>
+				<div id="chatform" class="chatform">
   					<% for(int i=0; i<chatlog.size(); i++){ %>
 						<div>
 					<% 	
@@ -61,12 +61,11 @@
 					<% } %>				
 				
 				</div>
-				<div id="yourMsg">
+				<div id="yourMsg" class="yourMsg">
 					<table class="inputTable">
 						<tr>
-							<th>메시지</th>
-							<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-							<th><button onclick="send()" id="sendBtn">보내기</button></th>
+							<th><input id="chatting" class="chatting"  placeholder="보내실 메시지를 입력하세요."></th>
+							<th><button onclick="send()" id="sendBtn" class="sendBtn">보내기</button></th>
 						</tr>
 					</table>
 				</div>
@@ -108,7 +107,7 @@
 					msgTemp += "</div>"
 					msgTemp += "</div>"
 				
-				$("#chating").append(msgTemp);
+				$("#chatform").append(msgTemp);
 
 			}else{
 				var msgTemp = "<div>"
@@ -122,7 +121,7 @@
 					msgTemp += "</div>"
 					msgTemp += "</div>"
 					
-					$("#chating").append(msgTemp);				
+					$("#chatform").append(msgTemp);				
 			}
 		}
 		document.addEventListener("keypress", function(e) {

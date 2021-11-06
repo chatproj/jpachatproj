@@ -60,6 +60,11 @@ public class ChatService {
 			List<Chatlog_Table> result = chatRepository.getChatLog(cnumPK);
 			return result;
 		}
+		
+		public Optional<Chatroom_Table> getChatName(int cnumPK){
+			Optional<Chatroom_Table> result = chatRepository.getChatName(cnumPK);
+			return result;
+		}
 
 		
 }

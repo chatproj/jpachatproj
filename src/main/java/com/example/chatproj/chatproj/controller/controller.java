@@ -1,5 +1,7 @@
 package com.example.chatproj.chatproj.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -265,7 +267,7 @@ public class controller {
 	
 	// 채팅방
 	@RequestMapping("/chat")
-	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="msg", required=false) String msg, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="msg", required=false) String msg, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws IOException {
 		// session
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");	
@@ -290,6 +292,7 @@ public class controller {
 				if(match == getUnum.size()) {
 					break;
 				}
+				return "redirect:/signin";
 			}else {
 				System.out.println("매칭성공");
 				break;
@@ -303,8 +306,10 @@ public class controller {
 		
 		
 		// log 조회
-		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);		
+		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);
+		Optional<Chatroom_Table> cname = chatService.getChatName(cnumPK);
 		
+		model.addAttribute("cname", cname.get().getCname());
 		model.addAttribute("sessionName", sessionName);
 		model.addAttribute("sessionNum", sessionNum);
 		model.addAttribute("chatlog",chatlog);
