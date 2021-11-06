@@ -303,14 +303,9 @@ public class controller {
 		
 		
 		// log 조회
-		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);
-		List<String> exLog = new ArrayList<>();
+		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);		
 		
-		for(int i=0; i<chatlog.size(); i++) {
-			exLog.add(chatlog.get(i).getLog());
-		}
-		
-
+		model.addAttribute("sessionName", sessionName);
 		model.addAttribute("sessionNum", sessionNum);
 		model.addAttribute("chatlog",chatlog);
 		model.addAttribute("cnumPK", cnumPK);
@@ -323,6 +318,7 @@ public class controller {
 				chatlog_table.setCnum(cnumPK);
 				chatlog_table.setLog(msg);
 				chatlog_table.setTime(null);
+				chatlog_table.setUname(sessionName);
 				
 				chatService.logjoin(chatlog_table);
 			}

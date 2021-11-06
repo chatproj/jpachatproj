@@ -18,6 +18,7 @@ public class Chatlog_Table {
 	int unum;
 	String log;
 	Date time;
+	String uname;
 	
 	public int getUnum() {
 		return unum;
@@ -42,6 +43,12 @@ public class Chatlog_Table {
 	}
 	public void setTime(Date time) {
 		this.time = time;
+	}
+	public String getUname() {
+		return uname;
+	}
+	public void setUname(String uname) {
+		this.uname = uname;
 	}
 	
 	
