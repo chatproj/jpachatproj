@@ -306,8 +306,10 @@ public class controller {
 		
 		
 		// log 조회
-		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);		
+		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);
+		Optional<Chatroom_Table> cname = chatService.getChatName(cnumPK);
 		
+		model.addAttribute("cname", cname.get().getCname());
 		model.addAttribute("sessionName", sessionName);
 		model.addAttribute("sessionNum", sessionNum);
 		model.addAttribute("chatlog",chatlog);

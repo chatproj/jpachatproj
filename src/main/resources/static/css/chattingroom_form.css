@@ -27,19 +27,75 @@
 	padding: 30px;
 }
 
-.chating {
+.form1 .chatroom_name {
+	text-align: center;
+}
+
+.chatform {
+	background-color: #CDF5FF;
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
 	display: block;
 	width: 400px;
 	height: 400px;
 	margin-top : 30px;
-	margin-bottom: 30px;
-	background-color: white; 
 	border: none; 
 	overflow: auto;
 }
 
-.chating .myLog {
+.chatform .myLog {
+	margin-top: 10px;
+	margin-right: 25px;
 	text-align: right;
+}
+
+.myLog .mymsg {
+	word-break:break-all;	
+}
+
+.chatform .yourLog {
+	margin: 25px;
+	text-align: left;
+}
+
+.form1 .yourMsg {
+	height: 55px;
+	background-color: #7AE5FF;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.yourMsg .chatting {
+	border: 1px solid gray;
+	border-radius: 10px;
+	width: 250px;
+	margin-left: 30px;
+	margin-top: 10px;
+	padding: 8px;
+	border: none;
+}
+
+.yourMsg .sendBtn {
+	width: 80px;
+	height: 30px;
+	border-radius: 10px;
+	margin-left: 10px;
+	margin-top: 10px;
+	outline: none;
+	font-size: 13px;
+	font: monospace;
+	background: #e1e1e1;
+	color: #4a6363;
+	font-weight: bold;
+	border: none;
+}
+
+.yourMsg .sendBtn:hover {
+	border-radius: 10px;
+	width: 80px;
+	height: 30px;
+	outline: none;
+	background: #8bbbbd;
 }
 
 .sendtext_box > textarea {
