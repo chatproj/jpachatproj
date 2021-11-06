@@ -22,8 +22,8 @@
 				<%
 				// session
 				int sessionNum = (Integer) request.getAttribute("sessionNum");
+				String sessionName = (String) request.getAttribute("sessionName");
 				out.print(sessionNum);
-
 				request.setCharacterEncoding("UTF-8");
 				int cnumPK = (int) request.getAttribute("cnumPK");
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
@@ -69,39 +69,63 @@
 <script type="text/javascript">
 	var ws;
 	wsOpen();
-
 	function wsOpen() {
 		ws = new WebSocket("ws://" + location.host + "/chating");
 		wsEvt();
 	}
-
 	function wsEvt() {
 		ws.onopen = function(data) {
 			//소켓이 열리면 초기화 세팅하기
 		}
-
 		ws.onmessage = function(data) {
 			var msg = data.data;
-			msg.split(" ");
-			if( msg[0] == <%=sessionNum %> ){
-				$("#chating").append("<div><div class='myLog'>" + msg + "</div></div>");
+			console.log(msg);
+			
+			var msgarr = msg.split(",");
+			console.log(msgarr[0]);
+			console.log(msgarr[1]);
+			console.log(msgarr[2]);
+			
+			if( msgarr[0] == <%=sessionNum %> ){
+				var msgTemp = "<div>"
+					msgTemp += "<div class='myLog'>"
+					msgTemp += "<div>"
+					msgTemp += msgarr[1];
+					msgTemp += "</div>"
+					msgTemp += "<div>"
+					msgTemp += msgarr[2];
+					msgTemp += "</div>"
+					msgTemp += "</div>"
+					msgTemp += "</div>"
+				
+				$("#chating").append(msgTemp);
 
 			}else{
-				$("#chating").append("<div><div class='yourLog'>" + msg + "</div></div>");				
+				var msgTemp = "<div>"
+					msgTemp += "<div class='yourLog'>"
+					msgTemp += "<div>"
+					msgTemp += msgarr[1];
+					msgTemp += "</div>"
+					msgTemp += "<div>"
+					msgTemp += msgarr[2];
+					msgTemp += "</div>"
+					msgTemp += "</div>"
+					msgTemp += "</div>"
+					
+					$("#chating").append(msgTemp);				
 			}
 		}
-
 		document.addEventListener("keypress", function(e) {
 			if (e.keyCode == 13) { //enter press
 				send();
 			}
 		});
 	}
-
 	function send() {
-		var uN = $("#userName").val();
+		var uN = "<%=sessionNum %>";
+		var uName = "<%=sessionName %>";
 		var msg = $("#chatting").val();
-		ws.send(uN + " -> " + msg);
+		ws.send(uN+","+uName+","+msg);
 		// controller로 메시지 넘기기
 		AjaxToController(<%=cnumPK %>,msg);
 		$('#chatting').val("");
@@ -125,6 +149,5 @@
 		
 	}
 	
-
 </script>
 </html>
