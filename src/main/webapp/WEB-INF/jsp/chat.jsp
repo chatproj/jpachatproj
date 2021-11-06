@@ -35,21 +35,31 @@
 					<% 	
 						if(chatlog.get(i).getUnum() == sessionNum){
 					%>
-							<div class="myLog">my : <%=chatlog.get(i).getLog() %></div>
+							<div class="myLog">
+								<div class="myname">
+								<%=chatlog.get(i).getUname() %>
+								</div>
+								<div class="mymsg">
+								<%=chatlog.get(i).getLog() %>
+								</div>
+							</div>
 					<% 
 						}else{
 					%>	
-							<div class="yourLog">your : <%=chatlog.get(i).getLog() %></div>
+							<div class="yourLog">
+								<div class="yourname">
+								<%=chatlog.get(i).getUname() %>
+								</div>
+								<div class="yourmsg">
+								<%=chatlog.get(i).getLog() %>
+								</div>
+							</div>
 					<% 
 						}
 					%>
 						</div>	
 					<% } %>				
 				
-				</div>
-
-				<div id="yourName">
-					<input type="text" name="userName" id="userName" value="<%=sessionNum %>">
 				</div>
 				<div id="yourMsg">
 					<table class="inputTable">
@@ -89,10 +99,10 @@
 			if( msgarr[0] == <%=sessionNum %> ){
 				var msgTemp = "<div>"
 					msgTemp += "<div class='myLog'>"
-					msgTemp += "<div>"
+					msgTemp += "<div class='myname'>"
 					msgTemp += msgarr[1];
 					msgTemp += "</div>"
-					msgTemp += "<div>"
+					msgTemp += "<div class='mymsg'>"
 					msgTemp += msgarr[2];
 					msgTemp += "</div>"
 					msgTemp += "</div>"
@@ -103,10 +113,10 @@
 			}else{
 				var msgTemp = "<div>"
 					msgTemp += "<div class='yourLog'>"
-					msgTemp += "<div>"
+					msgTemp += "<div class='yourname'>"
 					msgTemp += msgarr[1];
 					msgTemp += "</div>"
-					msgTemp += "<div>"
+					msgTemp += "<div class='yourmsg'>"
 					msgTemp += msgarr[2];
 					msgTemp += "</div>"
 					msgTemp += "</div>"
