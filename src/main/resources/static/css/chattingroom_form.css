@@ -1,9 +1,10 @@
 /* 채팅방 div */
 
 #main_container1{
-    padding-top: 100px;
+/*     padding-top: 100px; */
     display: flex;
     justify-content: center;
+    padding-bottom: 50px;
 }
 
 #main_container1 .inputlabel1 {
@@ -15,16 +16,18 @@
 }
 
 #main_container1 .form_container1 {
-	width: 500px;
+	width: 355px;
 }
 
 .form_container1 .form1 {
 	display: inline-block;
 	border: 1px solid white;
-	border-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
 	background: white;
 	box-shadow: 10px 10px 60px #8bbbbd;
-	padding: 30px;
+	padding: 15px;
+
 }
 
 .form1 .chatroom_name {
@@ -36,11 +39,11 @@
 	border-top-left-radius: 30px;
 	border-top-right-radius: 30px;
 	display: block;
-	width: 400px;
+	width: 330px;
 	height: 400px;
 	margin-top : 30px;
 	border: none; 
-	overflow: auto;
+	overflow-y: auto;
 }
 
 .chatform .myLog {
@@ -68,18 +71,19 @@
 .yourMsg .chatting {
 	border: 1px solid gray;
 	border-radius: 10px;
-	width: 250px;
-	margin-left: 30px;
+	width: 200px;
+	margin-left: 20px;
 	margin-top: 10px;
 	padding: 8px;
 	border: none;
 }
 
 .yourMsg .sendBtn {
-	width: 80px;
+	width: 66px;
 	height: 30px;
 	border-radius: 10px;
 	margin-left: 10px;
+	margin-right: 20px;
 	margin-top: 10px;
 	outline: none;
 	font-size: 13px;
@@ -92,7 +96,7 @@
 
 .yourMsg .sendBtn:hover {
 	border-radius: 10px;
-	width: 80px;
+	width: 66px;
 	height: 30px;
 	outline: none;
 	background: #8bbbbd;

@@ -1,0 +1,50 @@
+#header_container{
+    padding-top: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+#header_form_container {
+	width: 355px;
+}
+
+#header_form_container .header_form {
+	width: 302px;
+	display: inline-block;
+	border: 1px solid white;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	background: white;
+	box-shadow: 10px 10px 60px #8bbbbd;
+	padding: 30px;
+}
+
+.header_form .section1 {
+	display: flex;
+	justify-content: space-between;
+}
+
+.section1 .sessionStatus {
+	font-weight: bold;
+	margin-top: 10px;
+	margin-left: 15px;
+}
+
+.section1 .signout {
+	border-radius: 10px;
+	outline: none;
+	font-size: 16px;
+	font: monospace;
+	background: #e1e1e1;
+	color: #4a6363;
+	font-weight: bold;
+	border: none;
+	padding: 10px;
+}
+
+.signout:hover {
+	border-radius: 10px;
+	outline: none;
+	background: #8bbbbd;
+	padding: 10px;
+}
