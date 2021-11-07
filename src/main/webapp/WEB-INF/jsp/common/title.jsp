@@ -6,3 +6,4 @@
 		<link rel="stylesheet" href="/css/account_form.css">
 		<link rel="stylesheet" href="/css/chatting_form.css">
 		<link rel='stylesheet' href="/css/chattingroom_form.css">
+		<link rel='stylesheet' href="/css/header.css">

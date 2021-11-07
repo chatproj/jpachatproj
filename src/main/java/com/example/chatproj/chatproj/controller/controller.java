@@ -106,6 +106,15 @@ public class controller {
 		}	
 	}
 	
+	// 로그아웃
+	@PostMapping("/signout")
+	public String signout(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "redirect:/signin";
+		
+	}
+	
 	// 유저 처리 페이지
 	@RequestMapping("/userprocess")
 	public String uesrprocess(@RequestParam("redirectprocess") String redirectprocess) {
@@ -152,11 +161,11 @@ public class controller {
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");
 	
+		// 세션 select
 		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
 		int sessionNum = getSessionName.get().getUnum();
-		
-		System.out.println("sessionNum : " + sessionNum);
-		
+			
+			// 세션 기반 채팅방리스트 가져오기
 			List<UC_Table> getChatList = chatService.getChatList(sessionNum);
 			
 			System.out.println("getchatlist all : " + getChatList);
@@ -176,7 +185,6 @@ public class controller {
 	@PostMapping("/chatList")
 	public String chatlistadd(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		String submitList = request.getParameter("list");
-		System.out.println("inttostring" + submitList);
 		
 		List<UC_Table> stringToinfo = chatService.getstringToinfo(submitList);
 		
@@ -281,7 +289,6 @@ public class controller {
 		int unumPk[] = new int[getUnum.size()];
 		
 		for(int i=0; i<getUnum.size(); i++) {
-			System.out.println("unumPK : " + unumPk[i]);
 			unumPk[i] = getUnum.get(i).getUnum();
 		}
 		
@@ -290,11 +297,9 @@ public class controller {
 			if(sessionNum != unumPk[match]) {
 				match++;
 				if(match == getUnum.size()) {
-					break;
+					return "redirect:/signin";
 				}
-				return "redirect:/signin";
 			}else {
-				System.out.println("매칭성공");
 				break;
 			}
 		}

@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -50,6 +53,10 @@ public class Chatlog_Table {
 	public void setUname(String uname) {
 		this.uname = uname;
 	}
+	
+//	@ManyToOne
+//	@JoinColumn(name="cnum")
+//	private Chatroom_Table chatroom_table;
 	
 	
 }
