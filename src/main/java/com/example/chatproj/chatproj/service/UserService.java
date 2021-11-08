@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.chatproj.chatproj.domain.User;
+import com.example.chatproj.chatproj.domain.User_Profileimg;
 import com.example.chatproj.chatproj.repository.JpaUserRepository;
 import com.example.chatproj.chatproj.repository.UserRepository;
 
@@ -31,6 +32,11 @@ public class UserService {
 		.ifPresent(m -> {
 			throw new IllegalStateException("이미 존재하는 회원입니다.");
 		});
+	}
+	
+	// 유저 프로필 이미지 저장
+	public void userimgjoin(User_Profileimg userimg) {
+		userRepository.imgsave(userimg);
 	}
 	
 	// 로그인

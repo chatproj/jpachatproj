@@ -18,7 +18,7 @@
 		<div class="form_container">
 
 			<div class="form">
-				<form method="POST" action="/signup">
+				<form method="POST" action="/signup" enctype="multipart/form-data">
 					<div class="input-box">
 						<div class="inputlabel">아이디</div>
 						<input type="text" name="uid" id="uid">
@@ -52,6 +52,12 @@
 					<div class="input-box">
 						<div class="inputlabel">휴대전화</div>
 						<input type="text" name="phone_num" id="phone_num">
+						<div id="phone_num_error" class="error"></div>
+					</div>
+					
+					<div class="input-box">
+						<div class="inputlabel">프로필이미지</div>
+						<input type="file" name="userimg" id="userimg">
 						<div id="phone_num_error" class="error"></div>
 					</div>
 
