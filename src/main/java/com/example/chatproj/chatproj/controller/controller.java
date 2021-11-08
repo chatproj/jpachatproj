@@ -1,5 +1,6 @@
 package com.example.chatproj.chatproj.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,18 +13,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
+import com.example.chatproj.chatproj.domain.User_Profileimg;
 import com.example.chatproj.chatproj.service.UserService;
 
 import ch.qos.logback.classic.net.SyslogAppender;
@@ -65,7 +71,7 @@ public class controller {
 	}
 	
 	@PostMapping("/signup")
-	public String create_user(SignupForm form) {
+	public String create_user(Model model, SignupForm form, userimgForm userimgform) throws Exception {
 		User user = new User();
 		user.setUid(form.getUid());
 		user.setUpw(form.getUpw());
@@ -75,7 +81,38 @@ public class controller {
 		
 		userService.join(user);
 		
+		userimgform.getUserimg();
+		User_Profileimg userimgfile = (User_Profileimg) fileinsert(userimgform.getUserimg());
+		
+		userService.userimgjoin(userimgfile);
+		
 		return "redirect:/signin";
+	}
+	
+	//이미지 파일 insert
+	public User_Profileimg fileinsert(@RequestPart MultipartFile files) throws Exception{
+		User_Profileimg userimg = new User_Profileimg();
+		
+		String originalfilename = files.getOriginalFilename();
+		String originalfilenameExtension = FilenameUtils.getExtension(originalfilename).toLowerCase();
+		File destinationfile;
+		String destinationfilename;
+		String fileurl = "C:/Users/yunhes/Desktop/my/chatproj/chatproj/src/main/resources/static/userimg/";
+		
+		do {
+			destinationfilename = RandomStringUtils.randomAlphanumeric(32) + "." + originalfilenameExtension;
+			destinationfile = new File(fileurl + destinationfilename);
+		}while(destinationfile.exists());
+		
+		destinationfile.getParentFile().mkdirs();
+		files.transferTo(destinationfile);
+		
+		userimg.setFilename(destinationfilename);
+		userimg.setOriginal_filename(originalfilename);
+		userimg.setFile_url(fileurl);
+		
+		return userimg;
+		
 	}
 	
 	// 로그인

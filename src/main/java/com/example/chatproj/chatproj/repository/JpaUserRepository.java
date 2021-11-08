@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.User;
+import com.example.chatproj.chatproj.domain.User_Profileimg;
 
 public class JpaUserRepository implements UserRepository{
 
@@ -20,6 +21,12 @@ public class JpaUserRepository implements UserRepository{
 	public User save(User user) {
 		em.persist(user);
 		return user;
+	}
+	
+	@Override
+	public User_Profileimg imgsave(User_Profileimg userimg) {
+		em.persist(userimg);
+		return userimg;
 	}
 
 	@Override

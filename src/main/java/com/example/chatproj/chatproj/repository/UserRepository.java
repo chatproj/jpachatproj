@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.User;
+import com.example.chatproj.chatproj.domain.User_Profileimg;
 
 public interface UserRepository {
 	User save(User user);
@@ -12,4 +13,5 @@ public interface UserRepository {
 	Optional<User> findById(String uid);
 	List<User> getIdbyUid(String sessionName, String inviteuser);
 	Optional<User> findUser(String uname, String email);
+	User_Profileimg imgsave(User_Profileimg userimg);
 }
