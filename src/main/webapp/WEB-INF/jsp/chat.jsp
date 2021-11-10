@@ -127,8 +127,10 @@
 					
 					$("#chatform").append(msgTemp);	
 			}
+			
 			var scrolldiv = document.getElementById("chatform");
 			scrolldiv.scrollTop = scrolldiv.scrollHeight;
+			
 		}
 		document.addEventListener("keypress", function(e) {
 			if (e.keyCode == 13) { //enter press
