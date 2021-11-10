@@ -49,17 +49,67 @@
 .chatform .myLog {
 	margin-top: 10px;
 	margin-right: 25px;
+}
+
+.myLog .myname {
 	text-align: right;
 }
 
 .myLog .mymsg {
-	word-break:break-all;	
+	font-size: 13px;
+	word-break:break-all;
+	position:relative; 
+	margin-left: 200px;
+	margin-top: 20px;
+	max-width: 100px;
+	padding: 10px;
+  	background:pink; 
+  	border-radius: 10px;	
+}
+
+.mymsg:after { 
+ border-top:0px solid transparent; 
+ border-left: 20px solid transparent; 
+ border-right: 5px solid transparent; 
+ border-bottom: 10px solid pink; 
+ content:""; 
+ position:absolute;
+ top:-10px;
+ right:10px;  
 }
 
 .chatform .yourLog {
-	margin: 25px;
+	margin-top: 10px;
+	margin-left: 25px;
+}
+
+.yourLog .yourname {
 	text-align: left;
 }
+
+.yourLog .yourmsg {
+	font-size: 13px;
+	word-break:break-all;
+	position:relative; 
+	margin-right: 200px;
+	margin-top: 20px;
+	max-width: 100px;
+	padding: 10px;
+  	background:pink; 
+  	border-radius: 10px;	
+}
+
+.yourmsg:after { 
+ border-top:0px solid transparent; 
+ border-left: 5px solid transparent; 
+ border-right: 20px solid transparent; 
+ border-bottom: 10px solid pink; 
+ content:""; 
+ position:absolute;
+ top:-10px;
+ left:10px;  
+}
+
 
 .form1 .yourMsg {
 	height: 55px;
