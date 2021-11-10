@@ -77,6 +77,10 @@
 
 <script type="text/javascript">
 	var ws;
+	var scrolldiv;
+	var scrolldiv = document.getElementById("chatform");
+	scrolldiv.scrollTop = scrolldiv.scrollHeight;
+	
 	wsOpen();
 	function wsOpen() {
 		ws = new WebSocket("ws://" + location.host + "/chating");
@@ -121,8 +125,10 @@
 					msgTemp += "</div>"
 					msgTemp += "</div>"
 					
-					$("#chatform").append(msgTemp);				
+					$("#chatform").append(msgTemp);	
 			}
+			var scrolldiv = document.getElementById("chatform");
+			scrolldiv.scrollTop = scrolldiv.scrollHeight;
 		}
 		document.addEventListener("keypress", function(e) {
 			if (e.keyCode == 13) { //enter press
