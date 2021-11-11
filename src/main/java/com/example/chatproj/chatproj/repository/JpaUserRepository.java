@@ -28,6 +28,20 @@ public class JpaUserRepository implements UserRepository{
 		em.persist(userimg);
 		return userimg;
 	}
+	
+	@Override
+	public Optional<User_Profileimg> getUnumbyFilenum(int sessionNum) {
+		System.out.println("sesese : " + sessionNum);
+		List<User_Profileimg> result = em.createQuery("select m from User_Profileimg m where m.unum = :sessionNum", User_Profileimg.class).setParameter("sessionNum", sessionNum).getResultList();
+		System.out.println("rereresult : " + result);
+		return result.stream().findAny();
+	}
+	
+	@Override
+	public Optional<User_Profileimg> findimage(int filenum) {
+		User_Profileimg result = em.find(User_Profileimg.class, filenum);
+		return Optional.ofNullable(result);
+	}
 
 	@Override
 	public Optional<User> findByNum(int unum) {

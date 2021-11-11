@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,18 @@ public class UserService {
 	// 유저 프로필 이미지 저장
 	public void userimgjoin(User_Profileimg userimg) {
 		userRepository.imgsave(userimg);
+	}
+	
+	// 세션 기반 filenum 찾기
+	public Optional<User_Profileimg> getUnumbyFilenum(int sessionNum){
+		Optional<User_Profileimg> result = userRepository.getUnumbyFilenum(sessionNum);
+		return result;
+	}
+	
+	// 이미지 불러오기
+	public Optional<User_Profileimg> findimage(int filenum) {
+		Optional<User_Profileimg> result = userRepository.findimage(filenum);
+		return result;
 	}
 	
 	// 로그인

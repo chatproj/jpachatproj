@@ -14,4 +14,6 @@ public interface UserRepository {
 	List<User> getIdbyUid(String sessionName, String inviteuser);
 	Optional<User> findUser(String uname, String email);
 	User_Profileimg imgsave(User_Profileimg userimg);
+	Optional<User_Profileimg> findimage(int filenum);
+	Optional<User_Profileimg> getUnumbyFilenum(int sessionNum);
 }

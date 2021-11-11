@@ -12,6 +12,7 @@ public class User_Profileimg {
 	String filename;
 	String original_filename;
 	String file_url;
+	int unum;
 	
 	public int getFilenum() {
 		return filenum;
@@ -37,5 +38,12 @@ public class User_Profileimg {
 	public void setFile_url(String file_url) {
 		this.file_url = file_url;
 	}
+	public int getUnum() {
+		return unum;
+	}
+	public void setUnum(int unum) {
+		this.unum = unum;
+	}
+	
 	
 }
