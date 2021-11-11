@@ -22,6 +22,7 @@ public class Chatlog_Table {
 	String log;
 	Date time;
 	String uname;
+	String filename;
 	
 	public int getUnum() {
 		return unum;
@@ -53,6 +54,13 @@ public class Chatlog_Table {
 	public void setUname(String uname) {
 		this.uname = uname;
 	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
 	
 //	@ManyToOne
 //	@JoinColumn(name="cnum")

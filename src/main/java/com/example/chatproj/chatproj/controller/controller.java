@@ -81,8 +81,12 @@ public class controller {
 		
 		userService.join(user);
 		
+		Optional<User> getUidbyUserinform = userService.getSessionbyUid(form.getUid());
+		int imageUsernum = getUidbyUserinform.get().getUnum();
+		
+		// 회원가입 때 이미지 파일 가져오기
 		userimgform.getUserimg();
-		User_Profileimg userimgfile = (User_Profileimg) fileinsert(userimgform.getUserimg());
+		User_Profileimg userimgfile = (User_Profileimg) fileinsert(userimgform.getUserimg(), imageUsernum);
 		
 		userService.userimgjoin(userimgfile);
 		
@@ -90,7 +94,7 @@ public class controller {
 	}
 	
 	//이미지 파일 insert
-	public User_Profileimg fileinsert(@RequestPart MultipartFile files) throws Exception{
+	public User_Profileimg fileinsert(@RequestPart MultipartFile files, int imageUsernum) throws Exception{
 		User_Profileimg userimg = new User_Profileimg();
 		
 		String originalfilename = files.getOriginalFilename();
@@ -110,6 +114,7 @@ public class controller {
 		userimg.setFilename(destinationfilename);
 		userimg.setOriginal_filename(originalfilename);
 		userimg.setFile_url(fileurl);
+		userimg.setUnum(imageUsernum);
 		
 		return userimg;
 		
@@ -357,6 +362,15 @@ public class controller {
 		model.addAttribute("chatlog",chatlog);
 		model.addAttribute("cnumPK", cnumPK);
 		
+		// log 조회(img)
+		
+		
+		Optional<User_Profileimg> user_profileimage = userService.getUnumbyFilenum(sessionNum);
+		Optional<User_Profileimg> filename = userService.findimage(user_profileimage.get().getFilenum());
+		String userimg = filename.get().getFilename();
+		
+		model.addAttribute("userimg", userimg);
+		
 		// get ajax data -> insert logtable
 		Chatlog_Table chatlog_table = new Chatlog_Table();		
 		try {
@@ -366,6 +380,7 @@ public class controller {
 				chatlog_table.setLog(msg);
 				chatlog_table.setTime(null);
 				chatlog_table.setUname(sessionName);
+				chatlog_table.setFilename(userimg);
 				
 				chatService.logjoin(chatlog_table);
 			}

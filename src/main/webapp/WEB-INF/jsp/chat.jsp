@@ -9,8 +9,7 @@
 <head>
 <!-- css file -->
 <%@ include file="./common/title.jsp"%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -24,7 +23,10 @@
 				int sessionNum = (Integer) request.getAttribute("sessionNum");
 				String sessionName = (String) request.getAttribute("sessionName");
 				String cname = (String) request.getAttribute("cname");
+				String userimg = (String) request.getAttribute("userimg");
+				
 				request.setCharacterEncoding("UTF-8");
+				
 				int cnumPK = (int) request.getAttribute("cnumPK");
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
 				%>
@@ -36,8 +38,9 @@
 						if(chatlog.get(i).getUnum() == sessionNum){
 					%>
 							<div class="myLog">
-								<div class="myname">
-								<%=chatlog.get(i).getUname() %>
+								<div class="myprofile">
+									<div class="myname"><%=chatlog.get(i).getUname() %></div>
+									<div class="myimg"><img class="img_inner" src='/userimg/<%=chatlog.get(i).getFilename() %>'></div>
 								</div>
 								<div class="mymsg">
 								<%=chatlog.get(i).getLog() %>
@@ -47,8 +50,9 @@
 						}else{
 					%>	
 							<div class="yourLog">
-								<div class="yourname">
-								<%=chatlog.get(i).getUname() %>
+								<div class="yourprofile">
+									<div class="yourimg"><img class="img_inner" src='/userimg/<%=chatlog.get(i).getFilename() %>'></div>
+									<div class="yourname"><%=chatlog.get(i).getUname() %></div>
 								</div>
 								<div class="yourmsg">
 								<%=chatlog.get(i).getLog() %>
@@ -101,30 +105,36 @@
 			
 			if( msgarr[0] == <%=sessionNum %> ){
 				var msgTemp = "<div>"
-					msgTemp += "<div class='myLog'>"
+					msgTemp = "<div class='myLog'>"
+					msgTemp += "<div class='myprofile'>"
 					msgTemp += "<div class='myname'>"
 					msgTemp += msgarr[1];
+					msgTemp += "</div>"
+					msgTemp += "<div class='myimg'>"
+					msgTemp += msgarr[3];
+					msgTemp += "</div>"
 					msgTemp += "</div>"
 					msgTemp += "<div class='mymsg'>"
 					msgTemp += msgarr[2];
 					msgTemp += "</div>"
-					msgTemp += "</div>"
-					msgTemp += "</div>"
-				
+					msgTemp += "</div>"				
 				$("#chatform").append(msgTemp);
 
 			}else{
 				var msgTemp = "<div>"
-					msgTemp += "<div class='yourLog'>"
+					msgTemp = "<div class='yourLog'>"
+					msgTemp += "<div class='yourprofile'>"
+					msgTemp += "<div class='yourimg'>"
+					msgTemp += msgarr[3];
+					msgTemp += "</div>"
 					msgTemp += "<div class='yourname'>"
 					msgTemp += msgarr[1];
+					msgTemp += "</div>"
 					msgTemp += "</div>"
 					msgTemp += "<div class='yourmsg'>"
 					msgTemp += msgarr[2];
 					msgTemp += "</div>"
-					msgTemp += "</div>"
-					msgTemp += "</div>"
-					
+					msgTemp += "</div>"						
 					$("#chatform").append(msgTemp);	
 			}
 			
@@ -142,7 +152,8 @@
 		var uN = "<%=sessionNum %>";
 		var uName = "<%=sessionName %>";
 		var msg = $("#chatting").val();
-		ws.send(uN+","+uName+","+msg);
+		var img = "<img class='img_inner' src='/userimg/${userimg}'>";
+		ws.send(uN+","+uName+","+msg+","+img);
 		// controller로 메시지 넘기기
 		AjaxToController(<%=cnumPK %>,msg);
 		$('#chatting').val("");
