@@ -42,9 +42,8 @@
 									<div class="myname"><%=chatlog.get(i).getUname() %></div>
 									<div class="myimg"><img class="img_inner" src='/userimg/<%=chatlog.get(i).getFilename() %>'></div>
 								</div>
-								<div class="mymsg">
-								<%=chatlog.get(i).getLog() %>
-								</div>
+								<div class="mymsg"><%=chatlog.get(i).getLog() %></div>
+								<div class="mytime">time : <<%=chatlog.get(i).getTime() %>></div>
 							</div>
 					<% 
 						}else{
@@ -54,9 +53,8 @@
 									<div class="yourimg"><img class="img_inner" src='/userimg/<%=chatlog.get(i).getFilename() %>'></div>
 									<div class="yourname"><%=chatlog.get(i).getUname() %></div>
 								</div>
-								<div class="yourmsg">
-								<%=chatlog.get(i).getLog() %>
-								</div>
+								<div class="yourmsg"><%=chatlog.get(i).getLog() %></div>
+								<div class="yourtime">time : <<%=chatlog.get(i).getTime() %>></div>
 							</div>
 					<% 
 						}
@@ -102,6 +100,8 @@
 			console.log(msgarr[0]);
 			console.log(msgarr[1]);
 			console.log(msgarr[2]);
+			console.log(msgarr[3]);
+			console.log(msgarr[4]);
 			
 			if( msgarr[0] == <%=sessionNum %> ){
 				var msgTemp = "<div>"
@@ -116,6 +116,11 @@
 					msgTemp += "</div>"
 					msgTemp += "<div class='mymsg'>"
 					msgTemp += msgarr[2];
+					msgTemp += "</div>"
+					msgTemp += "<div class='mytime'>"
+					msgTemp += "time : <"
+					msgTemp += msgarr[4];
+					msgTemp += ">"
 					msgTemp += "</div>"
 					msgTemp += "</div>"				
 				$("#chatform").append(msgTemp);
@@ -133,6 +138,11 @@
 					msgTemp += "</div>"
 					msgTemp += "<div class='yourmsg'>"
 					msgTemp += msgarr[2];
+					msgTemp += "</div>"
+					msgTemp += "<div class='yourtime'>"
+					msgTemp += "time : <"
+					msgTemp += msgarr[4];
+					msgTemp += ">"
 					msgTemp += "</div>"
 					msgTemp += "</div>"						
 					$("#chatform").append(msgTemp);	
@@ -153,19 +163,29 @@
 		var uName = "<%=sessionName %>";
 		var msg = $("#chatting").val();
 		var img = "<img class='img_inner' src='/userimg/${userimg}'>";
-		ws.send(uN+","+uName+","+msg+","+img);
+		
+		// 날짜시간
+		var today = new Date();
+		var hours = today.getHours();
+		var minutes = today.getMinutes();
+		var seconds = today.getSeconds();
+		
+		var nowtimes = hours+":"+minutes+":"+seconds;
+		
+		ws.send(uN+","+uName+","+msg+","+img+","+nowtimes);
 		// controller로 메시지 넘기기
-		AjaxToController(<%=cnumPK %>,msg);
+		AjaxToController(<%=cnumPK %>,msg, nowtimes);
 		$('#chatting').val("");
 	}
 	
-	function AjaxToController(getPkObj, getMsgObj){		
+	function AjaxToController(getPkObj, getMsgObj, getNowTimeObj){		
 		$.ajax({
 			type: 'POST',
 			url: "/chat",
 			data: {
 				cnumPK: getPkObj,
-				msg: getMsgObj
+				msg: getMsgObj,
+				nowtime: getNowTimeObj
 			},
 			success: function(data){
 				

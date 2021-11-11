@@ -317,7 +317,7 @@ public class controller {
 	
 	// 채팅방
 	@RequestMapping("/chat")
-	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="msg", required=false) String msg, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws IOException {
+	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="msg", required=false) String msg, @RequestParam(value="nowtime", required=false) String nowtime, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws IOException {
 		// session
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");	
@@ -350,6 +350,7 @@ public class controller {
 		
 		System.out.println("ajaxCnum : " + cnumPK);
 		System.out.println("ajaxmsg : " + msg);
+		System.out.println("ajaxnowtime : " + nowtime);
 		
 		
 		// log 조회
@@ -381,6 +382,7 @@ public class controller {
 				chatlog_table.setTime(null);
 				chatlog_table.setUname(sessionName);
 				chatlog_table.setFilename(userimg);
+				chatlog_table.setTime(nowtime);
 				
 				chatService.logjoin(chatlog_table);
 			}
