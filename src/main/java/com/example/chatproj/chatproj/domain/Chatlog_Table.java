@@ -20,7 +20,7 @@ public class Chatlog_Table {
 	int cnum;
 	int unum;
 	String log;
-	Date time;
+	String time;
 	String uname;
 	String filename;
 	
@@ -42,10 +42,10 @@ public class Chatlog_Table {
 	public void setLog(String log) {
 		this.log = log;
 	}
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	public String getUname() {
