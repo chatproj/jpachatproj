@@ -48,6 +48,11 @@ public class controller {
 		this.chatService = chatService;
 	}
 	
+	@RequestMapping("/2")
+	public String test() {
+		return "2";
+	}
+	
 	// 메인페이지
 	@RequestMapping("/")
 	public String main(HttpServletRequest request) {
@@ -101,7 +106,8 @@ public class controller {
 		String originalfilenameExtension = FilenameUtils.getExtension(originalfilename).toLowerCase();
 		File destinationfile;
 		String destinationfilename;
-		String fileurl = "C:/Users/yunhes/Desktop/my/chatproj/chatproj/src/main/resources/static/userimg/";
+		String fileurl = "C:/Users/yunhes/Desktop/my/chatproj/.metadata/.plugins/org.eclipse.wst.server.core/";
+//		String fileurl = "/home/ubuntu/spring_proj/chatproj/src/main/resources/static/userimg/";
 		
 		do {
 			destinationfilename = RandomStringUtils.randomAlphanumeric(32) + "." + originalfilenameExtension;
