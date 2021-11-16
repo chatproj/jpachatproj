@@ -106,8 +106,9 @@ public class controller {
 		String originalfilenameExtension = FilenameUtils.getExtension(originalfilename).toLowerCase();
 		File destinationfile;
 		String destinationfilename;
-		String fileurl = "C:/Users/yunhes/Desktop/my/chatproj/.metadata/.plugins/org.eclipse.wst.server.core/";
-//		String fileurl = "/home/ubuntu/spring_proj/chatproj/src/main/resources/static/userimg/";
+		String fileurl = "C:/Users/yunhes/Desktop/my/chatproj/chatproj/src/main/webapp/userimg/";
+//		String fileurl = "/home/ubuntu/spring_proj/chatproj/chatproj/src/main/webapp/userimg/";
+//		String fileurl = "https://t1.daumcdn.net/cfile/tistory/992B4E3D5C2D69F50B";
 		
 		do {
 			destinationfilename = RandomStringUtils.randomAlphanumeric(32) + "." + originalfilenameExtension;

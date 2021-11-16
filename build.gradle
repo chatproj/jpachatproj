@@ -24,6 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-websocket' // web socket
 	implementation group: 'commons-io', name: 'commons-io', version: '2.6' // img 
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0' // img randomstring
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 }
 
 test {
