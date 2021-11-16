@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +43,9 @@ public class controller {
 
 	private final UserService userService;
 	private final ChatService chatService;
+	
+	@Autowired
+	ServletContext application;
 	
 	@Autowired
 	public controller(UserService userService, ChatService chatService) {
@@ -106,17 +111,21 @@ public class controller {
 		String originalfilenameExtension = FilenameUtils.getExtension(originalfilename).toLowerCase();
 		File destinationfile;
 		String destinationfilename;
-		String fileurl = "C:/Users/yunhes/Desktop/my/chatproj/chatproj/src/main/webapp/userimg/";
-//		String fileurl = "/home/ubuntu/spring_proj/chatproj/chatproj/src/main/webapp/userimg/";
-//		String fileurl = "https://t1.daumcdn.net/cfile/tistory/992B4E3D5C2D69F50B";
+		String fileurl = "/userimg/";
+		String savePath = application.getRealPath(fileurl);
+		System.out.println("sp : " + savePath);
 		
 		do {
 			destinationfilename = RandomStringUtils.randomAlphanumeric(32) + "." + originalfilenameExtension;
-			destinationfile = new File(fileurl + destinationfilename);
+			destinationfile = new File(savePath, destinationfilename);
 		}while(destinationfile.exists());
 		
-		destinationfile.getParentFile().mkdirs();
-		files.transferTo(destinationfile);
+		//destinationfile.getParentFile().mkdirs();
+		try {
+			files.transferTo(destinationfile);
+		}catch (IOException e) {
+			// TODO: handle exception
+		}
 		
 		userimg.setFilename(destinationfilename);
 		userimg.setOriginal_filename(originalfilename);

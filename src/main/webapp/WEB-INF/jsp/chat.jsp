@@ -40,8 +40,8 @@
 							<div class="myLog">
 								<div class="myprofile">
 									<div class="myname"><%=chatlog.get(i).getUname() %></div>
-	<%-- 								<div class="myimg"><img class="img_inner" src='/userimg/<%=chatlog.get(i).getFilename() %>'></div> --%>
-									<div class="myimg"><img class="img_inner" src='https://t1.daumcdn.net/cfile/tistory/992B4E3D5C2D69F50B'></div>
+								<div class="myimg"><img class="img_inner" src='userimg/<%=chatlog.get(i).getFilename() %>'></div>
+									
 								</div>
 								<div class="mymsg"><%=chatlog.get(i).getLog() %></div>
 								<div class="mytime">time : <<%=chatlog.get(i).getTime() %>></div>
@@ -51,7 +51,7 @@
 					%>	
 							<div class="yourLog">
 								<div class="yourprofile">
-									<div class="yourimg"><img class="img_inner" src='/userimg/<%=chatlog.get(i).getFilename() %>'></div>
+									<div class="yourimg"><img class="img_inner" src='userimg/<%=chatlog.get(i).getFilename() %>'></div>
 									<div class="yourname"><%=chatlog.get(i).getUname() %></div>
 								</div>
 								<div class="yourmsg"><%=chatlog.get(i).getLog() %></div>
