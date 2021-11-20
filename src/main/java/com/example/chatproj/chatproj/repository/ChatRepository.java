@@ -19,4 +19,6 @@ public interface ChatRepository {
 	void save(Chatlog_Table chatlog_table);
 	List<Chatlog_Table> getChatLog(int cnumPK);
 	Optional<Chatroom_Table> getChatName(int cnumPK);
+	void exitUser(int cnumPK, int sessionNum);
+	void deleteChatRoom(int cnumPK);
 }
