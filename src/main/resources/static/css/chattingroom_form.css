@@ -30,8 +30,22 @@
 
 }
 
-.form1 .chatroom_name {
-	text-align: center;
+.form1 .chatheader {
+	display: flex;
+}
+
+.chatheader .chatroom_name {
+	margin-left: 150px;
+}
+
+.chatheader .exitbtn {
+	margin-left: 100px;
+	background: red;
+	border: none;	
+	border-radius: 10px;
+	color: white;
+	padding: 5px;
+	font-weight: bold;
 }
 
 .chatform {

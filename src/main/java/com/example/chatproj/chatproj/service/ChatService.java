@@ -65,6 +65,14 @@ public class ChatService {
 			Optional<Chatroom_Table> result = chatRepository.getChatName(cnumPK);
 			return result;
 		}
+		
+		public void exitUser(int cnumPK, int sessionNum) {
+			chatRepository.exitUser(cnumPK, sessionNum);
+		}
+		
+		public void deleteChatRoom(int cnumPK) {
+			chatRepository.deleteChatRoom(cnumPK);
+		}
 
 		
 }

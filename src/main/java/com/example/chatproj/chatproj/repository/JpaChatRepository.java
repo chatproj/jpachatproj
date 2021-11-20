@@ -4,14 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-
-import org.springframework.data.jpa.repository.Query;
 
 import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
-import com.example.chatproj.chatproj.domain.User;
 
 public class JpaChatRepository implements ChatRepository{
 	
@@ -86,6 +82,21 @@ public class JpaChatRepository implements ChatRepository{
 		List<Chatroom_Table> result = em.createQuery("select m from Chatroom_Table m where m.cnum = :cnumPK", Chatroom_Table.class)
 				.setParameter("cnumPK", cnumPK).getResultList();
 		return result.stream().findAny();
+	}
+	
+	@Override
+	public void exitUser(int cnumPK, int sessionNum) {
+		em.createQuery("delete from UC_Table m where m.cnum = :cnumPK and m.unum = :sessionNum")
+				.setParameter("cnumPK", cnumPK)
+				.setParameter("sessionNum", sessionNum)
+				.executeUpdate();
+	}
+	
+	@Override
+	public void deleteChatRoom(int cnumPK) {
+		em.createQuery("delete from Chatroom_Table m where m.cnum = :cnumPK")
+				.setParameter("cnumPK", cnumPK)
+				.executeUpdate();
 	}
 
 }

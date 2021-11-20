@@ -26,11 +26,13 @@
 				String userimg = (String) request.getAttribute("userimg");
 				
 				request.setCharacterEncoding("UTF-8");
-				
 				int cnumPK = (int) request.getAttribute("cnumPK");
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
 				%>
-				<div class="chatroom_name"><%=cname %></div>
+				<div class="chatheader">
+					<div class="chatroom_name"><%=cname %></div>
+					<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
+				</div>
 				<div id="chatform" class="chatform">
   					<% for(int i=0; i<chatlog.size(); i++){ %>
 						<div>
@@ -195,7 +197,29 @@
 				console.log("no", data);
 			}
 		});
-		
+	}
+	
+	function cnumtocontroller(){
+		var cnumPK = "<%=cnumPK %>";
+		console.log(cnumPK);
+		AjaxCnumtoController(cnumPK);
+		window.location.href="/chatList";
+	}
+	
+	function AjaxCnumtoController(cnumPK){
+ 		$.ajax({
+			type: 'POST',
+			url: "/chatexit",
+			data: {
+				cnumPK: cnumPK
+			},
+			success: function(data){
+				
+			},
+			error: function(data){
+				console.log("no", data);
+			}
+		}); 		
 	}
 	
 </script>

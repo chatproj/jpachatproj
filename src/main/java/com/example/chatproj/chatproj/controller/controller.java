@@ -408,36 +408,33 @@ public class controller {
 		
 		return "chat";
 	}
+	
+	@RequestMapping("/chatexit")
+	public String exitbtn(HttpServletRequest request, @RequestParam("cnumPK") int cnumPK) throws IOException {
+		// session
+		HttpSession session = request.getSession();
+		String sessionName = (String)session.getAttribute("sessionId");	
+		
+		// sessionName to sessionNum
+		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
+		int sessionNum = getSessionName.get().getUnum();
+		
+//		int ccnum = Integer.parseInt(setcnumPK);
+		
+		System.out.println("sessionsessionexit : " + sessionNum);
+		System.out.println("cnumPKPKPK : " + cnumPK);
+		
+		// 채팅방 나가기 로직
+		int getCnumPK = cnumPK;
+		chatService.exitUser(cnumPK, sessionNum);
+		List<UC_Table> getUserInfo = chatService.getUserInfo(getCnumPK);
+		
+		if(getUserInfo.size() == 0) {
+			chatService.deleteChatRoom(getCnumPK);
+		}
+		
+		return "redirect:chatList";
+	}
+	
 }
-	
-	
-//	@PostMapping("/chatpg")
-//	public String chatting_pg(sendTextForm form, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-//		// session
-//		HttpSession session = request.getSession();
-//		String sessionName = (String)session.getAttribute("sessionId");		
-//		
-//		int cnumPK = form.getCnumPK();
-//		
-//		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
-//		int sessionNum = getSessionName.get().getUnum();
-//		
-//		List<UC_Table> getCnum = chatService.getUserInfo(sessionNum);
-//		
-//		// 메시지 insert
-//		Chatlog_Table chatlog_table = new Chatlog_Table();
-//		
-//		chatlog_table.setUnum(sessionNum);
-//		chatlog_table.setCnum(cnumPK);
-//		chatlog_table.setLog(form.getLog());
-//		chatlog_table.setTime(null);
-//		
-//		chatService.logjoin(chatlog_table);
-//
-//		redirectAttributes.addAttribute("cnumPK", cnumPK);
-//		
-//		return "redirect:chatpg";
-//	}
-//	
-//}
 
