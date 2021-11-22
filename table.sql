@@ -2,9 +2,13 @@
 ALTER TABLE chatroom_table auto_increment = 1;
 SET @COUNT = 0;
 UPDATE chatroom_table SET cnum = @COUNT:=@COUNT+1;
-
+GRANT ALL PRIVILEGES ON `%`.* TO 'root'@'%' IDENTIFIED BY '1234' WITH GRANT OPTION;
 // 권한부여
  GRANT ALL PRIVILEGES ON *.* to 'root'@'%' IDENTIFIED BY '1234';
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('1234');
+
+// 스키마 생성
+create schema `chatproj` default character set utf8;
 
 create table user_table( 
 unum int(11) primary key auto_increment not null,
