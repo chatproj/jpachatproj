@@ -7,16 +7,29 @@
 <head>
 <!-- css file -->
 <%@ include file="./common/title.jsp"%>
+<script type="text/javascript">
+	window.addEventListener("DOMContentLoaded", function(){
+		<%
+			if(request.getParameter("message") != null && request.getParameter("message").equals("duplicate")){
+		%>
+				setErrorMessage("uid_error", "이미 존재하는 아이디입니다.");
+		<%
+			}
+		%>
+		
+		function setErrorMessage(id, message){
+			document.getElementById(id).innerText = message;
+		}
+	});
+</script>
 </head>
 <body>
 
 	<!-- Header -->
 	<%@ include file="./common/header.jsp"%>
-
 	<!-- form -->
 	<div id="main_container">
 		<div class="form_container">
-
 			<div class="form">
 				<form method="POST" action="/signup" enctype="multipart/form-data">
 					<div class="input-box">
