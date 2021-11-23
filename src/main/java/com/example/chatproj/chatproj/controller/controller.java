@@ -81,7 +81,7 @@ public class controller {
 	}
 	
 	@PostMapping("/signup")
-	public String create_user(Model model, SignupForm form, userimgForm userimgform) throws Exception {
+	public String create_user(Model model, SignupForm form, userimgForm userimgform, RedirectAttributes redirectAttributes) throws Exception {
 		User user = new User();
 		user.setUid(form.getUid());
 		user.setUpw(form.getUpw());
@@ -89,7 +89,11 @@ public class controller {
 		user.setEmail(form.getEmail());
 		user.setPhone_num(form.getPhone_num());
 		
-		userService.join(user);
+		try {
+			userService.join(user);
+		}catch(IllegalStateException e){
+			return "redirect:/signup?message=duplicate";
+		}
 		
 		Optional<User> getUidbyUserinform = userService.getSessionbyUid(form.getUid());
 		int imageUsernum = getUidbyUserinform.get().getUnum();
