@@ -32,14 +32,16 @@
 
 .form1 .chatheader {
 	display: flex;
+	justify-content: space-between;
 }
 
 .chatheader .chatroom_name {
-	margin-left: 150px;
+	margin-top: 5px;
+	margin-left:45px;
 }
 
 .chatheader .exitbtn {
-	margin-left: 100px;
+    margin-right: 25px;
 	background: red;
 	border: none;	
 	border-radius: 10px;
