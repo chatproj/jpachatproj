@@ -5,14 +5,8 @@ window.addEventListener("DOMContentLoaded", function(){
 	var upw = document.getElementById("upw");
 	var upw_check = document.getElementById("upw_check");
 	var phone_num = document.getElementById("phone_num");
-
-/*	
-	var uid_error = document.getElementById("uid_error");
-	var email_error = document.getElementById("email_error");
-	var upw_error = document.getElementById("upw_error");
-	var upw_check_error = document.getElementById("upw_check_error");
-	var phone_num_error = document.getElementById("phone_num_error");
-*/
+	
+	var submit_btn = document.getElementById("submit_btn");
 	
 	uid.addEventListener("keyup", function(){
 		if(uid.value == "" || uid.value.length == 0){
@@ -129,5 +123,74 @@ window.addEventListener("DOMContentLoaded", function(){
 			}
 		}	
 	}
+	
+	
+	
+	submit_btn.addEventListener("click", function(evt){
+		if(uid.value == "" || uid.value.length == 0){
+			evt.preventDefault();
+			setErrorMessage("uid_error", "필수 정보입니다.");		
+		}else{
+			var pattern = /[^a-zA-Z0-9]/;
+			if(pattern.test(uid.value)){
+				evt.preventDefault();
+				setErrorMessage("uid_error", "영어와 숫자를 조합해주세요.");
+			}else{
+				removeErrorMessage("uid_error");
+			}
+		}
+		
+		if(email.value == "" || email.value.length == 0){
+			evt.preventDefault();
+			setErrorMessage("email_error", "필수 정보입니다.");
+		}else{
+			if(!pattern.test(email.value)){
+				evt.preventDefault();
+				setErrorMessage("email_error", "이메일 형식으로 입력해주세요.")
+			}else{
+				removeErrorMessage("email_error");
+			}
+		}	
+		
+		var level = passwordLevel(upw.value);
+		if(level == 0){
+			evt.preventDefault();
+			setErrorMessage("upw_error", "필수 정보입니다.");
+		}else{
+			if(level == 1 || level == 2 || level == 3){
+				evt.preventDefault();
+				setErrorMessage("upw_error", "영문,숫자,특수문자를 사용하세요.")
+			}else{
+				removeErrorMessage("upw_error");
+			}
+		}	
+
+		var level = passwordLevel(upw_check.value);
+		if(level == 0){
+			evt.preventDefault();
+			setErrorMessage("upw_check_error", "필수 정보입니다.");
+		}else{
+			if(level == 1 || level == 2 || level == 3){
+				evt.preventDefault();
+				setErrorMessage("upw_check_error", "영문,숫자,특수문자를 사용하세요.")
+			}else{
+				removeErrorMessage("upw_check_error");
+			}
+		}
+		
+		var pattern = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/;
+		if(phone_num == "" || phone_num.value.length == 0){
+			evt.preventDefault();
+			setErrorMessage("phone_num_error", "필수 정보입니다.");
+		}else{
+			if(!pattern.test(phone_num.value)){
+				evt.preventDefault();
+				setErrorMessage("phone_num_error", "휴대전화 형식으로 입력해주세요.");
+			}else{
+				removeErrorMessage("phone_num_error");
+			}
+		}
+		
+	});
 	
 });
