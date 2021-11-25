@@ -34,43 +34,43 @@
 				<form method="POST" action="/signup" enctype="multipart/form-data">
 					<div class="input-box">
 						<div class="inputlabel">아이디</div>
-						<input type="text" name="uid" id="uid">
+						<input type="text" name="uid" id="uid" maxlength="15">
 						<div id="uid_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
 						<div class="inputlabel">이름</div>
-						<input type="text" name="uname" id="uname">
+						<input type="text" name="uname" id="uname" maxlength="10">
 						<div id="username_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
 						<div class="inputlabel">이메일</div>
-						<input type="email" name="email" id="email">
+						<input type="email" name="email" id="email" maxlength="30">
 						<div id="email_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
 						<div class="inputlabel">비밀번호</div>
-						<input type="password" name="upw" id="upw">
+						<input type="password" name="upw" id="upw" maxlength="20">
 						<div id="upw_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
 						<div class="inputlabel">비밀번호 재확인</div>
-						<input type="password" name="upw_check" id="upw_check">
+						<input type="password" name="upw_check" id="upw_check" maxlength="20">
 						<div id="upw_check_error" class="error"></div>
 					</div>
 
 					<div class="input-box">
 						<div class="inputlabel">휴대전화</div>
-						<input type="text" name="phone_num" id="phone_num">
+						<input type="text" name="phone_num" id="phone_num" maxlength="20">
 						<div id="phone_num_error" class="error"></div>
 					</div>
 					
 					<div class="input-box">
 						<div class="inputlabel">프로필이미지</div>
-						<input type="file" name="userimg" id="userimg">
+						<input type="file" name="userimg" id="userimg" maxlength="40">
 						<div id="phone_num_error" class="error"></div>
 					</div>
 
