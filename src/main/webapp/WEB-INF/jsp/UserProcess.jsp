@@ -21,9 +21,19 @@
 						String uid = (String)request.getParameter("redirectprocess");
 					%>		
 					<div class="finduser_id">
+					<%
+						if(uid.equals("존재하지 않는 ID 입니다.") || uid == "존재하지 않는 ID 입니다."){
+					%>
+							<a class="findinform">존재하지 않는 ID 입니다.</a>
+					<%
+						}else{
+					%>
 						<a class="finduser_in">고객님의 아이디는</a>
 						<a class="findinform"><%=uid %></a>
 						<a class="finduser_in">입니다.</a>
+					<%
+						}
+					%>
 					</div>				
 					
 					<div class="finduser_btn">

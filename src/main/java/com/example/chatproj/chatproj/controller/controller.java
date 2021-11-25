@@ -92,7 +92,13 @@ public class controller {
 		try {
 			userService.join(user);
 		}catch(IllegalStateException e){
-			return "redirect:/signup?message=duplicate";
+			System.out.println("stack : " + e.getMessage());
+			
+			if(e.getMessage().equals("이미 존재하는 아이디입니다.")) {
+				return "redirect:/signup?message=duplicateId";
+			}else if(e.getMessage().equals("이미 존재하는 이메일입니다.")){
+				return "redirect:/signup?message=duplicateEmail";
+			}
 		}
 		
 		Optional<User> getUidbyUserinform = userService.getSessionbyUid(form.getUid());
