@@ -28,11 +28,22 @@ public class UserService {
 		return user.getUnum();
 	}
 	
-	private void validateDuplicateuser(User user) {
+	private String validateDuplicateuser(User user) {
+		String res = null;
+		
 		userRepository.findById(user.getUid())
 		.ifPresent(m -> {
-			throw new IllegalStateException("이미 존재하는 회원입니다.");
+			throw new IllegalStateException("이미 존재하는 아이디입니다.");
 		});
+		res = "이미 존재하는 아이디입니다.";
+		
+		userRepository.findByEmail(user.getEmail())
+		.ifPresent(m -> {
+			throw new IllegalStateException("이미 존재하는 이메일입니다.");
+		});
+		res = "이미 존재하는 이메일입니다.";
+		
+		return res;
 	}
 	
 	// 유저 프로필 이미지 저장

@@ -113,6 +113,7 @@ input:focus {
 .finduser_id {
 	color: #56b7ba;
 	margin-bottom: 40px;
+	margin-left: 15px;
 }
 
 .finduser_id .findinform {
@@ -127,7 +128,7 @@ input:focus {
 	margin-left: 10px;
     margin-right: 10px;
 	border-radius: 10px;
-	width: 120px;
+	width: 131px;
 	height: 50px;
 	outline: none;
 	font-size: 16px;
@@ -140,7 +141,7 @@ input:focus {
 
 .find_submit_btn:hover {
 	border-radius: 10px;
-	width: 120px;
+	width: 131px;
 	height: 50px;
 	outline: none;
 	background: #8bbbbd;

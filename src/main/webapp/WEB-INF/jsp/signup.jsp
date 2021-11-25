@@ -10,9 +10,13 @@
 <script type="text/javascript">
 	window.addEventListener("DOMContentLoaded", function(){
 		<%
-			if(request.getParameter("message") != null && request.getParameter("message").equals("duplicate")){
+			if(request.getParameter("message") != null && request.getParameter("message").equals("duplicateId")){
 		%>
-				setErrorMessage("uid_error", "이미 존재하는 아이디입니다.");
+				alert("이미 존재하는 아이디입니다.");
+		<%
+			}else if(request.getParameter("message") != null && request.getParameter("message").equals("duplicateEmail")){
+		%>
+				alert("이미 존재하는 이메일입니다.");
 		<%
 			}
 		%>
