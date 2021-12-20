@@ -50,9 +50,11 @@ public class JpaChatRepository implements ChatRepository{
     }
     
     @Override
-    public List<UC_Table> getstringToinfo(String submitList){
-    	List<UC_Table> result = em.createQuery("select m from UC_Table m where m.cname = :submitList", UC_Table.class)
-    			.setParameter("submitList", submitList).getResultList();
+    public List<UC_Table> getstringToinfo(int submitListPK, String submitListName){
+    	List<UC_Table> result = em.createQuery("select m from UC_Table m where m.cnum = :submitListPK and m.cname = :submitListName", UC_Table.class)
+    			.setParameter("submitListPK", submitListPK)
+    			.setParameter("submitListName", submitListName)
+    			.getResultList();
     	
     	return result;
     }

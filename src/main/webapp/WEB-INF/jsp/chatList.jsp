@@ -25,7 +25,7 @@
 				<form method="POST" action="/chatList">
 				<% for(Integer key : CnameList.keySet()){ %>
 					<div class="chatList">
-						<input type="submit" id="list" name="list" value=<%=CnameList.get(key) %> class="submit_btn">
+						<input type="submit" id="list" name="list" value=<%=key %>.<%=CnameList.get(key) %> class="submit_btn">
 					</div>	
 				<% } %>
 				</form>
