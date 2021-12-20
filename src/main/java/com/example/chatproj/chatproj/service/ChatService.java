@@ -41,8 +41,8 @@ public class ChatService {
 			return result;	
 		}
 		
-		public List<UC_Table> getstringToinfo(String submitList){
-			List<UC_Table> result = chatRepository.getstringToinfo(submitList);
+		public List<UC_Table> getstringToinfo(int submitListPK, String submitListName){
+			List<UC_Table> result = chatRepository.getstringToinfo(submitListPK, submitListName);
 			return result;
 		}
 		

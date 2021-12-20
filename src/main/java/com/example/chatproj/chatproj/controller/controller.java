@@ -253,8 +253,14 @@ public class controller {
 	@PostMapping("/chatList")
 	public String chatlistadd(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		String submitList = request.getParameter("list");
+		String splitsubmitList[] = submitList.split("[.]");
 		
-		List<UC_Table> stringToinfo = chatService.getstringToinfo(submitList);
+		String submitListPKstr = splitsubmitList[0];
+		int submitListPK = Integer.parseInt(submitListPKstr);
+		
+		String submitListName = splitsubmitList[1];
+		
+		List<UC_Table> stringToinfo = chatService.getstringToinfo(submitListPK, submitListName);
 		
 		int cnumPK = stringToinfo.get(0).getCnum();
 		redirectAttributes.addAttribute("cnumPK", cnumPK);
