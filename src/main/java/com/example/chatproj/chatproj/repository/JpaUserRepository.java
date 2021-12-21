@@ -31,9 +31,7 @@ public class JpaUserRepository implements UserRepository{
 	
 	@Override
 	public Optional<User_Profileimg> getUnumbyFilenum(int sessionNum) {
-		System.out.println("sesese : " + sessionNum);
 		List<User_Profileimg> result = em.createQuery("select m from User_Profileimg m where m.unum = :sessionNum", User_Profileimg.class).setParameter("sessionNum", sessionNum).getResultList();
-		System.out.println("rereresult : " + result);
 		return result.stream().findAny();
 	}
 	
