@@ -281,10 +281,11 @@ public class controller {
 		
 		String id_check_result = userService.duplicateMatch(user);
 		
-		if(id_check_result.equals("matchX")) {
-			return "redirect:/signin?message=FAILURE_matchX";
-		}else if(id_check_result.equals("noid")) {
-			return "redirect:/signin?message=FAILURE_noid";
+//		if(id_check_result.equals("matchX")) {
+//			return "redirect:/inviteuser?message=FAILURE_matchX";
+//		}else 
+		if(id_check_result.equals("noid")) {
+			return "redirect:/inviteuser?message=FAILURE_noid";
 		}else {
 			// session
 			HttpSession session = request.getSession();
@@ -326,7 +327,7 @@ public class controller {
 				}
 			
 			}else {
-				return "redirect:/signin?message=FAILURE_noid";				
+				return "redirect:/inviteuser?message=FAILURE_sameId";				
 			}
 			
 			return "redirect:/chatList";
