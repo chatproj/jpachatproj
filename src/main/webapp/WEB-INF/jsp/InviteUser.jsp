@@ -9,7 +9,21 @@
 <%@ include file="./common/title.jsp"%>
 </head>
 <body>
-
+<script type="text/javascript">
+	window.addEventListener("DOMContentLoaded", function(){
+		<%
+			if(request.getParameter("message") != null && request.getParameter("message").equals("FAILURE_sameId")){
+		%>
+				alert("같은 ID 입니다.");
+		<%
+			}else if(request.getParameter("message") != null && request.getParameter("message").equals("FAILURE_noid")){
+		%>
+				alert("존재하지 않는 ID 입니다.");
+		<%
+			}
+		%>
+	});
+</script>
 	<!-- Header -->
 	<%@ include file="./common/header.jsp"%>
 	
