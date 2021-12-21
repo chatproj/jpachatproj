@@ -64,9 +64,7 @@ public class controller {
 		// session
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");	
-		
-		System.out.println("sessionName : " + sessionName);
-		
+	
 		if(sessionName != null) {
 			return "redirect:/chatList";
 		}else {
@@ -91,9 +89,7 @@ public class controller {
 		
 		try {
 			userService.join(user);
-		}catch(IllegalStateException e){
-			System.out.println("stack : " + e.getMessage());
-			
+		}catch(IllegalStateException e){		
 			if(e.getMessage().equals("이미 존재하는 아이디입니다.")) {
 				return "redirect:/signup?message=duplicateId";
 			}else if(e.getMessage().equals("이미 존재하는 이메일입니다.")){
@@ -123,7 +119,6 @@ public class controller {
 		String destinationfilename;
 		String fileurl = "/userimg/";
 		String savePath = application.getRealPath(fileurl);
-		System.out.println("sp : " + savePath);
 		
 		do {
 			destinationfilename = RandomStringUtils.randomAlphanumeric(32) + "." + originalfilenameExtension;
@@ -159,8 +154,6 @@ public class controller {
 		user.setUpw(form.getUpw());
 		
 		String result = userService.login(user);
-		
-		System.out.println("result : " + result );
 		
 		if(result.equals("matchX")) {
 			return "redirect:/signin?message=FAILURE_matchX";
@@ -211,8 +204,6 @@ public class controller {
 		}catch(NoSuchElementException e) {
 			redirectprocess = "존재하지 않는 ID 입니다.";
 		}
-		
-		System.out.println(redirectprocess);
 		redirectAttributes.addAttribute("redirectprocess", redirectprocess);
 		return "redirect:/userprocess";	
 	}
@@ -236,14 +227,10 @@ public class controller {
 			// 세션 기반 채팅방리스트 가져오기
 			List<UC_Table> getChatList = chatService.getChatList(sessionNum);
 			
-			System.out.println("getchatlist all : " + getChatList);
-			
 			HashMap<Integer, String> map = new HashMap<Integer, String>();
 			
 			for(int i = 0; i<getChatList.size(); i++) {
 				map.put(getChatList.get(i).getCnum(), getChatList.get(i).getCname());
-				System.out.println("getChatLlist : " + getChatList.get(i).getCname());
-				System.out.println("getMap : " + map.get(i+1));
 			}
 			model.addAttribute("chatlist", map);
 			
@@ -379,12 +366,7 @@ public class controller {
 		}
 
 		// ▲ 비정상적인 접근 차단
-		
-		System.out.println("ajaxCnum : " + cnumPK);
-		System.out.println("ajaxmsg : " + msg);
-		System.out.println("ajaxnowtime : " + nowtime);
-		
-		
+	
 		// log 조회
 		List<Chatlog_Table> chatlog = chatService.getChatLog(cnumPK);
 		Optional<Chatroom_Table> cname = chatService.getChatName(cnumPK);
@@ -434,12 +416,7 @@ public class controller {
 		// sessionName to sessionNum
 		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
 		int sessionNum = getSessionName.get().getUnum();
-		
-//		int ccnum = Integer.parseInt(setcnumPK);
-		
-		System.out.println("sessionsessionexit : " + sessionNum);
-		System.out.println("cnumPKPKPK : " + cnumPK);
-		
+	
 		// 채팅방 나가기 로직
 		int getCnumPK = cnumPK;
 		chatService.exitUser(cnumPK, sessionNum);
