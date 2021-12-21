@@ -45,7 +45,7 @@
 					<div class="input-box">
 						<div class="inputlabel">이름</div>
 						<input type="text" name="uname" id="uname" maxlength="10">
-						<div id="username_error" class="error"></div>
+						<div id="uname_error" class="error"></div>
 					</div>
 
 					<div class="input-box">

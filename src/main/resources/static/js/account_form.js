@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", function(){
 
 	var uid = document.getElementById("uid");
+	var uname = document.getElementById("uname");
 	var email = document.getElementById("email");
 	var upw = document.getElementById("upw");
 	var upw_check = document.getElementById("upw_check");
@@ -14,12 +15,21 @@ window.addEventListener("DOMContentLoaded", function(){
 		}else{
 			var pattern = /[^a-zA-Z0-9]/;
 			if(pattern.test(uid.value)){
-				setErrorMessage("uid_error", "영어와 숫자를 조합해주세요.");
+				setErrorMessage("uid_error", "영어 또는 숫자를 입력해주세요.");
 			}else{
 				removeErrorMessage("uid_error");
 			}
 		}
 	});
+	
+	uname.addEventListener("keyup", function(){
+		if(uname.value == "" || uname.length == 0){
+			setErrorMessage("uname_error", "필수 정보입니다.");
+		}else{
+			removeErrorMessage("uname_error");
+		}
+	})
+
 	
 	email.addEventListener("keyup", function(){
 		var pattern = /^[a-zA-Z0-9]+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]+$/;
@@ -134,10 +144,17 @@ window.addEventListener("DOMContentLoaded", function(){
 			var pattern = /[^a-zA-Z0-9]/;
 			if(pattern.test(uid.value)){
 				evt.preventDefault();
-				setErrorMessage("uid_error", "영어와 숫자를 조합해주세요.");
+				setErrorMessage("uid_error", "영어 또는 숫자를 입력해주세요.");
 			}else{
 				removeErrorMessage("uid_error");
 			}
+		}
+		
+		if(uname.value == "" || uname.length == 0){
+			evt.preventDefault();
+			setErrorMessage("uname_error", "필수 정보입니다.");
+		}else{
+			removeErrorMessage("uname_error");
 		}
 		
 		if(email.value == "" || email.value.length == 0){
