@@ -102,11 +102,34 @@ public class controller {
 		
 		// 회원가입 때 이미지 파일 가져오기
 		userimgform.getUserimg();
-		User_Profileimg userimgfile = (User_Profileimg) fileinsert(userimgform.getUserimg(), imageUsernum);
 		
-		userService.userimgjoin(userimgfile);
+		System.out.println("img : " + userimgform.getUserimg().getOriginalFilename());
 		
-		return "redirect:/signin";
+		if(userimgform.getUserimg().getOriginalFilename().equals("")) {
+			User_Profileimg userimgfile = (User_Profileimg) nomralinsert(imageUsernum);			
+			userService.userimgjoin(userimgfile);	
+			
+			return "redirect:/signin";	
+		}else {
+			User_Profileimg userimgfile = (User_Profileimg) fileinsert(userimgform.getUserimg(), imageUsernum);			
+			userService.userimgjoin(userimgfile);	
+			
+			return "redirect:/signin";	
+		}
+	}
+	//기본 이미지 insert
+	public User_Profileimg nomralinsert(int imageUsernum){
+		User_Profileimg userimg = new User_Profileimg();
+		
+		String originalfilename = "normal_img.png";
+		String fileurl = "/userimg/";
+		
+		userimg.setFilename(originalfilename);
+		userimg.setOriginal_filename(originalfilename);
+		userimg.setFile_url(fileurl);
+		userimg.setUnum(imageUsernum);		
+				
+		return userimg;
 	}
 	
 	//이미지 파일 insert
