@@ -12,21 +12,11 @@ import javax.persistence.Table;
 public class User {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int unum;
-	
-//	@Column(name = "uid")
+	private int unum;	
 	private String uid;
-	
-//	@Column(name = "upw")
 	private String upw;
-	
-//	@Column(name = "uname")
 	private String uname;
-	
-//	@Column(name = "email")
 	private String email;
-	
-//	@Column(name = "phone_num")
 	private String phone_num;
 	
 	public int getUnum() {

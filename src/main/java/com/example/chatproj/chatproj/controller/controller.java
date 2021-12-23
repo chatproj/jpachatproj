@@ -53,15 +53,9 @@ public class controller {
 		this.chatService = chatService;
 	}
 	
-	@RequestMapping("/2")
-	public String test() {
-		return "2";
-	}
-	
 	// 메인페이지
 	@RequestMapping("/")
 	public String main(HttpServletRequest request) {
-		// session
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");	
 	
@@ -79,7 +73,7 @@ public class controller {
 	}
 	
 	@PostMapping("/signup")
-	public String create_user(Model model, SignupForm form, userimgForm userimgform, RedirectAttributes redirectAttributes) throws Exception {
+	public String create_user(SignupForm form, userimgForm userimgform, RedirectAttributes redirectAttributes) throws Exception {
 		User user = new User();
 		user.setUid(form.getUid());
 		user.setUpw(form.getUpw());
@@ -102,8 +96,6 @@ public class controller {
 		
 		// 회원가입 때 이미지 파일 가져오기
 		userimgform.getUserimg();
-		
-		System.out.println("img : " + userimgform.getUserimg().getOriginalFilename());
 		
 		if(userimgform.getUserimg().getOriginalFilename().equals("")) {
 			User_Profileimg userimgfile = (User_Profileimg) nomralinsert(imageUsernum);			
@@ -304,9 +296,6 @@ public class controller {
 		
 		String id_check_result = userService.duplicateMatch(user);
 		
-//		if(id_check_result.equals("matchX")) {
-//			return "redirect:/inviteuser?message=FAILURE_matchX";
-//		}else 
 		if(id_check_result.equals("noid")) {
 			return "redirect:/inviteuser?message=FAILURE_noid";
 		}else {
@@ -328,8 +317,6 @@ public class controller {
 					chatroom_table.setCname(inviteuserform.getCname());			
 					chatService.insChatTable(chatroom_table);		
 				}
-				
-				// select m from user_table m where uid in ( 내 id값, 초대한 사람의 id값);
 				String inviteuser = inviteuserform.getUid();
 				
 				List<User> GetMyIdInviteId = userService.getIdbyUid(sessionName, inviteuser);

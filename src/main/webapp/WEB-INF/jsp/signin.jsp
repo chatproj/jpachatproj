@@ -64,8 +64,5 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Script -->
-<!-- 	<script src="/js/signup.js" type="text/javascript" charset="UTF-8"></script> -->
 </body>
 </html>

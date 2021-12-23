@@ -62,9 +62,4 @@ public class Chatlog_Table {
 	}
 	
 	
-//	@ManyToOne
-//	@JoinColumn(name="cnum")
-//	private Chatroom_Table chatroom_table;
-	
-	
 }

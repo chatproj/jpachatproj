@@ -28,8 +28,7 @@ public class ChatService {
         }
 		
 		public void insChatTable(Chatroom_Table user1) {
-			chatRepository.save(user1);
-			
+			chatRepository.save(user1);			
 		}
 		
 		public void insUCTable(UC_Table user2) {
@@ -52,8 +51,7 @@ public class ChatService {
 		}
 		
 		public void logjoin(Chatlog_Table chatlog_table) {
-			chatRepository.save(chatlog_table);
-			
+			chatRepository.save(chatlog_table);			
 		}
 		
 		public List<Chatlog_Table> getChatLog(int cnumPK){
