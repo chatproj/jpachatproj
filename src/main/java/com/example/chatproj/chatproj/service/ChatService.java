@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
+import com.example.chatproj.chatproj.domain.Fileupload_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
 import com.example.chatproj.chatproj.repository.ChatRepository;
@@ -72,6 +73,11 @@ public class ChatService {
 		
 		public void deleteChatRoom(int cnumPK) {
 			chatRepository.deleteChatRoom(cnumPK);
+		}
+		
+		public Optional<Fileupload_Table> fileuploadjoin(Fileupload_Table fileinfo) {
+			chatRepository.uploadfile(fileinfo);
+			return null;	
 		}
 
 		

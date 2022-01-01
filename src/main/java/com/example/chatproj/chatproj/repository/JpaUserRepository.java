@@ -37,14 +37,16 @@ public class JpaUserRepository implements UserRepository{
 	
 	@Override
 	public Optional<User_Profileimg> findimage(int filenum) {
+		System.out.println("777777777777777" + filenum);
 		User_Profileimg result = em.find(User_Profileimg.class, filenum);
+		System.out.println("8888888888888888" + result.getOriginal_filename());
 		return Optional.ofNullable(result);
 	}
 
 	@Override
 	public Optional<User> findByNum(int unum) {
-		User user = em.find(User.class, unum);
-		return Optional.ofNullable(user);
+		User result = em.find(User.class, unum);
+		return Optional.ofNullable(result);
 	}
 
 	@Override

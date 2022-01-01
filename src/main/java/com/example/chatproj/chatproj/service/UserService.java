@@ -139,4 +139,11 @@ public class UserService {
 		return result;
 	}
 	
+	// unum 기반 회원정보
+	public Optional<User> findByNum(int unum) {
+		Optional<User> result = userRepository.findByNum(unum);
+		System.out.println("4444444444444" + result.get().getUname());
+		return result;
+	}
+	
 }

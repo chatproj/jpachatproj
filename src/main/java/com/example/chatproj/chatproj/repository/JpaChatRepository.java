@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
+import com.example.chatproj.chatproj.domain.Fileupload_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 
 public class JpaChatRepository implements ChatRepository{
@@ -101,4 +102,9 @@ public class JpaChatRepository implements ChatRepository{
 				.executeUpdate();
 	}
 
+	@Override
+	public Fileupload_Table uploadfile(Fileupload_Table file_save){
+		em.persist(file_save);
+		return file_save;		
+	}
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
+import com.example.chatproj.chatproj.domain.Fileupload_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
 
@@ -21,4 +22,5 @@ public interface ChatRepository {
 	Optional<Chatroom_Table> getChatName(int cnumPK);
 	void exitUser(int cnumPK, int sessionNum);
 	void deleteChatRoom(int cnumPK);
+	Fileupload_Table uploadfile(Fileupload_Table fileinfo);
 }
