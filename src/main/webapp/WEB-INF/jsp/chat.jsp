@@ -69,6 +69,14 @@
 				<div id="yourMsg" class="yourMsg">
 					<table class="inputTable">
 						<tr>
+							<form method="POST" action="/uploadFile" enctype="multipart/form-data">
+								<input type="text" id="text" name="cnum" value="<%=cnumPK %>">
+								<input type="text" id="text" name="unum" value="<%=sessionNum %>">
+								<th><input id="uploadbtn" class="uploadbtn" type="file" name="fileupload" accept="*" /></th>
+								<th><button type="submit" id="sendBtn" class="sendBtn">업로드</button></th>
+							</form>
+						</tr>
+						<tr>
 							<th><input id="chatting" class="chatting"  placeholder="보내실 메시지를 입력하세요."></th>
 							<th><button onclick="send()" id="sendBtn" class="sendBtn">보내기</button></th>
 						</tr>

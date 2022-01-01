@@ -6,7 +6,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -36,6 +39,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
+import com.example.chatproj.chatproj.domain.Fileupload_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
 import com.example.chatproj.chatproj.domain.User;
 import com.example.chatproj.chatproj.domain.User_Profileimg;
@@ -438,32 +442,78 @@ public class controller {
 		return "chat";
 	}
 	
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<?> uploadFile(
-	    @RequestParam("uploadfile") MultipartFile uploadfile) {
-	  
-	  try {
-	    // Get the filename and build the local file path (be sure that the 
-	    // application have write permissions on such directory)
-	    String filename = uploadfile.getOriginalFilename();
-	    String directory1 = "/uploadfile/";
-	    String directory = application.getRealPath(directory1);
-	    String filepath = Paths.get(directory, filename).toString();
-	    
-	    // Save the file locally
-	    BufferedOutputStream stream =
-	        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-	    stream.write(uploadfile.getBytes());
-	    stream.close();
-	  }
-	  catch (Exception e) {
-	    System.out.println(e.getMessage());
-	    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	  }
-	  
-	  return new ResponseEntity<>(HttpStatus.OK);
-	} // method uploadFile
+//	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+//	@ResponseBody
+//	public ResponseEntity<?> uploadFile(
+//	    @RequestParam("uploadfile") MultipartFile uploadfile) {
+//	  
+//	  try {
+//	    // Get the filename and build the local file path (be sure that the 
+//	    // application have write permissions on such directory)
+//	    String filename = uploadfile.getOriginalFilename();
+//	    String directory1 = "/uploadfile/";
+//	    String directory = application.getRealPath(directory1);
+//	    String filepath = Paths.get(directory, filename).toString();
+//	    
+//	    System.out.println("ffffffffffffffffff" + filepath);
+//	    
+//	    // Save the file locally
+//	    BufferedOutputStream stream =
+//	        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+//	    stream.write(uploadfile.getBytes());
+//	    stream.close();
+//	  }
+//	  catch (Exception e) {
+//	    System.out.println(e.getMessage());
+//	    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//	  }
+//	  
+//	  return new ResponseEntity<>(HttpStatus.OK);
+//	} // method uploadFile
+	
+	@PostMapping("/uploadFile")
+	public String upload_file( RedirectAttributes redirectAttributes, HttpServletRequest request, FileuploadForm form) throws Exception {
+		Fileupload_Table fileupload = new Fileupload_Table();
+		fileupload.setCnum(form.getCnum());
+		fileupload.setUnum(form.getUnum());
+		
+		SimpleDateFormat nowTimes = new SimpleDateFormat("HH:mm:ss");
+		Calendar now = Calendar.getInstance();
+		String time = nowTimes.format(now.getTime());	
+		fileupload.setTime(time);
+		
+		Optional<User> unum = userService.findByNum(form.getUnum());
+		System.out.println("1111111111111111" + unum);
+		fileupload.setUname(unum.get().getUname());
+	
+		MultipartFile files = form.getFileupload();
+		String originalfilename = files.getOriginalFilename();
+		String originalfilenameExtension = FilenameUtils.getExtension(originalfilename).toLowerCase();
+		File destinationfile;
+		String destinationfilename;
+		String fileurl = "/uploadfile/";
+		String savePath = application.getRealPath(fileurl);
+		
+		do {
+			destinationfilename = RandomStringUtils.randomAlphabetic(32) + "." + originalfilenameExtension;
+			destinationfile = new File(savePath, destinationfilename);
+		}while(destinationfile.exists());
+		
+		try {
+			files.transferTo(destinationfile);
+		}catch(IOException e) {
+			
+		}
+		
+		fileupload.setFilename(destinationfilename);
+		fileupload.setOriginal_filename(originalfilename);
+		fileupload.setFile_url(savePath);
+		
+		chatService.fileuploadjoin(fileupload);
+		
+		redirectAttributes.addAttribute("cnumPK", form.getCnum());
+		return "redirect:chat";
+	}
 	
 	@RequestMapping("/chatexit")
 	public String exitbtn(HttpServletRequest request, @RequestParam("cnumPK") int cnumPK) throws IOException {
