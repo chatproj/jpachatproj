@@ -1,8 +1,11 @@
 package com.example.chatproj.chatproj.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +21,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -433,6 +437,33 @@ public class controller {
 		
 		return "chat";
 	}
+	
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<?> uploadFile(
+	    @RequestParam("uploadfile") MultipartFile uploadfile) {
+	  
+	  try {
+	    // Get the filename and build the local file path (be sure that the 
+	    // application have write permissions on such directory)
+	    String filename = uploadfile.getOriginalFilename();
+	    String directory1 = "/uploadfile/";
+	    String directory = application.getRealPath(directory1);
+	    String filepath = Paths.get(directory, filename).toString();
+	    
+	    // Save the file locally
+	    BufferedOutputStream stream =
+	        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+	    stream.write(uploadfile.getBytes());
+	    stream.close();
+	  }
+	  catch (Exception e) {
+	    System.out.println(e.getMessage());
+	    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	  }
+	  
+	  return new ResponseEntity<>(HttpStatus.OK);
+	} // method uploadFile
 	
 	@RequestMapping("/chatexit")
 	public String exitbtn(HttpServletRequest request, @RequestParam("cnumPK") int cnumPK) throws IOException {
