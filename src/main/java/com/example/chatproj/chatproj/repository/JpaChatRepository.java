@@ -9,6 +9,7 @@ import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.Fileupload_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
+import com.example.chatproj.chatproj.domain.User_Profileimg;
 
 public class JpaChatRepository implements ChatRepository{
 	
@@ -106,5 +107,12 @@ public class JpaChatRepository implements ChatRepository{
 	public Fileupload_Table uploadfile(Fileupload_Table file_save){
 		em.persist(file_save);
 		return file_save;		
+	}
+
+	@Override
+	public List<Fileupload_Table> downloadfile(int downloadfile) {
+		List<Fileupload_Table> result = em.createQuery("select m from Fileupload_Table m where m.cnum = :downloadfile", Fileupload_Table.class)
+				.setParameter("downloadfile", downloadfile).getResultList();
+		return result;
 	}
 }

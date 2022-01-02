@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -24,10 +26,15 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -62,11 +69,6 @@ public class controller {
 	public controller(UserService userService, ChatService chatService) {
 		this.userService = userService;
 		this.chatService = chatService;
-	}
-	
-	@RequestMapping("/2")
-	public String test() {
-		return "2";
 	}
 	
 	// 메인페이지
@@ -535,6 +537,17 @@ public class controller {
 		}
 		
 		return "redirect:chatList";
+	}
+	
+	@RequestMapping("/2")
+	public String filedowntest() {
+		List<Fileupload_Table> fileinfo = chatService.getfileinfo(2);
+		
+		for(int i=0; i<fileinfo.size(); i++) {
+			System.out.println("ffffffffff " + fileinfo.get(i).getOriginal_filename());
+		}
+		
+		return "2";
 	}
 	
 }

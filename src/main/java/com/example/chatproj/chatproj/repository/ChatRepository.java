@@ -23,4 +23,5 @@ public interface ChatRepository {
 	void exitUser(int cnumPK, int sessionNum);
 	void deleteChatRoom(int cnumPK);
 	Fileupload_Table uploadfile(Fileupload_Table fileinfo);
+	List<Fileupload_Table> downloadfile(int downloadfile);
 }
