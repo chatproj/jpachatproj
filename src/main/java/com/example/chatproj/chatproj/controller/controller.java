@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -20,14 +22,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -62,11 +72,6 @@ public class controller {
 	public controller(UserService userService, ChatService chatService) {
 		this.userService = userService;
 		this.chatService = chatService;
-	}
-	
-	@RequestMapping("/2")
-	public String test() {
-		return "2";
 	}
 	
 	// 메인페이지
@@ -536,6 +541,63 @@ public class controller {
 		
 		return "redirect:chatList";
 	}
+	
+	@RequestMapping("/2")
+	public String filedowntest(Model model) {
+		List<Fileupload_Table> fileinfo = chatService.getfileinfo(2);
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		for(int i=0; i<fileinfo.size(); i++) {
+			System.out.println("ffffffffff " + fileinfo.get(i).getOriginal_filename());
+			map.put(fileinfo.get(i).getFilename(), fileinfo.get(i).getOriginal_filename());
+		}
+		
+		model.addAttribute("filelist", map);
+		
+		return "2";
+	}
+	
+//	@GetMapping("/download")
+//	public void download(HttpServletResponse response) throws IOException {
+//		String path1 = "/uploadfile/";
+//		String path = application.getRealPath(path1);
+//		
+//		byte[] fileByte = FileUtils.readFileToByteArray(new File(path));
+//		
+//	    response.setContentType("application/octet-stream");
+//	    response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode("tistory.png", "UTF-8")+"\";");
+//	    response.setHeader("Content-Transfer-Encoding", "binary");
+//
+//	    response.getOutputStream().write(fileByte);
+//	    response.getOutputStream().flush();
+//	    response.getOutputStream().close();
+//	}
+	
+    @GetMapping(value = "/download")
+    public ResponseEntity<Object> download(HttpServletRequest request) throws IOException {
+    	String fileName = request.getParameter("fileparam");
+    	System.out.println("dddddddddddd" + fileName);
+    	
+    	String path1 = "/uploadfile/";
+    	String path = application.getRealPath(path1) + fileName;
+    	
+    	System.out.println("pppppppppppp" + path);
+		try {
+			Path filePath = Paths.get(path);
+			Resource resource = new InputStreamResource(Files.newInputStream(filePath)); // 파일 resource 얻기
+			
+			File file = new File(path);
+			
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());  // 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
+			
+			return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+		}
+
+    }
 	
 }
 

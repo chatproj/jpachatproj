@@ -79,6 +79,11 @@ public class ChatService {
 			chatRepository.uploadfile(fileinfo);
 			return null;	
 		}
+		
+		public List<Fileupload_Table> getfileinfo(int getfileinfo) {
+			List<Fileupload_Table> result = chatRepository.downloadfile(getfileinfo);
+			return result;
+		}
 
 		
 }

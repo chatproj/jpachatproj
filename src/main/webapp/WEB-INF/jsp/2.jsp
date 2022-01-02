@@ -4,275 +4,32 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.example.chatproj.chatproj.domain.Chatlog_Table"%>
 <%@page import="javax.servlet.http.HttpSession"%>
+<%@page import="java.util.HashMap"%>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- css file -->
-<%@ include file="./common/title.jsp"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파일 다운로드</title>
 </head>
 <body>
-	<!-- Header -->
-	<%@ include file="./common/header.jsp"%>
-	<div id="main_container1">
-		<div class="form_container1">
-			<div class="form1">
-				<%
-				// session
-				int sessionNum = (Integer) request.getAttribute("sessionNum");
-				String sessionName = (String) request.getAttribute("sessionName");
-				String cname = (String) request.getAttribute("cname");
-				String userimg = (String) request.getAttribute("userimg");
-				
-				request.setCharacterEncoding("UTF-8");
-				int cnumPK = (int) request.getAttribute("cnumPK");
-				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
-				%>
-				<div class="chatheader">
-					<div class="chatroom_name"><%=cname %></div>
-					<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
-				</div>
-				<div id="chatform" class="chatform">
-  					<% for(int i=0; i<chatlog.size(); i++){ %>
-						<div>
-					<% 	
-						if(chatlog.get(i).getUnum() == sessionNum){
-					%>
-							<div class="myLog">
-								<div class="myprofile">
-									<div class="myname"><%=chatlog.get(i).getUname() %></div>
-								<div class="myimg"><img class="img_inner" src='userimg/<%=chatlog.get(i).getFilename() %>'></div>
-									
-								</div>
-								<div class="mymsg"><%=chatlog.get(i).getLog() %></div>
-								<div class="mytime">time : <<%=chatlog.get(i).getTime() %>></div>
-							</div>
-					<% 
-						}else{
-					%>	
-							<div class="yourLog">
-								<div class="yourprofile">
-									<div class="yourimg"><img class="img_inner" src='userimg/<%=chatlog.get(i).getFilename() %>'></div>
-									<div class="yourname"><%=chatlog.get(i).getUname() %></div>
-								</div>
-								<div class="yourmsg"><%=chatlog.get(i).getLog() %></div>
-								<div class="yourtime">time : <<%=chatlog.get(i).getTime() %>></div>
-							</div>
-					<% 
-						}
-					%>
-						</div>	
-					<% } %>				
-				
-				</div>
-				<div id="yourMsg" class="yourMsg">
-					<table class="inputTable">
-						<tr>
-							<form id="upload-file-form">
-							<input type="text" id="text" value="111">
-							<th><input id="uploadbtn" class="uploadbtn" type="file" name="uploadfile" accept="*" /></th>
-							<th><button type="button" id="sendBtn" class="sendBtn" onclick="uploadFile();">업로드</button></th>
-							</form>
-						</tr>
-						<tr>
-							<th><input id="chatting" class="chatting"  placeholder="보내실 메시지를 입력하세요."></th>
-							<th><button onclick="send()" id="sendBtn" class="sendBtn">보내기</button></th>
-						</tr>
-					</table>
-				</div>
-				
-			</div>
-		</div>
-	</div>
+			<%
+				request.setCharacterEncoding("UTF-8");				
+			HashMap<String, String> fileList = (HashMap<String, String>)request.getAttribute("filelist");
+			%>
+<%-- 	<% for(int i=0; i<fileList.size(); i++){ %>
+    <a href="http://localhost:8080/download/<%=fileList.get(i) %>"><%=fileList.get(i) %></a>
+    <% } %> --%>
+    
+    <form method="GET" action="/download">
+	<% for(String key : fileList.keySet()){ %>
+		<div class="chatList">
+<%--  			<a name="fileparam" href="http://localhost:8080/download/<%=key %>"><%=fileList.get(key) %></a>  --%>
+  			<input type="submit" id="list" name="fileparam" value="<%=key %>" class="submit_btn">
+		</div>	
+	<% } %>
+	</form>
 </body>
 
-<script type="text/javascript">
-	var ws;
-	var scrolldiv;
-	var scrolldiv = document.getElementById("chatform");
-	scrolldiv.scrollTop = scrolldiv.scrollHeight;
-	
-	wsOpen();
-	function wsOpen() {
-		ws = new WebSocket("ws://" + location.host + "/chating");
-		wsEvt();
-	}
-	function wsEvt() {
-		ws.onopen = function(data) {
-			//소켓이 열리면 초기화 세팅하기
-		}
-		ws.onmessage = function(data) {
-			var msg = data.data;
-			console.log(msg);
-			
-			var msgarr = msg.split(",");
-			console.log(msgarr[0]);
-			console.log(msgarr[1]);
-			console.log(msgarr[2]);
-			console.log(msgarr[3]);
-			console.log(msgarr[4]);
-			
-			if( msgarr[0] == <%=sessionNum %> ){
-				var msgTemp = "<div>"
-					msgTemp = "<div class='myLog'>"
-					msgTemp += "<div class='myprofile'>"
-					msgTemp += "<div class='myname'>"
-					msgTemp += msgarr[1];
-					msgTemp += "</div>"
-					msgTemp += "<div class='myimg'>"
-					msgTemp += msgarr[3];
-					msgTemp += "</div>"
-					msgTemp += "</div>"
-					msgTemp += "<div class='mymsg'>"
-					msgTemp += msgarr[2];
-					msgTemp += "</div>"
-					msgTemp += "<div class='mytime'>"
-					msgTemp += "time : <"
-					msgTemp += msgarr[4];
-					msgTemp += ">"
-					msgTemp += "</div>"
-					msgTemp += "</div>"				
-				$("#chatform").append(msgTemp);
-
-			}else{
-				var msgTemp = "<div>"
-					msgTemp = "<div class='yourLog'>"
-					msgTemp += "<div class='yourprofile'>"
-					msgTemp += "<div class='yourimg'>"
-					msgTemp += msgarr[3];
-					msgTemp += "</div>"
-					msgTemp += "<div class='yourname'>"
-					msgTemp += msgarr[1];
-					msgTemp += "</div>"
-					msgTemp += "</div>"
-					msgTemp += "<div class='yourmsg'>"
-					msgTemp += msgarr[2];
-					msgTemp += "</div>"
-					msgTemp += "<div class='yourtime'>"
-					msgTemp += "time : <"
-					msgTemp += msgarr[4];
-					msgTemp += ">"
-					msgTemp += "</div>"
-					msgTemp += "</div>"						
-					$("#chatform").append(msgTemp);	
-			}
-			
-			var scrolldiv = document.getElementById("chatform");
-			scrolldiv.scrollTop = scrolldiv.scrollHeight;
-			
-		}
-		document.addEventListener("keypress", function(e) {
-			if (e.keyCode == 13) { //enter press
-				send();
-			}
-		});
-	}
-	function send() {
-		var uN = "<%=sessionNum %>";
-		var uName = "<%=sessionName %>";
-		var msg = $("#chatting").val();
-		var img = "<img class='img_inner' src='/userimg/${userimg}'>";
-		
-		// 날짜시간
-		var today = new Date();
-		var hours = today.getHours();
-		var minutes = today.getMinutes();
-		var seconds = today.getSeconds();
-		
-		var nowtimes = hours+":"+minutes+":"+seconds;
-		
-		ws.send(uN+","+uName+","+msg+","+img+","+nowtimes);
-		// controller로 메시지 넘기기
-		AjaxToController(<%=cnumPK %>,msg, nowtimes);
-		$('#chatting').val("");
-	}
-	
-	function AjaxToController(getPkObj, getMsgObj, getNowTimeObj){		
-		$.ajax({
-			type: 'POST',
-			url: "/chat",
-			data: {
-				cnumPK: getPkObj,
-				msg: getMsgObj,
-				nowtime: getNowTimeObj
-			},
-			success: function(data){
-				
-			},
-			error: function(data){
-				console.log("no", data);
-			}
-		});
-	}
-	
-	function cnumtocontroller(){
-		var cnumPK = "<%=cnumPK %>";
-		console.log(cnumPK);
-		AjaxCnumtoController(cnumPK);
-		window.location.href="/chatList";
-	}
-	
-	function AjaxCnumtoController(cnumPK){
- 		$.ajax({
-			type: 'POST',
-			url: "/chatexit",
-			data: {
-				cnumPK: cnumPK
-			},
-			success: function(data){
-				
-			},
-			error: function(data){
-				console.log("no", data);
-			}
-		}); 		
-	}
-	
-	function uploadFile() {
-		var cnumPK = "<%=cnumPK %>";
-		var uploadfile1 = new FormData($("#upload-file-form")[0]);
-
-		AjaxUploadFile(uploadfile1);
-	}
-	
-	function AjaxUploadInform(cnumPK){
- 		$.ajax({
-			type: 'POST',
-			url: "/uploadFile",
-			data: {
-				cnumPK: cnumPK
-			},
-			success: function(data){
-				
-			},
-			error: function(data){
-				console.log("no", data);
-			}
-		}); 		
-	}
-
-	
-	function AjaxUploadFile(uploadfile1){
-		$.ajax({
-		    url: "/uploadFile",
-		    type: "POST",
-		    data: uploadfile1,
-		    enctype: 'multipart/form-data',
-		    processData: false,
-		    contentType: false,
-		    cache: false,
-		    success: function () {
-		      // Handle upload success
-		      // ...
-		    },
-		    error: function () {
-		      // Handle upload error
-		      // ...
-		    }
-		  });
-	}
-
-
-</script>
 </html>
