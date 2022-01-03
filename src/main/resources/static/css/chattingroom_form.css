@@ -35,9 +35,25 @@
 	justify-content: space-between;
 }
 
+.chatheader .filelistbtn {
+    margin-left: 15px;
+	background: #e1e1e1;
+	color: #4a6363;
+	border: none;	
+	border-radius: 10px;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.chatheader .filelistbtn:hover {
+	border-radius: 10px;
+	outline: none;
+	background: #8bbbbd;
+}
+
 .chatheader .chatroom_name {
 	margin-top: 5px;
-	margin-left:45px;
+
 }
 
 .chatheader .exitbtn {
