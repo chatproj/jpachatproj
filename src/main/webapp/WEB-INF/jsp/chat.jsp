@@ -30,6 +30,7 @@
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
 				%>
 				<div class="chatheader">
+					<button id="filelistbtn" class="filelistbtn"onclick="window.open('/2', 'file_list', 'resizable=no,width=500,height=300,location=no,status=no,scrollbars=yes');">파일</button>
 					<div class="chatroom_name"><%=cname %></div>
 					<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
 				</div>
@@ -70,8 +71,8 @@
 					<table class="inputTable">
 						<tr>
 							<form method="POST" action="/uploadFile" enctype="multipart/form-data">
-								<input type="text" id="text" name="cnum" value="<%=cnumPK %>">
-								<input type="text" id="text" name="unum" value="<%=sessionNum %>">
+								<input type="hidden" id="text" name="cnum" value="<%=cnumPK %>">
+								<input type="hidden" id="text" name="unum" value="<%=sessionNum %>">
 								<th><input id="uploadbtn" class="uploadbtn" type="file" name="fileupload" accept="*" /></th>
 								<th><button type="submit" id="sendBtn" class="sendBtn">업로드</button></th>
 							</form>

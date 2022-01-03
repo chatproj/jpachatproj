@@ -18,6 +18,13 @@ public class Fileupload_Table {
 	private String original_filename;
 	private String file_url;
 	
+	public void fileset_All(String uname, String filename, String original_filename, String time) {
+		this.uname = uname;
+		this.filename = filename;
+		this.original_filename = original_filename;
+		this.time = time;
+	}
+	
 	public int getCnum() {
 		return cnum;
 	}

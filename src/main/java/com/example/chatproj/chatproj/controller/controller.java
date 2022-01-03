@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -546,15 +547,28 @@ public class controller {
 	public String filedowntest(Model model) {
 		List<Fileupload_Table> fileinfo = chatService.getfileinfo(2);
 		
-		HashMap<String, String> map = new HashMap<String, String>();
+		ArrayList<String> map1 = new ArrayList<>();
 		
 		for(int i=0; i<fileinfo.size(); i++) {
-			System.out.println("ffffffffff " + fileinfo.get(i).getOriginal_filename());
-			map.put(fileinfo.get(i).getFilename(), fileinfo.get(i).getOriginal_filename());
+			map1.add(fileinfo.get(i).getUname() + ","
+					+ fileinfo.get(i).getFilename() + ","
+					+ fileinfo.get(i).getOriginal_filename() + "," 
+					+ fileinfo.get(i).getTime() + "/");
 		}
+		
+		String map = String.join("", map1);
 		
 		model.addAttribute("filelist", map);
 		
+//		HashMap<String, String> map = new HashMap<String, String>();
+//		
+//		for(int i=0; i<fileinfo.size(); i++) {
+//			System.out.println("ffffffffff " + fileinfo.get(i).getOriginal_filename());
+//			map.put(fileinfo.get(i).getFilename(), fileinfo.get(i).getOriginal_filename());
+//		}
+//		
+//		model.addAttribute("filelist", map);
+//		
 		return "2";
 	}
 	
