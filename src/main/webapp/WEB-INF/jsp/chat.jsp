@@ -30,7 +30,23 @@
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
 				%>
 				<div class="chatheader">
-					<button id="filelistbtn" class="filelistbtn"onclick="window.open('/2', 'file_list', 'resizable=no,width=500,height=300,location=no,status=no,scrollbars=yes');">파일</button>
+				
+					<!--<button id="filelistbtn" class="filelistbtn"onclick="window.open('/2', 'file_list', 'resizable=no,width=500,height=300,location=no,status=no,scrollbars=yes');">파일</button>-->
+					<button id="filelistbtn" onclick="openfilelist()">파일</button>
+					<dialog id="downloadFile">
+						<form method="dialog">
+							<label>파일 선택</label>
+							<select>
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+							</select>
+							<menu>
+								<button value="cancel">나가기</button>
+							</menu>
+						</form>
+					</dialog>
+					
 					<div class="chatroom_name"><%=cname %></div>
 					<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
 				</div>
@@ -229,6 +245,17 @@
 				console.log("no", data);
 			}
 		}); 		
+	}
+	
+	
+	var filelistbtn = document.getElementById('filelistbtn');
+	var downloadFile = document.getElementById('downloadFile');
+	function openfilelist(){
+		if (typeof downloadFile.showModal === "function") {
+			downloadFile.showModal();
+			} else {
+				alert("The <dialog> API is not supported by this browser");
+		  }
 	}
 
 </script>
