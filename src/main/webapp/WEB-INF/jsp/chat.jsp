@@ -28,28 +28,70 @@
 				request.setCharacterEncoding("UTF-8");
 				int cnumPK = (int) request.getAttribute("cnumPK");
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
+				
+				// filelist
+				String fileList1 = (String) request.getAttribute("filelist");
+
+				String[] fileList = fileList1.split("/");
+				
+				ArrayList<String> uname = new ArrayList<String>();
+				ArrayList<String> filename = new ArrayList<String>();
+				ArrayList<String> original_filename = new ArrayList<String>();
+				ArrayList<String> time = new ArrayList<String>();
+				
+				for(String list : fileList){
+					uname.add(list.toString().split(",")[0]);
+					filename.add(list.toString().split(",")[1]);
+					original_filename.add(list.toString().split(",")[2]);
+					time.add(list.toString().split(",")[3]);
+				}
+				
 				%>
 				<div class="chatheader">
 				
 					<!--<button id="filelistbtn" class="filelistbtn"onclick="window.open('/2', 'file_list', 'resizable=no,width=500,height=300,location=no,status=no,scrollbars=yes');">파일</button>-->
-					<button id="filelistbtn" onclick="openfilelist()">파일</button>
-					<dialog id="downloadFile">
-						<form method="dialog">
-							<label>파일 선택</label>
-							<select>
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-							</select>
-							<menu>
-								<button value="cancel">나가기</button>
-							</menu>
-						</form>
-					</dialog>
-					
+					<button id="filelistbtn" class="filelistbtn" onclick="openfilelist()">파일</button>
 					<div class="chatroom_name"><%=cname %></div>
 					<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
+					
+					<dialog id="downloadFile" class="downloadFile">
+						<form method="dialog">
+  						  		<table id="filelist_table" class="filelist_table">
+  						  		<tr>
+  						  			<th class="filelist_table_header_close" colspan="3"><button value="cancel">X</button></th>
+  						  		</tr>
+  						  		<tr>
+									<th class="filelist_table_header">파일명</th>
+									<th class="filelist_table_header">등록자</th>
+									<th class="filelist_table_header">시간</th>
+								</tr>
+								  	<% for(int i=0; i<fileList.length; i++) { %>
+										<tr class="second_fileblock">
+											<td class="originalfilename"><%=original_filename.get(i) %></td>
+											<td class="fileusername"><%=uname.get(i) %></td>
+										    <form method="POST" action="/download">
+												<input type="hidden" name="filename" value="<%=filename.get(i) %>">
+											    <td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>	
+											</form>
+										</tr>
+									<% } %>
+								</table>
+						</form>
+					<div>dd</div>
+							<div>dd</div>
+							<div>dd</div>
+							<div>dd</div>
+							<div>dd</div>
+							<div>dd</div>
+							<div>dd</div>
+							<div>dd</div>
+							<div>dd</div>
+							<div>dd</div>
+						
+					</dialog>
+					
 				</div>
+				
 				<div id="chatform" class="chatform">
   					<% for(int i=0; i<chatlog.size(); i++){ %>
 						<div>

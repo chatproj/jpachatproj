@@ -51,6 +51,39 @@
 	background: #8bbbbd;
 }
 
+.chatheader .downloadFile {
+	width: 500px;
+	height: 300px;
+}
+
+.downloadFile .filelist_table {
+	width: 480px;
+	border: 1px solid black;
+}
+
+.filelist_table .filelist_table_header_close {
+	position: sticky;
+	top: 0px;
+	background-color: lightgray;
+	text-align: left;
+}
+
+.filelist_table .filelist_table_header {
+	position: sticky;
+	top: 23px;
+	background-color: lightgray;
+	padding: 10px;
+	font-weight: bold;
+	border: 1px solid black;
+}
+
+.filelist_table td {
+	text-align: center;
+	padding: 10px;
+	border: 1px solid black;
+}
+
+
 .chatheader .chatroom_name {
 	margin-top: 5px;
 
