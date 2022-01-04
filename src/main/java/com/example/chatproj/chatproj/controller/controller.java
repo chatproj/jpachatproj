@@ -445,6 +445,24 @@ public class controller {
 			
 		}
 		
+		//filelist
+		List<Fileupload_Table> fileinfo = chatService.getfileinfo(2);
+		System.out.println("ddddddddddddddddd" + fileinfo);
+			
+			ArrayList<String> map1 = new ArrayList<>();
+			
+			for(int i=0; i<fileinfo.size(); i++) {
+				map1.add(fileinfo.get(i).getUname() + ","
+						+ fileinfo.get(i).getFilename() + ","
+						+ fileinfo.get(i).getOriginal_filename() + "," 
+						+ fileinfo.get(i).getTime() + "/");
+			}
+			
+			String map = String.join("", map1);
+			
+			model.addAttribute("filelist", map);
+		
+		
 		return "chat";
 	}
 	
@@ -588,9 +606,9 @@ public class controller {
 //	    response.getOutputStream().close();
 //	}
 	
-    @GetMapping(value = "/download")
-    public ResponseEntity<Object> download(HttpServletRequest request) throws IOException {
-    	String fileName = request.getParameter("fileparam");
+    @PostMapping(value = "/download")
+    public ResponseEntity<Object> download(FileuploadForm2 form, HttpServletRequest request) throws IOException {
+    	String fileName = form.getFilename();
     	System.out.println("dddddddddddd" + fileName);
     	
     	String path1 = "/uploadfile/";
