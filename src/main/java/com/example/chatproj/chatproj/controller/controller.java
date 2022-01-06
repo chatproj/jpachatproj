@@ -500,7 +500,7 @@ public class controller {
 		fileupload.setCnum(form.getCnum());
 		fileupload.setUnum(form.getUnum());
 		
-		SimpleDateFormat nowTimes = new SimpleDateFormat("yyyy-mm-dd/HH:mm");
+		SimpleDateFormat nowTimes = new SimpleDateFormat("yyyy-mm-dd_HH:mm");
 		Calendar now = Calendar.getInstance();
 		String time = nowTimes.format(now.getTime());	
 		fileupload.setTime(time);
