@@ -446,8 +446,7 @@ public class controller {
 		}
 		
 		//filelist
-		List<Fileupload_Table> fileinfo = chatService.getfileinfo(2);
-		System.out.println("ddddddddddddddddd" + fileinfo);
+		List<Fileupload_Table> fileinfo = chatService.getfileinfo(cnumPK);
 			
 			ArrayList<String> map1 = new ArrayList<>();
 			
@@ -501,13 +500,12 @@ public class controller {
 		fileupload.setCnum(form.getCnum());
 		fileupload.setUnum(form.getUnum());
 		
-		SimpleDateFormat nowTimes = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat nowTimes = new SimpleDateFormat("yyyy-mm-dd/HH:mm");
 		Calendar now = Calendar.getInstance();
 		String time = nowTimes.format(now.getTime());	
 		fileupload.setTime(time);
 		
 		Optional<User> unum = userService.findByNum(form.getUnum());
-		System.out.println("1111111111111111" + unum);
 		fileupload.setUname(unum.get().getUname());
 	
 		MultipartFile files = form.getFileupload();
