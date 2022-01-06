@@ -58,36 +58,32 @@
 						<form method="dialog">
   						  		<table id="filelist_table" class="filelist_table">
   						  		<tr>
-  						  			<th class="filelist_table_header_close" colspan="3"><button value="cancel">X</button></th>
+  						  			<th class="filelist_table_header_close" colspan="4"><button value="cancel">X</button></th>
   						  		</tr>
   						  		<tr>
 									<th class="filelist_table_header">파일명</th>
 									<th class="filelist_table_header">등록자</th>
 									<th class="filelist_table_header">시간</th>
+									<th class="filelist_table_header"></th>
 								</tr>
 								  	<% for(int i=0; i<fileList.length; i++) { %>
 										<tr class="second_fileblock">
 											<td class="originalfilename"><%=original_filename.get(i) %></td>
 											<td class="fileusername"><%=uname.get(i) %></td>
+											<td class="fileuploadtime"><%=time.get(i) %></td>
 										    <form method="POST" action="/download">
 												<input type="hidden" name="filename" value="<%=filename.get(i) %>">
-											    <td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>	
+											     <!--<td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>-->
+											     <td><input type="checkbox" name="color" value="blue"></td>
 											</form>
 										</tr>
 									<% } %>
 								</table>
-						</form>
-					<div>dd</div>
-							<div>dd</div>
-							<div>dd</div>
-							<div>dd</div>
-							<div>dd</div>
-							<div>dd</div>
-							<div>dd</div>
-							<div>dd</div>
-							<div>dd</div>
-							<div>dd</div>
-						
+								<div class="dialogbtn">
+									<input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn">
+									<input type="button" class="outbtn" id="outbtn" value="cancel">
+								</div>
+						</form>						
 					</dialog>
 					
 				</div>
