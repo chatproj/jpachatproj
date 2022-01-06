@@ -58,7 +58,6 @@
 
 .downloadFile .filelist_table {
 	width: 480px;
-	border: 1px solid black;
 	font-size: 7px;
 }
 
@@ -66,7 +65,7 @@
 	position: sticky;
 	top: 0px;
 	background-color: lightgray;
-	border: 1px solid black;
+	border-bottom: 1px solid black;
 	text-align: right;
 }
 
@@ -76,35 +75,18 @@
 	background-color: lightgray;
 	padding: 5px;
 	font-weight: bold;
-	border: 1px solid black;
+	border-bottom: 1px solid black;
 }
 
 .filelist_table td {
 	text-align: center;
 	padding: 5px;
-	border: 1px solid black;
+	border-bottom: 1px solid black;
 }
 
-.downloadFile .dialogbtn {
-	position: sticky;
-	width: 100%;
-	height:30px;
-	float: left;
-}
-
-.dialogbtn .downloadbtn {
+.downloadFile .downloadbtn {
 	background: #e1e1e1;
 	color: #4a6363;
-	width: 239px;
-	height: 100%;
-	font-weight: bold;
-}
-
-.dialogbtn .outbtn {
-	background: #ff0000;
-	color: white;
-	width: 239px;
-	height: 100%;
 	font-weight: bold;
 }
 

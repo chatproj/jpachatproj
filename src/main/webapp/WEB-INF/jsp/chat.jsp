@@ -73,16 +73,11 @@
 											<td class="fileuploadtime"><%=time.get(i) %></td>
 										    <form method="POST" action="/download">
 												<input type="hidden" name="filename" value="<%=filename.get(i) %>">
-											     <!--<td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>-->
-											     <td><input type="checkbox" name="color" value="blue"></td>
+											     <td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>
 											</form>
 										</tr>
 									<% } %>
 								</table>
-								<div class="dialogbtn">
-									<input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn">
-									<input type="button" class="outbtn" id="outbtn" value="cancel">
-								</div>
 						</form>						
 					</dialog>
 					
