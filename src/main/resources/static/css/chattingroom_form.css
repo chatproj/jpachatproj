@@ -244,7 +244,7 @@ border-top:0px solid transparent;
 	border: none;
 }
 
-.yourMsg .uploadbtn {
+.yourMsg .uploadinput {
 	border: 1px solid gray;
 	border-radius: 10px;
 	width: 200px;
