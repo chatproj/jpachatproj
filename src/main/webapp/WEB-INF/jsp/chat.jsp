@@ -66,7 +66,7 @@
   						  			<th class="filelist_table_header_close" colspan="4"><button value="cancel">X</button></th>
   						  		</tr>
   						  		<tr>
-									<th class="filelist_table_header">파일명</th>
+									<th class="filelist_table_header" id="filename_width">파일명</th>
 									<th class="filelist_table_header">등록자</th>
 									<th class="filelist_table_header">시간</th>
 									<th class="filelist_table_header"></th>
