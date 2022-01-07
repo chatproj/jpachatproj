@@ -131,8 +131,8 @@
 							<form method="POST" action="/uploadFile" enctype="multipart/form-data">
 								<input type="hidden" id="text" name="cnum" value="<%=cnumPK %>">
 								<input type="hidden" id="text" name="unum" value="<%=sessionNum %>">
-								<th><input id="uploadbtn" class="uploadbtn" type="file" name="fileupload" accept="*" /></th>
-								<th><button type="submit" id="sendBtn" class="sendBtn">업로드</button></th>
+								<th><input id="uploadinput" class="uploadinput" type="file" name="fileupload" accept="*" /></th>
+								<th><button onclick="upload()" type="submit" id="uploadBtn" class="sendBtn">업로드</button></th>
 							</form>
 						</tr>
 						<tr>
@@ -146,6 +146,23 @@
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+	// 업로드 파일 없을 시 응답X
+	var uploadinput = document.getElementById("uploadinput");
+	var uploadbtn = document.getElementById("uploadBtn");
+	
+	uploadbtn.disabled = true;
+	
+	uploadinput.addEventListener("change", stateHandle1);
+	function stateHandle1(){
+		if(document.querySelector("#uploadinput").value === ""){
+			uploadbtn.disabled = true;
+		}else{
+			uploadbtn.disabled = false;
+		}
+	}
+</script>
 
 <script type="text/javascript">
 	var ws;
@@ -228,11 +245,12 @@
 			}
 		});
 	}
-	function send() {
+	function send() {	
 		var uN = "<%=sessionNum %>";
 		var uName = "<%=sessionName %>";
 		var msg = $("#chatting").val();
 		var img = "<img class='img_inner' src='/userimg/${userimg}'>";
+		
 		
 		// 날짜시간
 		var today = new Date();
@@ -242,10 +260,15 @@
 		
 		var nowtimes = hours+":"+minutes+":"+seconds;
 		
-		ws.send(uN+","+uName+","+msg+","+img+","+nowtimes);
-		// controller로 메시지 넘기기
-		AjaxToController(<%=cnumPK %>,msg, nowtimes);
-		$('#chatting').val("");
+		// 채팅 공백 시 응답x
+		var chatinput = document.querySelector("#chatting");
+		
+		if(chatinput.value != ""){
+			ws.send(uN+","+uName+","+msg+","+img+","+nowtimes);
+			// controller로 메시지 넘기기
+			AjaxToController(<%=cnumPK %>,msg, nowtimes);
+			$('#chatting').val("");
+		}
 	}
 	
 	function AjaxToController(getPkObj, getMsgObj, getNowTimeObj){		
