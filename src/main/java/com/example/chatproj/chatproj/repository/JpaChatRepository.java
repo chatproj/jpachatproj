@@ -115,4 +115,11 @@ public class JpaChatRepository implements ChatRepository{
 				.setParameter("downloadfile", downloadfile).getResultList();
 		return result;
 	}
+	
+	@Override
+	public void filedelete(String filename) {
+		em.createQuery("delete from Fileupload_Table m where m.filename = :filename")
+				.setParameter("filename", filename)
+				.executeUpdate();
+	}
 }

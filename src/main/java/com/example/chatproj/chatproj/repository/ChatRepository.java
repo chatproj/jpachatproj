@@ -24,4 +24,5 @@ public interface ChatRepository {
 	void deleteChatRoom(int cnumPK);
 	Fileupload_Table uploadfile(Fileupload_Table fileinfo);
 	List<Fileupload_Table> downloadfile(int downloadfile);
+	void filedelete(String filename);
 }

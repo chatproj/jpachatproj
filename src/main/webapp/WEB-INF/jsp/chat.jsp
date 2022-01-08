@@ -81,6 +81,11 @@
 												<input type="hidden" name="filename" value="<%=filename.get(i) %>">
 											    <td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>	
 											</form>
+											<form method="POST" action="filedelete">
+												<input type="hidden" id="text" name="cnum" value="<%=cnumPK %>">
+												<input type="hidden" name="filename" value="<%=filename.get(i) %>">
+											    <td><input type="submit" id="filedeletebtn" value="삭제" class="filedeletebtn"></td>										
+											</form>
 										</tr>
 									<% } %>
 								<% }else{ %>
