@@ -84,6 +84,10 @@ public class ChatService {
 			List<Fileupload_Table> result = chatRepository.downloadfile(getfileinfo);
 			return result;
 		}
+		
+		public void filedelete(String filename) {
+			chatRepository.filedelete(filename);
+		}
 
 		
 }
