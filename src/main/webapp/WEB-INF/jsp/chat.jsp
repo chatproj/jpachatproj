@@ -28,7 +28,7 @@
 				request.setCharacterEncoding("UTF-8");
 				int cnumPK = (int) request.getAttribute("cnumPK");
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
-				
+				1
 				// filelist
 				String fileList1 = (String) request.getAttribute("filelist");
 
