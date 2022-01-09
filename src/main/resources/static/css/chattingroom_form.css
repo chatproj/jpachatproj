@@ -51,12 +51,6 @@
 	transform: translateX(-85%);
 }
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> master
 .chatheader .filelistbtn {
 	width: 60px;
     margin-left: 10px;
@@ -122,18 +116,15 @@
 .chatheader .chatroom_name {
 	margin-top: 5px;
 	margin-left: 30px;
-<<<<<<< HEAD
 }
 
 .chatheader .exitbtn {
     width: 60px;
-=======
 
 }
 
 .chatheader .exitbtn {
 	width: 60px;
->>>>>>> master
 	margin-left: 5px;
 	background: red;
 	border: none;	
