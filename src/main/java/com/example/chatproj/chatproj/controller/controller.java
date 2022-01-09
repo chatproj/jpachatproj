@@ -495,7 +495,7 @@ public class controller {
 //	} // method uploadFile
 	
 	@PostMapping("/uploadFile")
-	public String upload_file( RedirectAttributes redirectAttributes, HttpServletRequest request, FileuploadForm form) throws Exception {
+	public String upload_file(RedirectAttributes redirectAttributes, HttpServletRequest request, FileuploadForm form) throws Exception {
 		Fileupload_Table fileupload = new Fileupload_Table();
 		fileupload.setCnum(form.getCnum());
 		fileupload.setUnum(form.getUnum());
@@ -609,8 +609,8 @@ public class controller {
     	String fileName = form.getFilename();
     	System.out.println("dddddddddddd" + fileName);
     	
-    	String path1 = "/uploadfile/";
-    	String path = application.getRealPath(path1) + fileName;
+    	String fileurl = "/uploadfile/";
+    	String path = application.getRealPath(fileurl) + fileName;
     	
     	System.out.println("pppppppppppp" + path);
 		try {
@@ -627,6 +627,24 @@ public class controller {
 			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
 		}
 
+    }
+    
+    @PostMapping(value="/filedelete")
+    public String delete_file(RedirectAttributes redirectAttributes, FileuploadForm2 form) {
+    	int cnumPK = form.getCnum();
+    	String fileName = form.getFilename();
+    	
+    	chatService.filedelete(fileName);
+    	
+    	// 파일 삭제
+		String fileurl = "/uploadfile/";
+		String deletefilepath = application.getRealPath(fileurl) + fileName;
+		
+		File file = new File(deletefilepath);		
+		file.delete();
+
+    	redirectAttributes.addAttribute("cnumPK", cnumPK);
+    	return "redirect:chat";
     }
 	
 }
