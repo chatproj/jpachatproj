@@ -55,10 +55,14 @@
 				%>
 				<div class="chatheader">
 				
-					<!--<button id="filelistbtn" class="filelistbtn"onclick="window.open('/2', 'file_list', 'resizable=no,width=500,height=300,location=no,status=no,scrollbars=yes');">파일</button>-->
-					<button id="filelistbtn" class="filelistbtn" onclick="openfilelist()">파일</button>
-					<div class="chatroom_name"><%=cname %></div>
-					<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
+				<div class="chatroom_name"><%=cname %></div>
+
+					<div id="menu_btn" class="menu_btn">메뉴
+						<div id="slideToggle" class="slideToggle">
+							<button id="filelistbtn" class="filelistbtn" onclick="openfilelist()">파일</button>
+							<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
+						</div>
+					</div>
 					
 					<dialog id="downloadFile" class="downloadFile">
   						  		<table id="filelist_table" class="filelist_table">
@@ -151,6 +155,14 @@
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#menu_btn').click(function(){
+			$('#slideToggle').animate({width: 'toggle'}, 350);		
+		})
+	})
+</script>
 
 <script type="text/javascript">
 	// 업로드 파일 없을 시 응답X

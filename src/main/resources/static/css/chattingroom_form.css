@@ -35,8 +35,25 @@
 	justify-content: space-between;
 }
 
+.form1 .menu_btn {
+	cursor: pointer;
+	margin-top: 5px;
+	margin-right: 20px;
+}
+
+.menu_btn .slideToggle {
+	width: 150px;
+	height: 300px;
+	background-color: beige;
+	z-index: 1;
+	position: absolute;
+	display: none;
+	transform: translateX(-85%);
+}
+
 .chatheader .filelistbtn {
-    margin-left: 15px;
+	width: 60px;
+    margin-left: 10px;
 	background: #e1e1e1;
 	color: #4a6363;
 	border: none;	
@@ -98,11 +115,12 @@
 
 .chatheader .chatroom_name {
 	margin-top: 5px;
-
+	margin-left: 30px;
 }
 
 .chatheader .exitbtn {
-    margin-right: 25px;
+    width: 60px;
+	margin-left: 5px;
 	background: red;
 	border: none;	
 	border-radius: 10px;
