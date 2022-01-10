@@ -216,6 +216,32 @@ public class controller {
 		
 	}
 	
+	// 회원탈퇴
+	@PostMapping("/deleteuser")
+	public String deleteuser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		String sessionName = (String)session.getAttribute("sessionId");
+		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
+		int sessionNum = getSessionName.get().getUnum();
+		
+//    	// 파일 삭제
+//		Optional<User_Profileimg> delprofileimg = userService.deleteprofileimg(sessionNum);
+//		String fileName = delprofileimg.get().getFilename();
+//		
+//		String fileurl = "/userimg/";
+//		String deletefilepath = application.getRealPath(fileurl) + fileName;
+//		
+//		File file = new File(deletefilepath);		
+//		file.delete();
+				
+		//userdel
+		userService.deleteuser(sessionNum);
+			
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 	// 유저 처리 페이지
 	@RequestMapping("/userprocess")
 	public String uesrprocess(@RequestParam("redirectprocess") String redirectprocess) {
