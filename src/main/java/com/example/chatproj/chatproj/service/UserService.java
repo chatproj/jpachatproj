@@ -63,6 +63,17 @@ public class UserService {
 		return result;
 	}
 	
+	// 프로필 이미지 삭제
+	public Optional<User_Profileimg> deleteprofileimg(int sessionNum) {
+		Optional<User_Profileimg> result = userRepository.deleteprofileimg(sessionNum);
+		return result;
+	}
+	
+	// 회원탈퇴
+	public void deleteuser(int sessionNum) {
+		userRepository.deleteuser(sessionNum);
+	}
+	
 	// 로그인
 	public String login(User user) {
 		String uid = user.getUid();

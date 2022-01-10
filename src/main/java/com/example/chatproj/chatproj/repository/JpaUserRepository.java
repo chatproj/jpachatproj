@@ -69,12 +69,28 @@ public class JpaUserRepository implements UserRepository{
 	}
 	
 	@Override
-	public Optional<User> findUser(String uname, String email){
+	public Optional<User> findUser(String uname, String email) {
 		List<User> result = em.createQuery("select m from User m where m.uname = :uname and m.email = :email", User.class)
 				.setParameter("uname", uname)
 				.setParameter("email", email)
 				.getResultList();	
 		return result.stream().findAny();
+	}
+	
+	@Override
+	public Optional<User_Profileimg> deleteprofileimg(int sessionNum) {
+		List<User_Profileimg> result = em.createQuery("select m from User_Profileimg m where m.unum = :sessionNum", User_Profileimg.class)
+				.setParameter("sessionNum", sessionNum)
+				.getResultList();
+		
+		return result.stream().findAny();
+	}
+	
+	@Override
+	public void deleteuser(int sessionNum) {
+		em.createQuery("delete from User m where m.unum = :sessionNum")
+			.setParameter("sessionNum", sessionNum)
+			.executeUpdate();
 	}
 
 }

@@ -17,4 +17,6 @@ public interface UserRepository {
 	Optional<User_Profileimg> findimage(int filenum);
 	Optional<User_Profileimg> getUnumbyFilenum(int sessionNum);
 	Optional<User> findByNum(int unum);
+	void deleteuser(int sessionNum);
+	Optional<User_Profileimg> deleteprofileimg(int sessionNum);
 }
