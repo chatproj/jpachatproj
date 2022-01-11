@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.data.jpa.repository.Modifying;
+
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.User;
 import com.example.chatproj.chatproj.domain.User_Profileimg;
@@ -90,6 +92,24 @@ public class JpaUserRepository implements UserRepository{
 	public void deleteuser(int sessionNum) {
 		em.createQuery("delete from User m where m.unum = :sessionNum")
 			.setParameter("sessionNum", sessionNum)
+			.executeUpdate();
+	}
+	
+	@Override
+	public Optional<User> getUserinfo(int sessionNum) {
+		User result = em.find(User.class, sessionNum);
+		return Optional.ofNullable(result);
+	}
+	
+	@Override
+	@Modifying
+	public void modifyUser(String uid, String upw, String uname, String email, String phone_num) {
+		em.createQuery("update User m set m.upw = :upw, m.uname = :uname, m.email = :email, m.phone_num = :phone_num where m.uid = :uid")
+			.setParameter("uid", uid)
+			.setParameter("upw", upw)
+			.setParameter("uname", uname)
+			.setParameter("email", email)
+			.setParameter("phone_num", phone_num)
 			.executeUpdate();
 	}
 
