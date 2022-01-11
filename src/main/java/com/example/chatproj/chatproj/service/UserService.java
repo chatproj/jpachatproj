@@ -69,7 +69,7 @@ public class UserService {
 		return result;
 	}
 	
-	//회원정보수정
+	// 회원정보수정
 	public Optional<User> getUserinfo(int sessionNum) {
 		Optional<User> result = userRepository.getUserinfo(sessionNum);
 		return result;
@@ -78,6 +78,16 @@ public class UserService {
 	
 	public void modifyUser(String uid, String upw, String uname, String email, String phone) {
 		userRepository.modifyUser(uid, upw, uname, email, phone);		
+	}
+	
+	// 회원이미지 수정
+	public void userimgupdate(int unum, String filename, String original_filename, String file_url) {
+		userRepository.userimgupdate(unum, filename, original_filename, file_url);
+	}
+	
+	// 채팅회원이미지 수정
+	public void chatuserimgupdate(int unum, String filename) {
+		userRepository.chatuserimgupdate(unum, filename);
 	}
 	
 	

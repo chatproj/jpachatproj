@@ -112,5 +112,25 @@ public class JpaUserRepository implements UserRepository{
 			.setParameter("phone_num", phone_num)
 			.executeUpdate();
 	}
+	
+	@Override
+	@Modifying
+	public void userimgupdate(int unum, String filename, String original_filename, String file_url) {
+		em.createQuery("update User_Profileimg m set m.filename = :filename, m.original_filename = :original_filename, m.file_url = :file_url where m.unum = :unum")
+			.setParameter("unum", unum)
+			.setParameter("filename", filename)
+			.setParameter("original_filename", original_filename)
+			.setParameter("file_url", file_url)
+			.executeUpdate();
+	}
+	
+	@Override
+	@Modifying
+	public void chatuserimgupdate(int unum, String filename) {
+		em.createQuery("update Chatlog_Table m set m.filename = :filename where m.unum = :unum")
+			.setParameter("unum", unum)
+			.setParameter("filename", filename)
+			.executeUpdate();
+	}
 
 }
