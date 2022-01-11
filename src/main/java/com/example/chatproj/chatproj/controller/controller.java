@@ -237,7 +237,7 @@ public class controller {
 	}
 	
 	@PostMapping("/modify")
-	public String modifyUpdate(SignupForm form) {
+	public String modifyUpdate(SignupForm form, userimgForm userimgform) throws Exception {
 		String uid = form.getUid();
 		String upw = form.getUpw();
 		String uname = form.getUname();
@@ -245,8 +245,58 @@ public class controller {
 		String phone = form.getPhone_num();
 				
 		userService.modifyUser(uid, upw, uname, email, phone);
+
 		
+		Optional<User> getUidbyUserinform = userService.getSessionbyUid(form.getUid());
+		int imageUsernum = getUidbyUserinform.get().getUnum();
+		
+		userimgform.getUserimg();
+		
+		System.out.println("img : " + userimgform.getUserimg().getOriginalFilename());
+		
+		User_Profileimg userimgfile = (User_Profileimg) fileupdate(userimgform.getUserimg(), imageUsernum);
+		
+		int unum = userimgfile.getUnum();
+		String filename = userimgfile.getFilename();
+		String original_filename = userimgfile.getOriginal_filename();
+		String file_url = userimgfile.getFile_url();
+		
+		userService.userimgupdate(unum, filename, original_filename, file_url);	
+		userService.chatuserimgupdate(unum, filename);
+				
 		return "redirect:/";
+	}
+	
+	//이미지 파일 insert
+	public User_Profileimg fileupdate(@RequestPart MultipartFile files, int imageUsernum) throws Exception{
+		User_Profileimg userimg = new User_Profileimg();
+		
+		String originalfilename = files.getOriginalFilename();
+		String originalfilenameExtension = FilenameUtils.getExtension(originalfilename).toLowerCase();
+		File destinationfile;
+		String destinationfilename;
+		String fileurl = "/userimg/";
+		String savePath = application.getRealPath(fileurl);
+		
+		do {
+			destinationfilename = RandomStringUtils.randomAlphanumeric(32) + "." + originalfilenameExtension;
+			destinationfile = new File(savePath, destinationfilename);
+		}while(destinationfile.exists());
+		
+		//destinationfile.getParentFile().mkdirs();
+		try {
+			files.transferTo(destinationfile);
+		}catch (IOException e) {
+			// TODO: handle exception
+		}
+		
+		userimg.setFilename(destinationfilename);
+		userimg.setOriginal_filename(originalfilename);
+		userimg.setFile_url(fileurl);
+		userimg.setUnum(imageUsernum);
+		
+		return userimg;
+		
 	}
 	
 //	@PostMapping("/modify")

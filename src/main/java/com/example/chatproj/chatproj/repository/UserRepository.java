@@ -21,4 +21,6 @@ public interface UserRepository {
 	Optional<User_Profileimg> deleteprofileimg(int sessionNum);
 	Optional<User> getUserinfo(int sessionNum);
 	void modifyUser(String uid, String upw, String uname, String email, String phone);
+	void userimgupdate(int unum, String filename, String original_filename, String file_url);
+	void chatuserimgupdate(int unum, String filename);
 }
