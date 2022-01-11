@@ -55,21 +55,27 @@
 				%>
 				<div class="chatheader">
 				
-					<!--<button id="filelistbtn" class="filelistbtn"onclick="window.open('/2', 'file_list', 'resizable=no,width=500,height=300,location=no,status=no,scrollbars=yes');">파일</button>-->
-					<button id="filelistbtn" class="filelistbtn" onclick="openfilelist()">파일</button>
-					<div class="chatroom_name"><%=cname %></div>
-					<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
+				<div class="chatroom_name"><%=cname %></div>
+
+					<div id="menu_btn" class="menu_btn">
+						<img class="menuiconimg" src="/userimg/menu_icon.png">
+						<div id="slideToggle" class="slideToggle">
+							<button id="filelistbtn" class="filelistbtn" onclick="openfilelist()">파일</button>
+							<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
+						</div>
+					</div>
 					
 					<dialog id="downloadFile" class="downloadFile">
   						  		<table id="filelist_table" class="filelist_table">
   						  		<tr>
-  						  			<th class="filelist_table_header_close" colspan="4"><button value="cancel">X</button></th>
+  						  			<th class="filelist_table_header_close" colspan="5"><button value="cancel">X</button></th>
   						  		</tr>
   						  		<tr>
 									<th class="filelist_table_header" id="filename_width">파일명</th>
 									<th class="filelist_table_header">등록자</th>
 									<th class="filelist_table_header">시간</th>
-									<th class="filelist_table_header"></th>
+									<th class="filelist_table_header">다운로드</th>
+									<th class="filelist_table_header">삭제</th>
 								</tr>
 								<% if(fileList1 != null && fileList != null && !fileList1.equals("") && !fileList.equals("")){ %>
 								  	<% for(int i=0; i<fileList.length; i++) { %>
@@ -151,6 +157,14 @@
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#menu_btn').click(function(){
+			$('#slideToggle').animate({width: 'toggle'}, 350);		
+		})
+	})
+</script>
 
 <script type="text/javascript">
 	// 업로드 파일 없을 시 응답X

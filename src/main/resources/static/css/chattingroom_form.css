@@ -35,20 +35,51 @@
 	justify-content: space-between;
 }
 
+.form1 .menu_btn {
+	cursor: pointer;
+}
+
+.menu_btn .menuiconimg {
+	width: 45px;
+	height: 45px;
+}
+
+.menu_btn .slideToggle {
+	width: 100px;
+	background-color: white;
+	z-index: 1;
+	position: absolute;
+	display: none;
+	transform: translateX(-50%);
+	border: 1px solid black;
+}
+
+.chatheader .slideToggle:hover {
+	outline: none;
+	filter: opacity(0.5) drop-shadow(0 0 0 lightgray);
+}
+
 .chatheader .filelistbtn {
-    margin-left: 15px;
-	background: #e1e1e1;
-	color: #4a6363;
-	border: none;	
-	border-radius: 10px;
+	width: 100px;
+	background: lightgray;
+	border: none;
 	padding: 5px;
 	font-weight: bold;
 }
 
 .chatheader .filelistbtn:hover {
-	border-radius: 10px;
 	outline: none;
-	background: #8bbbbd;
+	background: lightgray;
+}
+
+.chatheader .exitbtn {
+	width: 100px;
+	background: red;
+	border: none;
+	color: white;
+	padding: 5px;
+	font-weight: bold;
+	
 }
 
 .chatheader .downloadFile {
@@ -77,7 +108,7 @@
 }
 
 #filename_width {
-	width: 240px;
+	width: 180px;
 	table-layout: fixed;
 	line-height: 40px;	
 }
@@ -88,28 +119,26 @@
 	border-bottom: 1px solid black;
 	line-height: 20px;
 	text-align: middle;
+	margin: 50px;
 }
 
 .downloadFile .downloadbtn {
 	background: #e1e1e1;
 	color: #4a6363;
-	font-weight: bold;
+	font-size: 2px;
+}
+
+.downloadFile .filedeletebtn {
+	background: red;
+	color: white;
+	font-size: 2px;
 }
 
 .chatheader .chatroom_name {
 	margin-top: 5px;
-
+	margin-left: 30px;
 }
 
-.chatheader .exitbtn {
-    margin-right: 25px;
-	background: red;
-	border: none;	
-	border-radius: 10px;
-	color: white;
-	padding: 5px;
-	font-weight: bold;
-}
 
 .chatform {
 	background-color: #CDF5FF;
@@ -118,7 +147,7 @@
 	display: block;
 	width: 330px;
 	height: 400px;
-	margin-top : 30px;
+	margin-top : 10px;
 	border: none; 
 	overflow-y: auto;
 }
