@@ -216,6 +216,62 @@ public class controller {
 		
 	}
 	
+	// 회원정보수정
+	@RequestMapping("/modifyUser") 
+	public String modify(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		String sessionName = (String)session.getAttribute("sessionId");
+		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);
+		int sessionNum = getSessionName.get().getUnum();
+		
+		Optional<User> userinfo = userService.getUserinfo(sessionNum);
+		
+		model.addAttribute("unum", userinfo.get().getUnum());
+		model.addAttribute("uid", userinfo.get().getUid());
+		model.addAttribute("uname", userinfo.get().getUname());
+		model.addAttribute("email", userinfo.get().getEmail());
+		model.addAttribute("phone", userinfo.get().getPhone_num());
+		
+		return "modifyUser";
+	}
+	
+	@PostMapping("/modify")
+	public String modifyUpdate(SignupForm form) {
+		String uid = form.getUid();
+		String upw = form.getUpw();
+		String uname = form.getUname();
+		String email = form.getEmail();
+		String phone = form.getPhone_num();
+				
+		userService.modifyUser(uid, upw, uname, email, phone);
+		
+		return "redirect:/";
+	}
+	
+//	@PostMapping("/modify")
+//	public String modifyUpdate(SignupForm form) {
+//		String uid = form.getUid();
+//		String upw = form.getUpw();
+//		String uname = form.getUname();
+//		String email = form.getEmail();
+//		String phone = form.getPhone_num();
+//				
+//		String result =	userService.modifyUser(uid, upw, uname, email, phone);
+//		
+//		if(result.equals("동일한 이메일입니다.")) {
+//			return "redirect:/modifyUser?message=duplicateEmail";			
+//		}else {
+//			return "redirect:/";
+//		}
+//	}
+	
+//	@PostMapping("/modifyuser")
+//	public String modifyuser(HttpServletRequest request) {
+//			
+//		return "redirect:/";
+//	}
+	
 	// 회원탈퇴
 	@PostMapping("/deleteuser")
 	public String deleteuser(HttpServletRequest request) {

@@ -69,6 +69,40 @@ public class UserService {
 		return result;
 	}
 	
+	//회원정보수정
+	public Optional<User> getUserinfo(int sessionNum) {
+		Optional<User> result = userRepository.getUserinfo(sessionNum);
+		return result;
+	}
+	
+	
+	public void modifyUser(String uid, String upw, String uname, String email, String phone) {
+		userRepository.modifyUser(uid, upw, uname, email, phone);		
+	}
+	
+	
+//	public String modifyUser(String uid, String upw, String uname, String email, String phone) {
+//		String result = validateDuplicateEmail(uid, upw, uname, email, phone);
+//		userRepository.modifyUser(uid, upw, uname, email, phone);		
+//		return result;
+//	}
+//	
+//	private String validateDuplicateEmail(String uid, String upw, String uname, String email, String phone) {
+//		String res = null;
+//	
+//		Optional<User> matchemail = userRepository.findById(uid);
+//		System.out.println("11111111111" + email);
+//		System.out.println("222222222222" + matchemail.get().getEmail());	
+//		if(email.equals(matchemail.get().getEmail())) {
+//			res = "동일한 이메일입니다.";			
+//		}else {
+//			res = "이메일O";
+//			userRepository.modifyUser(uid, upw, uname, email, phone);
+//		}
+//		
+//		return res;
+//	}
+	
 	// 회원탈퇴
 	public void deleteuser(int sessionNum) {
 		userRepository.deleteuser(sessionNum);

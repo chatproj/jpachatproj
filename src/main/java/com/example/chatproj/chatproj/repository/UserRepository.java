@@ -19,4 +19,6 @@ public interface UserRepository {
 	Optional<User> findByNum(int unum);
 	void deleteuser(int sessionNum);
 	Optional<User_Profileimg> deleteprofileimg(int sessionNum);
+	Optional<User> getUserinfo(int sessionNum);
+	void modifyUser(String uid, String upw, String uname, String email, String phone);
 }

@@ -27,6 +27,10 @@
 				</div>
 			</form>
 			
+			<div class="section3">
+				<input type="button" onclick="location.href='/modifyUser'" id="modifyuser" value="회원정보수정" class="modifyuser">
+			</div>
+			
 			<%
 				}
 			%>
