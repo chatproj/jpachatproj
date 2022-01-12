@@ -17,7 +17,19 @@
 	<%@ include file="./common/header.jsp"%>
 	<div id="main_container1">
 		<div class="form_container1">
-			<div class="form1">
+			<div class="form1">	
+				<script type="text/javascript">
+					window.addEventListener("DOMContentLoaded", function(){
+						<%
+							if(request.getParameter("message") != null && request.getParameter("message").equals("validuser")){
+						%>
+								alert("이미 존재하는 멤버입니다.");
+						<%
+							}
+						%>
+					});
+				</script>
+				
 				<%
 				// session
 				int sessionNum = (Integer) request.getAttribute("sessionNum");
@@ -60,10 +72,32 @@
 					<div id="menu_btn" class="menu_btn">
 						<img class="menuiconimg" src="/userimg/menu_icon.png">
 						<div id="slideToggle" class="slideToggle">
+							<button id="invitebtn" class="invitebtn" onclick="openinvite()">친구초대</button>
 							<button id="filelistbtn" class="filelistbtn" onclick="openfilelist()">파일</button>
 							<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
 						</div>
 					</div>
+					
+					<dialog id="invite" class="invite">
+						<form method="POST" action="/invitechat">
+							<div class="invite-box">
+								<div class="inputlabel">방제목</div>
+								<input type="hidden" name="cnum" id="cnum" value="<%=cnumPK %>">
+								<input type="text" name="cname" id="cname" value="<%=cname %>" readonly>
+								<div id="cname_error" class="error"></div>
+							</div>
+							
+							<div class="invite-box">
+								<div class="inputlabel">아이디</div>
+								<input type="text" name="uid" id="uid">
+								<div id="uid_error" class="error"></div>
+							</div>
+							
+							<input type="submit" id="submit_btn" value="초대하기"
+								class="submit_btn">
+		
+						</form>
+					</dialog>
 					
 					<dialog id="downloadFile" class="downloadFile">
   						  		<table id="filelist_table" class="filelist_table">
@@ -330,8 +364,10 @@
 			}
 		}); 		
 	}
-	
-	
+
+</script>
+
+<script type="text/javascript">
 	var filelistbtn = document.getElementById('filelistbtn');
 	var downloadFile = document.getElementById('downloadFile');
 	function openfilelist(){
@@ -342,5 +378,14 @@
 		  }
 	}
 
+
+	var invite = document.getElementById('invite');
+	function openinvite(){
+		if(typeof invite.showModal === "function") {
+			invite.showModal();
+		}else{
+			alert("The <dialog> API is not supported by this browser");
+		}
+	}
 </script>
 </html>

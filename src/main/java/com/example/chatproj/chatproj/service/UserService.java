@@ -201,4 +201,10 @@ public class UserService {
 		return result;
 	}
 	
+	// uid 기반 회원정보
+	public Optional<User> findById(String uid) {
+		Optional<User> result = userRepository.findById(uid);
+		return result;
+	}
+	
 }

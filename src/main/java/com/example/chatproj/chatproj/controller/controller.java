@@ -597,6 +597,44 @@ public class controller {
 		return "chat";
 	}
 	
+	@PostMapping("/invitechat")
+	public String invitechat(InviteUserForm form, RedirectAttributes redirectAttributes) {
+		String uid = form.getUid();
+		
+		Optional<User> uinfo = userService.findById(uid);
+		int unum = uinfo.get().getUnum();
+		
+		UC_Table uc_table = new UC_Table();
+		uc_table.setCnum(form.getCnum());
+		uc_table.setUnum(unum);
+		uc_table.setCname(form.getCname());
+		
+		System.out.println("dddddddddd" + form.getCnum());
+		
+//		List<UC_Table> validunum = chatService.validunum();
+//		
+//		for(int i=0; i<validunum.size(); i++) {
+//			if(validunum.get(i).getUnum() == unum) {
+//				redirectAttributes.addAttribute("cnumPK", form.getCnum());
+//				return "redirect:chat?message=validuser";
+//			}else {
+//				chatService.insUCTable(uc_table);				
+//			}
+//		}	
+		
+		try {
+			chatService.addUCTable(uc_table);	
+		}catch(IllegalStateException e){		
+			if(e.getMessage().equals("이미 존재하는 멤버입니다.")) {
+				redirectAttributes.addAttribute("cnumPK", form.getCnum());
+				return "redirect:chat?message=validuser";
+			}
+		}
+		
+		redirectAttributes.addAttribute("cnumPK", form.getCnum());
+		return "redirect:chat";	
+	}
+	
 //	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 //	@ResponseBody
 //	public ResponseEntity<?> uploadFile(

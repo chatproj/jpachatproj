@@ -9,6 +9,7 @@ import com.example.chatproj.chatproj.domain.Chatlog_Table;
 import com.example.chatproj.chatproj.domain.Chatroom_Table;
 import com.example.chatproj.chatproj.domain.Fileupload_Table;
 import com.example.chatproj.chatproj.domain.UC_Table;
+import com.example.chatproj.chatproj.domain.User;
 import com.example.chatproj.chatproj.domain.User_Profileimg;
 
 public class JpaChatRepository implements ChatRepository{
@@ -39,6 +40,7 @@ public class JpaChatRepository implements ChatRepository{
     
     @Override
     public UC_Table insUCTable(UC_Table user2) {
+    	System.out.println("dddddddddddd" + user2.getCnum());
     	em.persist(user2);
     	return user2;
     }
@@ -121,5 +123,26 @@ public class JpaChatRepository implements ChatRepository{
 		em.createQuery("delete from Fileupload_Table m where m.filename = :filename")
 				.setParameter("filename", filename)
 				.executeUpdate();
+	}
+
+	@Override
+	public List<UC_Table> validunum() {
+		List<UC_Table> result = em.createQuery("select m from UC_Table m", UC_Table.class).getResultList();
+		return result;
+	}
+
+	@Override
+	public UC_Table addUCTable(UC_Table uc_table) {
+		em.persist(uc_table);
+		return uc_table;
+	}
+
+	@Override
+	public Optional<UC_Table> ucfindbyid(int unum, int cnum) {
+		List<UC_Table> result = em.createQuery("select m from UC_Table m where m.unum = :unum and m.cnum = :cnum", UC_Table.class)
+				.setParameter("unum", unum)
+				.setParameter("cnum", cnum)
+				.getResultList();
+		return result.stream().findAny();
 	}
 }
