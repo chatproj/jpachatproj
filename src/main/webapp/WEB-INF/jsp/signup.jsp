@@ -72,6 +72,8 @@
 						<div id="phone_num_error" class="error"></div>
 					</div>
 					
+					<canvas id="imagecanvas"></canvas>
+                    
 					<div class="input-box">
 						<div class="inputlabel">프로필이미지</div>
 						<input type="file" name="userimg" id="userimg" maxlength="40">
@@ -88,5 +90,24 @@
 
 	<!-- Script -->
 	<script src="/js/account_form.js" type="text/javascript" charset="UTF-8"></script>
+	<script type="text/javascript">
+	    const canvas = document.getElementById('imagecanvas');
+	    const context = canvas.getContext('2d');
+	
+	    let img = null;   
+	    const fileChange = document.getElementById('userimg');
+	    fileChange.addEventListener('change', function (event) {
+	        let reader = new FileReader();
+	        reader.onload = function (e){ 
+	            userimg = new Image();   
+	            userimg.src = e.target.result
+	            userimg.onload = function(){
+	            	context.drawImage(userimg, 0, 0, 300, 150);
+	            	context.restore()
+	            }
+	        };    
+	        reader.readAsDataURL(event.target.files[0])
+	    });
+    </script>
 </body>
 </html>
