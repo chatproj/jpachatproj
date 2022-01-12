@@ -25,4 +25,7 @@ public interface ChatRepository {
 	Fileupload_Table uploadfile(Fileupload_Table fileinfo);
 	List<Fileupload_Table> downloadfile(int downloadfile);
 	void filedelete(String filename);
+	List<UC_Table> validunum();
+	UC_Table addUCTable(UC_Table uc_table);
+	Optional<UC_Table> ucfindbyid(int unum, int cnum);
 }

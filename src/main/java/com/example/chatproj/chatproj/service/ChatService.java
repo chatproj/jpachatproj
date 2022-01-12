@@ -37,6 +37,23 @@ public class ChatService {
 			chatRepository.insUCTable(user2);
 		}
 		
+		public void addUCTable(UC_Table uc_table) {
+			validateDuplicateuser(uc_table);
+			chatRepository.addUCTable(uc_table);
+		}
+		
+		private String validateDuplicateuser(UC_Table uc_table) {
+			String res = null;
+			
+			chatRepository.ucfindbyid(uc_table.getUnum(), uc_table.getCnum())
+			.ifPresent(m -> {
+				throw new IllegalStateException("이미 존재하는 멤버입니다.");
+			});
+			res = "이미 존재하는 멤버입니다.";
+			
+			return res;
+		}
+		
 		public List<UC_Table> getChatList(int sessionNum) {
 			List<UC_Table> result = chatRepository.getChatList(sessionNum);
 			return result;	
@@ -87,6 +104,11 @@ public class ChatService {
 		
 		public void filedelete(String filename) {
 			chatRepository.filedelete(filename);
+		}
+
+		public List<UC_Table> validunum() {
+			List<UC_Table> result = chatRepository.validunum();
+			return result;
 		}
 
 		
