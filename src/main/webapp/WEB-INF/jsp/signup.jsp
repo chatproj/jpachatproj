@@ -93,8 +93,7 @@
 	<script type="text/javascript">
 	    const canvas = document.getElementById('imagecanvas');
 	    const context = canvas.getContext('2d');
-	
-	    let img = null;   
+	    
 	    const fileChange = document.getElementById('userimg');
 	    fileChange.addEventListener('change', function (event) {
 	        let reader = new FileReader();

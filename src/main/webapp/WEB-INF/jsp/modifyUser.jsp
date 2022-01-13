@@ -27,6 +27,7 @@
 			String uname = (String) request.getAttribute("uname");
 			String email = (String) request.getAttribute("email");
 			String phone = (String) request.getAttribute("phone");
+			String userimg = (String) request.getAttribute("userimg");
 		%>
 		
 		function setErrorMessage(id, message){
@@ -81,6 +82,8 @@
 						<div id="phone_num_error" class="error"></div>
 					</div>
 					
+					<canvas id="imagecanvas" ></canvas>
+					
 					<div class="input-box">
 						<div class="inputlabel">프로필이미지</div>
 						<input type="file" name="userimg" id="userimg" maxlength="40">
@@ -97,5 +100,29 @@
 
 	<!-- Script -->
 	<script src="/js/account_form.js" type="text/javascript" charset="UTF-8"></script>
+	<script type="text/javascript">
+	    const canvas = document.getElementById('imagecanvas');
+	    const context = canvas.getContext('2d');
+	    
+	    var origin_userimg = new Image();
+	    origin_userimg.src = "userimg/<%=userimg %>";
+	    origin_userimg.addEventListener("load", () => {
+       		context.drawImage(origin_userimg, 0, 0, 300, 150);
+	    });
+	    
+	    const fileChange = document.getElementById('userimg');
+	    fileChange.addEventListener('change', function (event) {
+	        let reader = new FileReader();
+	        reader.onload = function (e){ 
+	            userimg = new Image();   
+	            userimg.src = e.target.result
+	            userimg.onload = function(){
+	            	context.drawImage(userimg, 0, 0, 300, 150);
+	            	context.restore()
+	            }
+	        };    
+	        reader.readAsDataURL(event.target.files[0])
+	    });
+    </script>
 </body>
 </html>
