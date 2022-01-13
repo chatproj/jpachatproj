@@ -598,7 +598,27 @@ public class controller {
 			String map = String.join("", map1);
 			
 			model.addAttribute("filelist", map);
+			
 		
+	     // 채팅방 참여자 목록
+		List<UC_Table> userlist = chatService.getUserInfo(cnumPK);
+		List<User> userinfo = new ArrayList<User>();
+		List<User_Profileimg> userimginfo = new ArrayList<>();
+		
+			ArrayList<String> chatuserlist = new ArrayList<>();
+			ArrayList<String> chatuserlistimg = new ArrayList<>();
+			
+			
+			for(int i=0; i<userlist.size(); i++) {
+				userinfo = userService.chatinuserinfo(userlist.get(i).getUnum());
+				System.out.println("3333333333333" + userinfo);
+				chatuserlist.add(userinfo.get(0).getUid());
+				userimginfo = userService.chatinuserimginfo(userlist.get(i).getUnum());
+				chatuserlistimg.add(userimginfo.get(0).getFilename());
+			}
+			
+			model.addAttribute("chatuserlist", chatuserlist);
+			model.addAttribute("chatuserlistimg", chatuserlistimg);
 		
 		return "chat";
 	}
@@ -616,17 +636,6 @@ public class controller {
 		uc_table.setCname(form.getCname());
 		
 		System.out.println("dddddddddd" + form.getCnum());
-		
-//		List<UC_Table> validunum = chatService.validunum();
-//		
-//		for(int i=0; i<validunum.size(); i++) {
-//			if(validunum.get(i).getUnum() == unum) {
-//				redirectAttributes.addAttribute("cnumPK", form.getCnum());
-//				return "redirect:chat?message=validuser";
-//			}else {
-//				chatService.insUCTable(uc_table);				
-//			}
-//		}	
 		
 		try {
 			chatService.addUCTable(uc_table);	

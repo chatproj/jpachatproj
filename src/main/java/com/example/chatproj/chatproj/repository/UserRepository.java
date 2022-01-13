@@ -23,4 +23,6 @@ public interface UserRepository {
 	void modifyUser(String uid, String upw, String uname, String email, String phone);
 	void userimgupdate(int unum, String filename, String original_filename, String file_url);
 	void chatuserimgupdate(int unum, String filename);
+	List<User> chatinuserinfo(int unum);
+	List<User_Profileimg> chatinuserimginfo(int unum);
 }
