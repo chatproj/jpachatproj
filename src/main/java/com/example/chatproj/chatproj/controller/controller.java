@@ -233,6 +233,12 @@ public class controller {
 		model.addAttribute("email", userinfo.get().getEmail());
 		model.addAttribute("phone", userinfo.get().getPhone_num());
 		
+		Optional<User_Profileimg> user_profileimage = userService.getUnumbyFilenum(sessionNum);
+		Optional<User_Profileimg> filename = userService.findimage(user_profileimage.get().getFilenum());
+		String userimg = filename.get().getFilename();
+		
+		model.addAttribute("userimg", userimg);
+		
 		return "modifyUser";
 	}
 	
