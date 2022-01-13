@@ -38,6 +38,14 @@ public class JpaUserRepository implements UserRepository{
 	}
 	
 	@Override
+	public List<User_Profileimg> chatinuserimginfo(int unum) {
+		List<User_Profileimg> result = em.createQuery("select m from User_Profileimg m where m.unum = :unum", User_Profileimg.class)
+				.setParameter("unum", unum)
+				.getResultList();
+		return result;
+	}
+	
+	@Override
 	public Optional<User_Profileimg> findimage(int filenum) {
 		User_Profileimg result = em.find(User_Profileimg.class, filenum);
 		return Optional.ofNullable(result);
@@ -47,6 +55,14 @@ public class JpaUserRepository implements UserRepository{
 	public Optional<User> findByNum(int unum) {
 		User result = em.find(User.class, unum);
 		return Optional.ofNullable(result);
+	}
+	
+	@Override
+	public List<User> chatinuserinfo(int unum) {
+		List<User> result = em.createQuery("select m from User m where m.unum = :unum", User.class)
+				.setParameter("unum", unum)
+				.getResultList();
+		return result;
 	}
 
 	@Override
@@ -132,5 +148,6 @@ public class JpaUserRepository implements UserRepository{
 			.setParameter("filename", filename)
 			.executeUpdate();
 	}
+
 
 }

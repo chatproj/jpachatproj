@@ -52,8 +52,13 @@ public class UserService {
 	}
 	
 	// 세션 기반 filenum 찾기
-	public Optional<User_Profileimg> getUnumbyFilenum(int sessionNum){
+	public Optional<User_Profileimg> getUnumbyFilenum(int sessionNum) {
 		Optional<User_Profileimg> result = userRepository.getUnumbyFilenum(sessionNum);
+		return result;
+	}
+	
+	public List<User_Profileimg> chatinuserimginfo(int unum) {
+		List<User_Profileimg> result = userRepository.chatinuserimginfo(unum);
 		return result;
 	}
 	
@@ -89,29 +94,6 @@ public class UserService {
 	public void chatuserimgupdate(int unum, String filename) {
 		userRepository.chatuserimgupdate(unum, filename);
 	}
-	
-	
-//	public String modifyUser(String uid, String upw, String uname, String email, String phone) {
-//		String result = validateDuplicateEmail(uid, upw, uname, email, phone);
-//		userRepository.modifyUser(uid, upw, uname, email, phone);		
-//		return result;
-//	}
-//	
-//	private String validateDuplicateEmail(String uid, String upw, String uname, String email, String phone) {
-//		String res = null;
-//	
-//		Optional<User> matchemail = userRepository.findById(uid);
-//		System.out.println("11111111111" + email);
-//		System.out.println("222222222222" + matchemail.get().getEmail());	
-//		if(email.equals(matchemail.get().getEmail())) {
-//			res = "동일한 이메일입니다.";			
-//		}else {
-//			res = "이메일O";
-//			userRepository.modifyUser(uid, upw, uname, email, phone);
-//		}
-//		
-//		return res;
-//	}
 	
 	// 회원탈퇴
 	public void deleteuser(int sessionNum) {
@@ -198,6 +180,11 @@ public class UserService {
 	public Optional<User> findByNum(int unum) {
 		Optional<User> result = userRepository.findByNum(unum);
 		System.out.println("4444444444444" + result.get().getUname());
+		return result;
+	}
+	
+	public List<User> chatinuserinfo(int unum) {
+		List<User> result = userRepository.chatinuserinfo(unum);
 		return result;
 	}
 	

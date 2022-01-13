@@ -64,6 +64,10 @@
 					original_filename.add("");
 					time.add("");
 				}
+				
+				//chatuserlist
+				ArrayList<String> chatuserlist = (ArrayList) request.getAttribute("chatuserlist");
+				ArrayList<String> chatuserlistimg = (ArrayList) request.getAttribute("chatuserlistimg");
 				%>
 				<div class="chatheader">
 				
@@ -72,6 +76,14 @@
 					<div id="menu_btn" class="menu_btn">
 						<img class="menuiconimg" src="/userimg/menu_icon.png">
 						<div id="slideToggle" class="slideToggle">
+							<%
+								for(int i=0; i<chatuserlist.size(); i++){
+							%>
+								<img class="img_inner" src='userimg/<%=chatuserlistimg.get(i) %>'>
+								<a><%=chatuserlist.get(i) %></a>
+							<%
+								}
+							%>
 							<button id="invitebtn" class="invitebtn" onclick="openinvite()">친구초대</button>
 							<button id="filelistbtn" class="filelistbtn" onclick="openfilelist()">파일</button>
 							<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
