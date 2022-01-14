@@ -33,6 +33,7 @@
 .form1 .chatheader {
 	display: flex;
 	justify-content: space-between;
+	overflow:auto;
 }
 
 .form1 .menu_btn {
@@ -45,12 +46,12 @@
 }
 
 .menu_btn .slideToggle {
-	width: 100px;
+	width: 120px;
 	background-color: white;
 	z-index: 1;
 	position: absolute;
 	display: none;
-	transform: translateX(-50%);
+	transform: translateX(-100%);
 	border: 1px solid black;
 }
 
@@ -59,12 +60,45 @@
 
 }
 
-.chatheader .filelistbtn {
+.chatheader .chatroomuserlist {
+	height: 150px;
+	overflow-y: scroll;
+}
+
+.chatroomuserlist .chatuserlist {
 	width: 100px;
+	display: flex;
+  	justify-content: center;
+}
+
+.chatheader .userimg {
+	width: 40px;
+	hegiht: 40px;
+}
+
+.chatuserlist .username {
+	width: 60px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+}
+
+.chatheader .invitebtn {
+	width: 120px;
 	background: lightgray;
 	border: none;
 	padding: 5px;
 	font-weight: bold;
+	border-bottom: 1px solid black;
+}
+
+.chatheader .filelistbtn {
+	width: 120px;
+	background: lightgray;
+	border: none;
+	padding: 5px;
+	font-weight: bold;
+	border-bottom: 1px solid black;
 }
 
 .chatheader .filelistbtn:hover {
@@ -73,7 +107,7 @@
 }
 
 .chatheader .exitbtn {
-	width: 100px;
+	width: 120px;
 	background: red;
 	border: none;
 	color: white;

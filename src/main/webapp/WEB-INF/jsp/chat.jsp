@@ -76,14 +76,18 @@
 					<div id="menu_btn" class="menu_btn">
 						<img class="menuiconimg" src="/userimg/menu_icon.png">
 						<div id="slideToggle" class="slideToggle">
+							<div class="chatroomuserlist">
 							<%
 								for(int i=0; i<chatuserlist.size(); i++){
 							%>
-								<img class="img_inner" src='userimg/<%=chatuserlistimg.get(i) %>'>
-								<a><%=chatuserlist.get(i) %></a>
+								<div class="chatuserlist">
+									<div class="userimg"><img class="img_inner" src='userimg/<%=chatuserlistimg.get(i) %>'></div>
+									<div class="username"><a class="username_txt"><%=chatuserlist.get(i) %></a></div>
+								</div>
 							<%
 								}
 							%>
+							</div>
 							<button id="invitebtn" class="invitebtn" onclick="openinvite()">친구초대</button>
 							<button id="filelistbtn" class="filelistbtn" onclick="openfilelist()">파일</button>
 							<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
@@ -207,7 +211,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#menu_btn').click(function(){
-			$('#slideToggle').animate({width: 'toggle'}, 350);		
+			$('#slideToggle').animate({width: 'toggle'}, 400);		
 		})
 	})
 </script>
