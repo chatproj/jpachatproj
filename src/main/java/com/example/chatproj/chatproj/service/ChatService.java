@@ -111,5 +111,10 @@ public class ChatService {
 			return result;
 		}
 
+		public Optional<Fileupload_Table> findsockfile(String filename) {
+			Optional<Fileupload_Table> result = chatRepository.findsockfile(filename);
+			return result;
+		}
+
 		
 }

@@ -145,4 +145,12 @@ public class JpaChatRepository implements ChatRepository{
 				.getResultList();
 		return result.stream().findAny();
 	}
+
+	@Override
+	public Optional<Fileupload_Table> findsockfile(String filename) {
+		List<Fileupload_Table> result= em.createQuery("select m from Fileupload_Table m where m.filename = :filename", Fileupload_Table.class)
+				.setParameter("filename", filename)
+				.getResultList();
+		return result.stream().findAny();
+	}
 }
