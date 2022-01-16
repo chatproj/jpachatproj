@@ -28,4 +28,5 @@ public interface ChatRepository {
 	List<UC_Table> validunum();
 	UC_Table addUCTable(UC_Table uc_table);
 	Optional<UC_Table> ucfindbyid(int unum, int cnum);
+	Optional<Fileupload_Table> findsockfile(String filename);
 }

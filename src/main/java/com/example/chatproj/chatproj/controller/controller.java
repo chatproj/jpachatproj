@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -46,6 +47,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.chatproj.chatproj.domain.Chatlog_Table;
@@ -515,7 +517,7 @@ public class controller {
 	
 	// 채팅방
 	@RequestMapping("/chat")
-	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="msg", required=false) String msg, @RequestParam(value="nowtime", required=false) String nowtime, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws IOException {
+	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="sockfilename", required=false) String sockfilename, @RequestParam(value="msg", required=false) String msg, @RequestParam(value="nowtime", required=false) String nowtime, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws IOException {
 		// session
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");	
@@ -567,6 +569,7 @@ public class controller {
 		
 		// get ajax data -> insert logtable
 		Chatlog_Table chatlog_table = new Chatlog_Table();		
+
 		try {
 			if(!msg.equals("") && msg != null) {
 				chatlog_table.setUnum(sessionNum);
@@ -576,12 +579,34 @@ public class controller {
 				chatlog_table.setUname(sessionName);
 				chatlog_table.setFilename(userimg);
 				chatlog_table.setTime(nowtime);
+				chatlog_table.setDivision("text");
 				
-				chatService.logjoin(chatlog_table);
+				chatService.logjoin(chatlog_table);			
 			}
 		}catch(NullPointerException e) {
 			
 		}
+			
+		try {
+			if(!sockfilename.equals("") && sockfilename != null) {
+				chatlog_table.setUnum(sessionNum);
+				chatlog_table.setCnum(cnumPK);
+				chatlog_table.setLog(sockfilename);
+				chatlog_table.setTime(null);
+				chatlog_table.setUname(sessionName);
+				chatlog_table.setFilename(userimg);
+				chatlog_table.setTime(nowtime);
+				chatlog_table.setDivision("file");
+				
+				chatService.logjoin(chatlog_table);	
+
+			}
+		}catch(NullPointerException e) {
+			
+		}
+		
+		// upload file insert logtable
+
 		
 		//filelist
 		List<Fileupload_Table> fileinfo = chatService.getfileinfo(cnumPK);
@@ -611,18 +636,27 @@ public class controller {
 			
 			for(int i=0; i<userlist.size(); i++) {
 				userinfo = userService.chatinuserinfo(userlist.get(i).getUnum());
-				System.out.println("3333333333333" + userinfo);
 				chatuserlist.add(userinfo.get(0).getUid());
 				userimginfo = userService.chatinuserimginfo(userlist.get(i).getUnum());
 				chatuserlistimg.add(userimginfo.get(0).getFilename());
 			}
 			
+			String fN = sockfilename;
+			
+			try {
+				Optional<Fileupload_Table> sockfile = chatService.findsockfile(fN);
+				System.out.println("11111111111111111111111111" + sockfile.get().getFilename());
+				model.addAttribute("sockfilename", sockfile.get().getFilename());
+			}catch(NoSuchElementException e) {
+				
+			}
+			
 			model.addAttribute("chatuserlist", chatuserlist);
 			model.addAttribute("chatuserlistimg", chatuserlistimg);
-		
+	
 		return "chat";
 	}
-	
+
 	@PostMapping("/invitechat")
 	public String invitechat(InviteUserForm form, RedirectAttributes redirectAttributes) {
 		String uid = form.getUid();
@@ -650,77 +684,92 @@ public class controller {
 		return "redirect:chat";	
 	}
 	
-//	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-//	@ResponseBody
-//	public ResponseEntity<?> uploadFile(
-//	    @RequestParam("uploadfile") MultipartFile uploadfile) {
-//	  
-//	  try {
-//	    // Get the filename and build the local file path (be sure that the 
-//	    // application have write permissions on such directory)
-//	    String filename = uploadfile.getOriginalFilename();
-//	    String directory1 = "/uploadfile/";
-//	    String directory = application.getRealPath(directory1);
-//	    String filepath = Paths.get(directory, filename).toString();
-//	    
-//	    System.out.println("ffffffffffffffffff" + filepath);
-//	    
-//	    // Save the file locally
-//	    BufferedOutputStream stream =
-//	        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-//	    stream.write(uploadfile.getBytes());
-//	    stream.close();
-//	  }
-//	  catch (Exception e) {
-//	    System.out.println(e.getMessage());
-//	    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//	  }
-//	  
-//	  return new ResponseEntity<>(HttpStatus.OK);
-//	} // method uploadFile
+
 	
-	@PostMapping("/uploadFile")
-	public String upload_file(RedirectAttributes redirectAttributes, HttpServletRequest request, FileuploadForm form) throws Exception {
-		Fileupload_Table fileupload = new Fileupload_Table();
-		fileupload.setCnum(form.getCnum());
-		fileupload.setUnum(form.getUnum());
-		
-		SimpleDateFormat nowTimes = new SimpleDateFormat("yyyy-MM-dd_HH:mm");
-		Calendar now = Calendar.getInstance();
-		String time = nowTimes.format(now.getTime());	
-		fileupload.setTime(time);
-		
-		Optional<User> unum = userService.findByNum(form.getUnum());
-		fileupload.setUname(unum.get().getUname());
+	  @PostMapping("/uploadFile")
+	  public String upload_file(@RequestParam("fileupload") MultipartFile files, @RequestParam("cnum") int cnum, RedirectAttributes redirectAttributes, HttpServletRequest request, FileuploadForm form) throws Exception { 	  
+		  Fileupload_Table fileupload = new Fileupload_Table();
+		  fileupload.setCnum(form.getCnum()); fileupload.setUnum(form.getUnum());
+		  
+		  SimpleDateFormat nowTimes = new SimpleDateFormat("yyyy-MM-dd_HH:mm");
+		  Calendar now = Calendar.getInstance(); String time =
+		  nowTimes.format(now.getTime());
+		  fileupload.setTime(time);
+		  
+		  Optional<User> unum = userService.findByNum(form.getUnum());
+		  fileupload.setUname(unum.get().getUname());
+
+		  String originalfilename = files.getOriginalFilename(); 
+		  String originalfilenameExtension = FilenameUtils.getExtension(originalfilename).toLowerCase(); 
+		  File destinationfile; String destinationfilename;
+		  String fileurl = "/uploadfile/";
+		  String savePath = application.getRealPath(fileurl);
+		  
+		  do { 
+			  destinationfilename = RandomStringUtils.randomAlphabetic(32) + "." + originalfilenameExtension;
+			  destinationfile = new File(savePath, destinationfilename); 
+			  }while(destinationfile.exists());
+		  
+		  try { files.transferTo(destinationfile); }catch(IOException e) {
+		  
+		  }
+		  
+		  fileupload.setFilename(destinationfilename);
+		  fileupload.setOriginal_filename(originalfilename);
+		  fileupload.setFile_url(savePath);
+		  
+		  chatService.fileuploadjoin(fileupload);
+		  
+		  redirectAttributes.addAttribute("cnumPK", form.getCnum());
+		  redirectAttributes.addAttribute("sockfilename", destinationfilename); 
+		  return "redirect:chat";
+	  }
+	 
+
 	
-		MultipartFile files = form.getFileupload();
-		String originalfilename = files.getOriginalFilename();
-		String originalfilenameExtension = FilenameUtils.getExtension(originalfilename).toLowerCase();
-		File destinationfile;
-		String destinationfilename;
-		String fileurl = "/uploadfile/";
-		String savePath = application.getRealPath(fileurl);
-		
-		do {
-			destinationfilename = RandomStringUtils.randomAlphabetic(32) + "." + originalfilenameExtension;
-			destinationfile = new File(savePath, destinationfilename);
-		}while(destinationfile.exists());
-		
-		try {
-			files.transferTo(destinationfile);
-		}catch(IOException e) {
-			
-		}
-		
-		fileupload.setFilename(destinationfilename);
-		fileupload.setOriginal_filename(originalfilename);
-		fileupload.setFile_url(savePath);
-		
-		chatService.fileuploadjoin(fileupload);
-		
-		redirectAttributes.addAttribute("cnumPK", form.getCnum());
-		return "redirect:chat";
-	}
+//	  @PostMapping("/uploadFile") 
+//	   public String upload_file(RedirectAttributes redirectAttributes, HttpServletRequest request, FileuploadForm form) throws Exception { 	  
+//		  Fileupload_Table fileupload = new Fileupload_Table();
+//		  fileupload.setCnum(form.getCnum()); fileupload.setUnum(form.getUnum());
+//		  
+//		  SimpleDateFormat nowTimes = new SimpleDateFormat("yyyy-MM-dd_HH:mm");
+//		  Calendar now = Calendar.getInstance(); 
+//		  String time = nowTimes.format(now.getTime()); fileupload.setTime(time);
+//		  
+//		  Optional<User> unum = userService.findByNum(form.getUnum());
+//		  fileupload.setUname(unum.get().getUname());
+//		  
+//		  MultipartFile files = form.getFileupload(); 
+//		  String originalfilename = files.getOriginalFilename(); String originalfilenameExtension =
+//		  FilenameUtils.getExtension(originalfilename).toLowerCase();
+//		  File destinationfile; String destinationfilename; 
+//		  String fileurl = "/uploadfile/";
+//		  String savePath = application.getRealPath(fileurl);
+//		  
+//		  do { 
+//			  destinationfilename = RandomStringUtils.randomAlphabetic(32) + "." + originalfilenameExtension; 
+//			  destinationfile = new File(savePath,destinationfilename);
+//			  
+//		  }while(destinationfile.exists());
+//		  
+//		  try {  
+//			  files.transferTo(destinationfile);
+//			  
+//		  }catch(IOException e) {
+//		  
+//		  }
+//		  
+//		  fileupload.setFilename(destinationfilename);
+//		  fileupload.setOriginal_filename(originalfilename);
+//		  fileupload.setFile_url(savePath);
+//		  
+//		  chatService.fileuploadjoin(fileupload);
+//		  
+//		  redirectAttributes.addAttribute("cnumPK", form.getCnum());
+//		  redirectAttributes.addAttribute("sockfilename", destinationfilename); 
+//		  return "redirect:chat";
+//	  }
+	 
 	
 	@RequestMapping("/chatexit")
 	public String exitbtn(HttpServletRequest request, @RequestParam("cnumPK") int cnumPK) throws IOException {

@@ -30,7 +30,7 @@
 					});
 				</script>
 				
-				<%
+				<%			
 				// session
 				int sessionNum = (Integer) request.getAttribute("sessionNum");
 				String sessionName = (String) request.getAttribute("sessionName");
@@ -165,8 +165,22 @@
 								<div class="myimg"><img class="img_inner" src='userimg/<%=chatlog.get(i).getFilename() %>'></div>
 									
 								</div>
+							<%
+								if(chatlog.get(i).getDivision().equals("text")){
+							%>
 								<div class="mymsg"><%=chatlog.get(i).getLog() %></div>
-								<div class="mytime">time : <<%=chatlog.get(i).getTime() %>></div>
+								<div class="mytime">time : < <%=chatlog.get(i).getTime() %> ></div>
+							<%
+								}else if(chatlog.get(i).getDivision().equals("file")){
+							%>
+								<form method='POST' action='/download'>
+									<input type='hidden' id="test" name='filename' value='<%=chatlog.get(i).getLog() %>'>
+									<input type='submit' id='downloadbtn' value='다운로드' class='downloadbtn'>
+								</form>
+								<div class="mytime">time : <<%=chatlog.get(i).getTime() %>></div>								
+							<%
+								}
+							%>
 							</div>
 					<% 
 						}else{
@@ -176,8 +190,22 @@
 									<div class="yourimg"><img class="img_inner" src='userimg/<%=chatlog.get(i).getFilename() %>'></div>
 									<div class="yourname"><%=chatlog.get(i).getUname() %></div>
 								</div>
+							<%
+								if(chatlog.get(i).getDivision().equals("text")){
+							%>
 								<div class="yourmsg"><%=chatlog.get(i).getLog() %></div>
 								<div class="yourtime">time : <<%=chatlog.get(i).getTime() %>></div>
+							<%
+								}else if(chatlog.get(i).getDivision().equals("file")){
+							%>
+								<form method='POST' action='/download'>
+									<input type='hidden' id="test" name='filename' value='<%=chatlog.get(i).getLog() %>'>
+									<input type='submit' id='downloadbtn' value='다운로드' class='downloadbtn'>
+								</form>
+								<div class="mytime">time : <<%=chatlog.get(i).getTime() %>></div>
+							<%
+								}
+							%>
 							</div>
 					<% 
 						}
@@ -187,14 +215,21 @@
 				
 				</div>
 				<div id="yourMsg" class="yourMsg">
-					<table class="inputTable">
-						<tr>
-							<form method="POST" action="/uploadFile" enctype="multipart/form-data">
+					<table class="inputTable">	
+<%-- 							<form method="POST" action="/uploadFile" enctype="multipart/form-data">
 								<input type="hidden" id="text" name="cnum" value="<%=cnumPK %>">
 								<input type="hidden" id="text" name="unum" value="<%=sessionNum %>">
 								<th><input id="uploadinput" class="uploadinput" type="file" name="fileupload" accept="*" /></th>
-								<th><button onclick="upload()" type="submit" id="uploadBtn" class="sendBtn">업로드</button></th>
-							</form>
+								<th><button onClick="upload()" type="submit" id="uploadBtn" class="sendBtn">업로드</button></th>
+							</form>		 --%>
+
+							<form id="upload-file-form">
+								<input type="hidden" id="text" name="cnum" value="<%=cnumPK %>">
+								<input type="hidden" id="text" name="unum" value="<%=sessionNum %>">
+								<th><input id="uploadinput" class="uploadinput" type="file" name="fileupload" accept="*" /></th>
+								<th><button onclick="upload()" type="button" id="uploadBtn" class="sendBtn">업로드</button></th>
+							</form>	
+										
 						</tr>
 						<tr>
 							<th><input id="chatting" class="chatting"  placeholder="보내실 메시지를 입력하세요."></th>
@@ -207,6 +242,27 @@
 		</div>
 	</div>
 </body>
+
+<!-- <script type="text/javascript">
+function uploadFile() {
+	  $.ajax({
+	    url: "/uploadFile",
+	    type: "POST",
+	    data: new FormData($("#upload-file-form")[0]),
+	    enctype: 'multipart/form-data',
+	    processData: false,
+	    contentType: false,
+	    cache: false,
+	    success: function () {
+
+	    },
+	    error: function () {
+
+	    }
+	  });
+	}
+
+</script> -->
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -303,7 +359,15 @@
 					msgTemp += "</div>"						
 					$("#chatform").append(msgTemp);	
 			}
+			var filesearch = msgarr[2].substring(86, 98); // value='file'
+			console.log(filesearch);
 			
+			if(filesearch == "value='file'"){
+				 location.reload();
+				 loaction.reload();
+			}else{
+				alert("1");
+			}
 			var scrolldiv = document.getElementById("chatform");
 			scrolldiv.scrollTop = scrolldiv.scrollHeight;
 			
@@ -314,13 +378,12 @@
 			}
 		});
 	}
-	function send() {	
+	function send() {			  
 		var uN = "<%=sessionNum %>";
 		var uName = "<%=sessionName %>";
 		var msg = $("#chatting").val();
 		var img = "<img class='img_inner' src='/userimg/${userimg}'>";
-		
-		
+
 		// 날짜시간
 		var today = new Date();
 		var hours = today.getHours();
@@ -338,6 +401,41 @@
 			AjaxToController(<%=cnumPK %>,msg, nowtimes);
 			$('#chatting').val("");
 		}
+	}
+	
+	function upload() { 	
+ 		  $.ajax({
+		    url: "/uploadFile",
+		    type: "POST",
+		    data: new FormData($("#upload-file-form")[0]),
+		    enctype: 'multipart/form-data',
+		    processData: false,
+		    contentType: false,
+		    cache: false,
+		    success: function () {
+		    	
+		    },
+		    error: function () {
+
+		    }
+		  }); 
+	    var uN = "<%=sessionNum %>";
+	    var uName = "<%=sessionName %>";		  
+	    var file = "<form method='POST' action='/download'><input type='hidden' id='test' name='filename' value='file'><input type='button' id='downloadbtn' value='다운로드' class='downloadbtn'></form>";
+	    var img = "<img class='img_inner' src='/userimg/${userimg}'>";
+
+		// 날짜시간
+		var today = new Date();
+		var hours = today.getHours();
+		var minutes = today.getMinutes();
+		var seconds = today.getSeconds();
+		
+		var nowtimes = hours+":"+minutes+":"+seconds;
+		
+		setTimeout(function() {
+			ws.send(uN+","+uName+","+file+","+img+","+nowtimes);
+		}, 3000)
+
 	}
 	
 	function AjaxToController(getPkObj, getMsgObj, getNowTimeObj){		
