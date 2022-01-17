@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -517,7 +518,7 @@ public class controller {
 	
 	// 채팅방
 	@RequestMapping("/chat")
-	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="sockfilename", required=false) String sockfilename, @RequestParam(value="msg", required=false) String msg, @RequestParam(value="nowtime", required=false) String nowtime, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws IOException {
+	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="sockfilename", required=false) String sockfilename, @RequestParam(value="sockoriginalfilename", required=false) String sockoriginalfilename, @RequestParam(value="msg", required=false) String msg, @RequestParam(value="nowtime", required=false) String nowtime, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws IOException {
 		// session
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");	
@@ -569,13 +570,12 @@ public class controller {
 		
 		// get ajax data -> insert logtable
 		Chatlog_Table chatlog_table = new Chatlog_Table();		
-
+		System.out.println("222222222222222" + sockoriginalfilename);
 		try {
 			if(!msg.equals("") && msg != null) {
 				chatlog_table.setUnum(sessionNum);
 				chatlog_table.setCnum(cnumPK);
 				chatlog_table.setLog(msg);
-				chatlog_table.setTime(null);
 				chatlog_table.setUname(sessionName);
 				chatlog_table.setFilename(userimg);
 				chatlog_table.setTime(nowtime);
@@ -589,13 +589,17 @@ public class controller {
 			
 		try {
 			if(!sockfilename.equals("") && sockfilename != null) {
+			    SimpleDateFormat nowTimes = new SimpleDateFormat("HH:mm:ss");
+			    Calendar now = Calendar.getInstance();
+			    String time = nowTimes.format(now.getTime());
+				
 				chatlog_table.setUnum(sessionNum);
 				chatlog_table.setCnum(cnumPK);
 				chatlog_table.setLog(sockfilename);
-				chatlog_table.setTime(null);
+				chatlog_table.setUp_filename(sockoriginalfilename);
 				chatlog_table.setUname(sessionName);
 				chatlog_table.setFilename(userimg);
-				chatlog_table.setTime(nowtime);
+				chatlog_table.setTime(time);
 				chatlog_table.setDivision("file");
 				
 				chatService.logjoin(chatlog_table);	
@@ -692,8 +696,8 @@ public class controller {
 		  fileupload.setCnum(form.getCnum()); fileupload.setUnum(form.getUnum());
 		  
 		  SimpleDateFormat nowTimes = new SimpleDateFormat("yyyy-MM-dd_HH:mm");
-		  Calendar now = Calendar.getInstance(); String time =
-		  nowTimes.format(now.getTime());
+		  Calendar now = Calendar.getInstance();
+		  String time = nowTimes.format(now.getTime());
 		  fileupload.setTime(time);
 		  
 		  Optional<User> unum = userService.findByNum(form.getUnum());
@@ -721,7 +725,10 @@ public class controller {
 		  chatService.fileuploadjoin(fileupload);
 		  
 		  redirectAttributes.addAttribute("cnumPK", form.getCnum());
+		  redirectAttributes.addAttribute("sockoriginalfilename", originalfilename);
 		  redirectAttributes.addAttribute("sockfilename", destinationfilename); 
+		  
+		  System.out.println("1111111111111111" + originalfilename);
 		  return "redirect:chat";
 	  }
 	 
@@ -846,16 +853,18 @@ public class controller {
     	String fileurl = "/uploadfile/";
     	String path = application.getRealPath(fileurl) + fileName;
     	
-    	System.out.println("pppppppppppp" + path);
+    	System.out.println("패스" + path);
+    	System.out.println("파일eeeeeeeeeeeeee" + form.getFilename());
+    	System.out.println("오리지널ddddddddddddd" + form.getOriginal_filename());
 		try {
 			Path filePath = Paths.get(path);
 			Resource resource = new InputStreamResource(Files.newInputStream(filePath)); // 파일 resource 얻기
 			
-			File file = new File(path);
+			String origin_filename = form.getOriginal_filename();
 			
 			HttpHeaders headers = new HttpHeaders();
-			headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());  // 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
-			
+	//		headers.setContentDisposition(ContentDisposition.builder("attachment").filename("dd", StandardCharsets.UTF_8);  // 다운로드 되거나 로컬에 저장되는 용도로 쓰이는지를 알려주는 헤더
+			headers.setContentDisposition(ContentDisposition.builder("attachment").filename(origin_filename, StandardCharsets.UTF_8).build());			
 			return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);

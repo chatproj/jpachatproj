@@ -3,6 +3,7 @@ package com.example.chatproj.chatproj.controller;
 public class FileuploadForm2 {
 	private int cnum;
 	private String filename;
+	private String original_filename;
 
 	
 	public int getCnum() {
@@ -19,6 +20,14 @@ public class FileuploadForm2 {
 
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+
+	public String getOriginal_filename() {
+		return original_filename;
+	}
+
+	public void setOriginal_filename(String original_filename) {
+		this.original_filename = original_filename;
 	}
 	
 	

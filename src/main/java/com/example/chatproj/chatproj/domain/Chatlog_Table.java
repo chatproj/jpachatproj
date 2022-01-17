@@ -23,6 +23,7 @@ public class Chatlog_Table {
 	String time;
 	String uname;
 	String filename;
+	String up_filename;
 	String division;
 	
 	public int getUnum() {
@@ -60,6 +61,12 @@ public class Chatlog_Table {
 	}
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}	
+	public String getUp_filename() {
+		return up_filename;
+	}
+	public void setUp_filename(String up_filename) {
+		this.up_filename = up_filename;
 	}
 	public String getDivision() {
 		return division;

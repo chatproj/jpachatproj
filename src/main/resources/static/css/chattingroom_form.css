@@ -162,6 +162,11 @@
 	font-size: 2px;
 }
 
+.downloadFile .downloadbtn:hover {
+	outline: none;
+	background: #8bbbbd;
+}
+
 .downloadFile .filedeletebtn {
 	background: red;
 	color: white;
@@ -195,6 +200,29 @@
 .chatform .myLog {
 	margin-top: 10px;
 	margin-right: 25px;
+}
+
+.myLog .upfile {
+/* 	display: flex; */
+	flex-direction: row-reverse;
+	text-align: right;	
+}
+
+.myLog .downloadbtn {
+	border-radius: 10px;
+	width: 60px;
+	height: 20px;
+	background: #e1e1e1;
+	color: #4a6363;
+	font-size: 2px;
+}
+
+.myLog .downloadbtn:hover {
+	border-radius: 10px;
+	width: 60px;
+	height: 20px;
+	outline: none;
+	background: #8bbbbd;
 }
 
 .myLog .myprofile {
@@ -244,6 +272,23 @@
 .chatform .yourLog {
 	margin-top: 10px;
 	margin-left: 10px;
+}
+
+.yourLog .downloadbtn {
+	border-radius: 10px;
+	width: 60px;
+	height: 20px;
+	background: #e1e1e1;
+	color: #4a6363;
+	font-size: 2px;	
+}
+
+.yourLog .downloadbtn:hover {
+	border-radius: 10px;
+	width: 60px;
+	height: 20px;
+	outline: none;
+	background: #8bbbbd;
 }
 
 .yourLog .yourprofile {
