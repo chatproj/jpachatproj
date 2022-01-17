@@ -134,6 +134,7 @@
 											<td class="fileusername"><%=uname.get(i) %></td>
 											<td class="fileuploadtime"><%=time.get(i) %></td>
 										    <form method="POST" action="/download">
+										    	<input type="hidden" name="original_filename" value="<%=original_filename.get(i) %>">
 												<input type="hidden" name="filename" value="<%=filename.get(i) %>">
 											    <td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>	
 											</form>
@@ -173,11 +174,14 @@
 							<%
 								}else if(chatlog.get(i).getDivision().equals("file")){
 							%>
-								<form method='POST' action='/download'>
+								<form method='POST' action='/download' id="upfile" class="upfile">
 									<input type='hidden' id="test" name='filename' value='<%=chatlog.get(i).getLog() %>'>
+									<input type='hidden' name='original_filename' value='<%=chatlog.get(i).getUp_filename() %>'>
+									<%-- <input type="text" name="sockoriginalfilename" value='<%=chatlog.get(i).getUp_filename() %>' readonly> --%>
+									<div id="sockoriginalfilename" class="sockoriginalfilename">파일명 : <%=chatlog.get(i).getUp_filename() %></div>
 									<input type='submit' id='downloadbtn' value='다운로드' class='downloadbtn'>
 								</form>
-								<div class="mytime">time : <<%=chatlog.get(i).getTime() %>></div>								
+								<div class="mytime">time : < <%=chatlog.get(i).getTime() %> ></div>								
 							<%
 								}
 							%>
@@ -198,11 +202,14 @@
 							<%
 								}else if(chatlog.get(i).getDivision().equals("file")){
 							%>
-								<form method='POST' action='/download'>
-									<input type='hidden' id="test" name='filename' value='<%=chatlog.get(i).getLog() %>'>
+								<form method='POST' action='/download' id="upfile" class="upfile">
+									<input type='hidden' name='filename' value='<%=chatlog.get(i).getLog() %>'>
+									<input type='hidden' name='original_filename' value='<%=chatlog.get(i).getUp_filename() %>'>
+									<%-- <input type="text" name="sockoriginalfilename" value='<%=chatlog.get(i).getUp_filename() %>' readonly> --%>
+									<div id="sockoriginalfilename" class="sockoriginalfilename">파일명 : <%=chatlog.get(i).getUp_filename() %></div>
 									<input type='submit' id='downloadbtn' value='다운로드' class='downloadbtn'>
 								</form>
-								<div class="mytime">time : <<%=chatlog.get(i).getTime() %>></div>
+								<div class="yourtime">time : < <%=chatlog.get(i).getTime() %> ></div>
 							<%
 								}
 							%>
@@ -365,9 +372,8 @@ function uploadFile() {
 			if(filesearch == "value='file'"){
 				 location.reload();
 				 loaction.reload();
-			}else{
-				alert("1");
 			}
+			
 			var scrolldiv = document.getElementById("chatform");
 			scrolldiv.scrollTop = scrolldiv.scrollHeight;
 			
@@ -434,7 +440,7 @@ function uploadFile() {
 		
 		setTimeout(function() {
 			ws.send(uN+","+uName+","+file+","+img+","+nowtimes);
-		}, 3000)
+		}, 1000)
 
 	}
 	
