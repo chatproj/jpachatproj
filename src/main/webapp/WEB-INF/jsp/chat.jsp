@@ -90,7 +90,7 @@
 							</div>
 							<button id="invitebtn" class="invitebtn" onclick="openinvite()">친구초대</button>
 							<button id="filelistbtn" class="filelistbtn" onclick="openfilelist()">파일</button>
-							<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="cnumtocontroller()">
+							<input type="submit" id="exitbtn" value="나가기" class="exitbtn" onclick="AjaxExitController()">
 						</div>
 					</div>
 					
@@ -198,7 +198,7 @@
 								if(chatlog.get(i).getDivision().equals("text")){
 							%>
 								<div class="yourmsg"><%=chatlog.get(i).getLog() %></div>
-								<div class="yourtime">time : <<%=chatlog.get(i).getTime() %>></div>
+								<div class="yourtime">time : < <%=chatlog.get(i).getTime() %> ></div>
 							<%
 								}else if(chatlog.get(i).getDivision().equals("file")){
 							%>
@@ -209,7 +209,7 @@
 									<div id="sockoriginalfilename" class="sockoriginalfilename">파일명 : <%=chatlog.get(i).getUp_filename() %></div>
 									<input type='submit' id='downloadbtn' value='다운로드' class='downloadbtn'>
 								</form>
-								<div class="yourtime">time : < <%=chatlog.get(i).getTime() %> ></div>
+								<div class="yourtime">time : < <%=chatlog.get(i).getTime() %> ></div>	
 							<%
 								}
 							%>
@@ -223,13 +223,6 @@
 				</div>
 				<div id="yourMsg" class="yourMsg">
 					<table class="inputTable">	
-<%-- 							<form method="POST" action="/uploadFile" enctype="multipart/form-data">
-								<input type="hidden" id="text" name="cnum" value="<%=cnumPK %>">
-								<input type="hidden" id="text" name="unum" value="<%=sessionNum %>">
-								<th><input id="uploadinput" class="uploadinput" type="file" name="fileupload" accept="*" /></th>
-								<th><button onClick="upload()" type="submit" id="uploadBtn" class="sendBtn">업로드</button></th>
-							</form>		 --%>
-
 							<form id="upload-file-form">
 								<input type="hidden" id="text" name="cnum" value="<%=cnumPK %>">
 								<input type="hidden" id="text" name="unum" value="<%=sessionNum %>">
@@ -312,6 +305,7 @@ function uploadFile() {
 			//소켓이 열리면 초기화 세팅하기
 		}
 		ws.onmessage = function(data) {
+			var sessionNum = "<%=sessionNum%>";
 			var msg = data.data;
 			console.log(msg);
 			
@@ -322,7 +316,7 @@ function uploadFile() {
 			console.log(msgarr[3]);
 			console.log(msgarr[4]);
 			
-			if( msgarr[0] == <%=sessionNum %> ){
+			if( msgarr[0] == sessionNum ){
 				var msgTemp = "<div>"
 					msgTemp = "<div class='myLog'>"
 					msgTemp += "<div class='myprofile'>"
@@ -337,9 +331,9 @@ function uploadFile() {
 					msgTemp += msgarr[2];
 					msgTemp += "</div>"
 					msgTemp += "<div class='mytime'>"
-					msgTemp += "time : <"
+					msgTemp += "time : < "
 					msgTemp += msgarr[4];
-					msgTemp += ">"
+					msgTemp += " >"
 					msgTemp += "</div>"
 					msgTemp += "</div>"				
 				$("#chatform").append(msgTemp);
@@ -359,9 +353,9 @@ function uploadFile() {
 					msgTemp += msgarr[2];
 					msgTemp += "</div>"
 					msgTemp += "<div class='yourtime'>"
-					msgTemp += "time : <"
+					msgTemp += "time : < "
 					msgTemp += msgarr[4];
-					msgTemp += ">"
+					msgTemp += " >"
 					msgTemp += "</div>"
 					msgTemp += "</div>"						
 					$("#chatform").append(msgTemp);	
@@ -401,10 +395,12 @@ function uploadFile() {
 		// 채팅 공백 시 응답x
 		var chatinput = document.querySelector("#chatting");
 		
+		
+		var cnumPK = "<%=cnumPK %>";
 		if(chatinput.value != ""){
 			ws.send(uN+","+uName+","+msg+","+img+","+nowtimes);
 			// controller로 메시지 넘기기
-			AjaxToController(<%=cnumPK %>,msg, nowtimes);
+			AjaxChat(cnumPK, msg, nowtimes);
 			$('#chatting').val("");
 		}
 	}
@@ -443,50 +439,8 @@ function uploadFile() {
 		}, 1000)
 
 	}
-	
-	function AjaxToController(getPkObj, getMsgObj, getNowTimeObj){		
-		$.ajax({
-			type: 'POST',
-			url: "/chat",
-			data: {
-				cnumPK: getPkObj,
-				msg: getMsgObj,
-				nowtime: getNowTimeObj
-			},
-			success: function(data){
-				
-			},
-			error: function(data){
-				console.log("no", data);
-			}
-		});
-	}
-	
-	function cnumtocontroller(){
-		var cnumPK = "<%=cnumPK %>";
-		console.log(cnumPK);
-		AjaxCnumtoController(cnumPK);
-		window.location.href="/chatList";
-	}
-	
-	function AjaxCnumtoController(cnumPK){
- 		$.ajax({
-			type: 'POST',
-			url: "/chatexit",
-			data: {
-				cnumPK: cnumPK
-			},
-			success: function(data){
-				
-			},
-			error: function(data){
-				console.log("no", data);
-			}
-		}); 		
-	}
 
 </script>
-
 <script type="text/javascript">
 	var filelistbtn = document.getElementById('filelistbtn');
 	var downloadFile = document.getElementById('downloadFile');
@@ -508,4 +462,5 @@ function uploadFile() {
 		}
 	}
 </script>
+<script src="/js/AjaxController.js" type="text/javascript" charset="UTF-8"></script>
 </html>
