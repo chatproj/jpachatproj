@@ -99,7 +99,6 @@
 	</div>
 
 	<!-- Script -->
-	<script src="/js/account_form.js" type="text/javascript" charset="UTF-8"></script>
 	<script type="text/javascript">
 	    const canvas = document.getElementById('imagecanvas');
 	    const context = canvas.getContext('2d');
@@ -124,5 +123,6 @@
 	        reader.readAsDataURL(event.target.files[0])
 	    });
     </script>
+	<script src="/js/account_form.js" type="text/javascript" charset="UTF-8"></script>
 </body>
 </html>
