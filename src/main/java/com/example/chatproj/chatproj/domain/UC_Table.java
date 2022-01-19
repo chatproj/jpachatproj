@@ -40,5 +40,6 @@ public class UC_Table {
 	public void setCname(String cname) {
 		this.cname = cname;
 	}
+	
 }
 

@@ -75,10 +75,4 @@ public class Chatlog_Table {
 		this.division = division;
 	}
 	
-	
-//	@ManyToOne
-//	@JoinColumn(name="cnum")
-//	private Chatroom_Table chatroom_table;
-	
-	
 }

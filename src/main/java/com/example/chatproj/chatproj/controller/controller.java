@@ -121,9 +121,7 @@ public class controller {
 		int imageUsernum = getUidbyUserinform.get().getUnum();
 		
 		// 회원가입 때 이미지 파일 가져오기
-		userimgform.getUserimg();
-		
-		System.out.println("img : " + userimgform.getUserimg().getOriginalFilename());
+		userimgform.getUserimg();		
 		
 		if(userimgform.getUserimg().getOriginalFilename().equals("")) {
 			User_Profileimg userimgfile = (User_Profileimg) nomralinsert(imageUsernum);			
@@ -168,7 +166,6 @@ public class controller {
 			destinationfile = new File(savePath, destinationfilename);
 		}while(destinationfile.exists());
 		
-		//destinationfile.getParentFile().mkdirs();
 		try {
 			files.transferTo(destinationfile);
 		}catch (IOException e) {
@@ -261,8 +258,6 @@ public class controller {
 		
 		userimgform.getUserimg();
 		
-		System.out.println("img : " + userimgform.getUserimg().getOriginalFilename());
-		
 		User_Profileimg userimgfile = (User_Profileimg) fileupdate(userimgform.getUserimg(), imageUsernum);
 		
 		int unum = userimgfile.getUnum();
@@ -292,7 +287,6 @@ public class controller {
 			destinationfile = new File(savePath, destinationfilename);
 		}while(destinationfile.exists());
 		
-		//destinationfile.getParentFile().mkdirs();
 		try {
 			files.transferTo(destinationfile);
 		}catch (IOException e) {
@@ -307,29 +301,6 @@ public class controller {
 		return userimg;
 		
 	}
-	
-//	@PostMapping("/modify")
-//	public String modifyUpdate(SignupForm form) {
-//		String uid = form.getUid();
-//		String upw = form.getUpw();
-//		String uname = form.getUname();
-//		String email = form.getEmail();
-//		String phone = form.getPhone_num();
-//				
-//		String result =	userService.modifyUser(uid, upw, uname, email, phone);
-//		
-//		if(result.equals("동일한 이메일입니다.")) {
-//			return "redirect:/modifyUser?message=duplicateEmail";			
-//		}else {
-//			return "redirect:/";
-//		}
-//	}
-	
-//	@PostMapping("/modifyuser")
-//	public String modifyuser(HttpServletRequest request) {
-//			
-//		return "redirect:/";
-//	}
 	
 	// 회원탈퇴
 	@PostMapping("/deleteuser")
@@ -462,9 +433,6 @@ public class controller {
 		
 		String id_check_result = userService.duplicateMatch(user);
 		
-//		if(id_check_result.equals("matchX")) {
-//			return "redirect:/inviteuser?message=FAILURE_matchX";
-//		}else 
 		if(id_check_result.equals("noid")) {
 			return "redirect:/inviteuser?message=FAILURE_noid";
 		}else {
@@ -569,8 +537,7 @@ public class controller {
 		model.addAttribute("userimg", userimg);
 		
 		// get ajax data -> insert logtable
-		Chatlog_Table chatlog_table = new Chatlog_Table();		
-		System.out.println("222222222222222" + sockoriginalfilename);
+		Chatlog_Table chatlog_table = new Chatlog_Table();
 		try {
 			if(!msg.equals("") && msg != null) {
 				chatlog_table.setUnum(sessionNum);
@@ -649,7 +616,6 @@ public class controller {
 			
 			try {
 				Optional<Fileupload_Table> sockfile = chatService.findsockfile(fN);
-				System.out.println("11111111111111111111111111" + sockfile.get().getFilename());
 				model.addAttribute("sockfilename", sockfile.get().getFilename());
 			}catch(NoSuchElementException e) {
 				
@@ -672,8 +638,6 @@ public class controller {
 		uc_table.setCnum(form.getCnum());
 		uc_table.setUnum(unum);
 		uc_table.setCname(form.getCname());
-		
-		System.out.println("dddddddddd" + form.getCnum());
 		
 		try {
 			chatService.addUCTable(uc_table);	

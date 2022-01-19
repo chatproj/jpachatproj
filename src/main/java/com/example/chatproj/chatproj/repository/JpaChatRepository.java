@@ -40,7 +40,6 @@ public class JpaChatRepository implements ChatRepository{
     
     @Override
     public UC_Table insUCTable(UC_Table user2) {
-    	System.out.println("dddddddddddd" + user2.getCnum());
     	em.persist(user2);
     	return user2;
     }
