@@ -225,7 +225,7 @@ public class controller {
 		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);
 		int sessionNum = getSessionName.get().getUnum();
 		
-		Optional<User> userinfo = userService.getUserinfo(sessionNum);
+		Optional<User> userinfo = userService.findByNum(sessionNum);
 		
 		model.addAttribute("unum", userinfo.get().getUnum());
 		model.addAttribute("uid", userinfo.get().getUid());
@@ -441,7 +441,7 @@ public class controller {
 			String sessionName = (String)session.getAttribute("sessionId");	
 			// insert chatroom_table
 			if(inviteuserform.getUid() != sessionName && !inviteuserform.getUid().equals(sessionName)) {
-				Optional<Chatroom_Table> selectcnum = chatService.join();
+				Optional<Chatroom_Table> selectcnum = chatService.findbycnum();
 				
 				Chatroom_Table chatroom_table = new Chatroom_Table();
 				
@@ -468,7 +468,7 @@ public class controller {
 						uc_table.setCnum(selectcnum.get().getCnum() + 1);
 						uc_table.setCname(inviteuserform.getCname());	
 					}catch(NoSuchElementException e){
-						Optional<Chatroom_Table> null_chatroom_table = chatService.join();		
+						Optional<Chatroom_Table> null_chatroom_table = chatService.findbycnum();		
 						uc_table.setCnum(null_chatroom_table.get().getCnum());
 						uc_table.setCname(inviteuserform.getCname());
 					}
@@ -495,7 +495,7 @@ public class controller {
 		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
 		int sessionNum = getSessionName.get().getUnum();
 		
-		List<UC_Table> getUnum = chatService.getUserInfo(cnumPK);
+		List<UC_Table> getUnum = chatService.getCnumToUserInfo(cnumPK);
 		
 		int unumPk[] = new int[getUnum.size()];
 		
@@ -597,7 +597,7 @@ public class controller {
 			
 		
 	     // 채팅방 참여자 목록
-		List<UC_Table> userlist = chatService.getUserInfo(cnumPK);
+		List<UC_Table> userlist = chatService.getCnumToUserInfo(cnumPK);
 		List<User> userinfo = new ArrayList<User>();
 		List<User_Profileimg> userimginfo = new ArrayList<>();
 		
@@ -611,16 +611,7 @@ public class controller {
 				userimginfo = userService.chatinuserimginfo(userlist.get(i).getUnum());
 				chatuserlistimg.add(userimginfo.get(0).getFilename());
 			}
-			
-			String fN = sockfilename;
-			
-			try {
-				Optional<Fileupload_Table> sockfile = chatService.findsockfile(fN);
-				model.addAttribute("sockfilename", sockfile.get().getFilename());
-			}catch(NoSuchElementException e) {
-				
-			}
-			
+		
 			model.addAttribute("chatuserlist", chatuserlist);
 			model.addAttribute("chatuserlistimg", chatuserlistimg);
 	
@@ -755,7 +746,7 @@ public class controller {
 		// 채팅방 나가기 로직
 		int getCnumPK = cnumPK;
 		chatService.exitUser(cnumPK, sessionNum);
-		List<UC_Table> getUserInfo = chatService.getUserInfo(getCnumPK);
+		List<UC_Table> getUserInfo = chatService.getCnumToUserInfo(getCnumPK);
 		
 		if(getUserInfo.size() == 0) {
 			chatService.deleteChatRoom(getCnumPK);

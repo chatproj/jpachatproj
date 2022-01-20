@@ -20,30 +20,28 @@ public class JpaChatRepository implements ChatRepository{
 		this.em = em;
 	}
 
+	// chatroom_table insert
 	@Override
 	public Chatroom_Table save(Chatroom_Table user1) {
 		em.persist(user1);
 		return user1;
 	}
 
-	@Override
-	public Optional<Chatroom_Table> findByUNum(int unum) {
-		List<Chatroom_Table> result = em.createQuery("select m from Chatroom_Table m where m.unum = :unum", Chatroom_Table.class).setParameter("unum", unum).getResultList();
-		return result.stream().findAny();
-	}
-
+	// cnum 기반 chatroom_table 조회
 	@Override
     public Optional<Chatroom_Table> findByCNum() {
         List<Chatroom_Table> result = em.createQuery("select m from Chatroom_Table m Order By cnum desc", Chatroom_Table.class).getResultList();
         return result.stream().findAny();
     }
     
+    // insert uc_table
     @Override
     public UC_Table insUCTable(UC_Table user2) {
     	em.persist(user2);
     	return user2;
     }
     
+    // 나의 채팅방 리스트 select
     @Override
     public List<UC_Table> getChatList(int sessionNum){
     	List<UC_Table> result = em.createQuery("select m from UC_Table m where m.unum = :sessionNum", UC_Table.class)
@@ -52,6 +50,7 @@ public class JpaChatRepository implements ChatRepository{
 		return result;
     }
     
+    // 채팅방 클릭 시 채팅방pk 및 이름으로 select하여 채팅방 이동
     @Override
     public List<UC_Table> getstringToinfo(int submitListPK, String submitListName){
     	List<UC_Table> result = em.createQuery("select m from UC_Table m where m.cnum = :submitListPK and m.cname = :submitListName", UC_Table.class)
@@ -62,8 +61,9 @@ public class JpaChatRepository implements ChatRepository{
     	return result;
     }
     
+    // cnum 기반 uc_table의 userinfo
     @Override
-    public List<UC_Table> getUserInfo(int cnumPK){
+    public List<UC_Table> getCnumToUserInfo(int cnumPK){
     	List<UC_Table> result = em.createQuery("select m from UC_Table m where m.cnum = :cnumPK", UC_Table.class)
     			.setParameter("cnumPK", cnumPK).getResultList();
     	
@@ -75,6 +75,7 @@ public class JpaChatRepository implements ChatRepository{
 		em.persist(chatlog_table);	
 	}
 	
+	// cnumpk 기반 로그 조회
 	@Override
 	public List<Chatlog_Table> getChatLog(int cnumPK){
 		List<Chatlog_Table> result = em.createQuery("select m from Chatlog_Table m where m.cnum = :cnumPK Order By id asc", Chatlog_Table.class)
@@ -82,6 +83,7 @@ public class JpaChatRepository implements ChatRepository{
 		return result;
 	}
 	
+	// cnumpk 기반 chatroom 이름 조회
 	@Override
 	public Optional<Chatroom_Table> getChatName(int cnumPK){
 		List<Chatroom_Table> result = em.createQuery("select m from Chatroom_Table m where m.cnum = :cnumPK", Chatroom_Table.class)
@@ -89,6 +91,7 @@ public class JpaChatRepository implements ChatRepository{
 		return result.stream().findAny();
 	}
 	
+	// 채팅방 나가기
 	@Override
 	public void exitUser(int cnumPK, int sessionNum) {
 		em.createQuery("delete from UC_Table m where m.cnum = :cnumPK and m.unum = :sessionNum")
@@ -97,6 +100,7 @@ public class JpaChatRepository implements ChatRepository{
 				.executeUpdate();
 	}
 	
+	// 채팅방 인원이 모두 나갈 경우 채팅방 삭제
 	@Override
 	public void deleteChatRoom(int cnumPK) {
 		em.createQuery("delete from Chatroom_Table m where m.cnum = :cnumPK")
@@ -110,6 +114,7 @@ public class JpaChatRepository implements ChatRepository{
 		return file_save;		
 	}
 
+	// 파일 다운로드
 	@Override
 	public List<Fileupload_Table> downloadfile(int downloadfile) {
 		List<Fileupload_Table> result = em.createQuery("select m from Fileupload_Table m where m.cnum = :downloadfile", Fileupload_Table.class)
@@ -117,6 +122,7 @@ public class JpaChatRepository implements ChatRepository{
 		return result;
 	}
 	
+	// 파일 삭제
 	@Override
 	public void filedelete(String filename) {
 		em.createQuery("delete from Fileupload_Table m where m.filename = :filename")
@@ -124,31 +130,19 @@ public class JpaChatRepository implements ChatRepository{
 				.executeUpdate();
 	}
 
-	@Override
-	public List<UC_Table> validunum() {
-		List<UC_Table> result = em.createQuery("select m from UC_Table m", UC_Table.class).getResultList();
-		return result;
-	}
-
+	// 채팅방에서 유저 초대
 	@Override
 	public UC_Table addUCTable(UC_Table uc_table) {
 		em.persist(uc_table);
 		return uc_table;
 	}
 
+	// 채팅방 초대 시 이미 있는 멤버인지 체크
 	@Override
 	public Optional<UC_Table> ucfindbyid(int unum, int cnum) {
 		List<UC_Table> result = em.createQuery("select m from UC_Table m where m.unum = :unum and m.cnum = :cnum", UC_Table.class)
 				.setParameter("unum", unum)
 				.setParameter("cnum", cnum)
-				.getResultList();
-		return result.stream().findAny();
-	}
-
-	@Override
-	public Optional<Fileupload_Table> findsockfile(String filename) {
-		List<Fileupload_Table> result= em.createQuery("select m from Fileupload_Table m where m.filename = :filename", Fileupload_Table.class)
-				.setParameter("filename", filename)
 				.getResultList();
 		return result.stream().findAny();
 	}

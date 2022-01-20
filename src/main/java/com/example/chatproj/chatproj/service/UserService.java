@@ -74,13 +74,7 @@ public class UserService {
 		return result;
 	}
 	
-	// 회원정보수정
-	public Optional<User> getUserinfo(int sessionNum) {
-		Optional<User> result = userRepository.getUserinfo(sessionNum);
-		return result;
-	}
-	
-	
+	// 회원정보 수정
 	public void modifyUser(String uid, String upw, String uname, String email, String phone) {
 		userRepository.modifyUser(uid, upw, uname, email, phone);		
 	}
