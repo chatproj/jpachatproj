@@ -24,7 +24,7 @@ public class ChatService {
 		}
 
 		// chat table 등록
-		public Optional<Chatroom_Table> join() {
+		public Optional<Chatroom_Table> findbycnum() {
             return chatRepository.findByCNum();
         }
 		
@@ -64,8 +64,8 @@ public class ChatService {
 			return result;
 		}
 		
-		public List<UC_Table> getUserInfo(int cnumPK){
-			List<UC_Table> result = chatRepository.getUserInfo(cnumPK);
+		public List<UC_Table> getCnumToUserInfo(int cnumPK){
+			List<UC_Table> result = chatRepository.getCnumToUserInfo(cnumPK);
 			return result;
 		}
 		
@@ -104,16 +104,6 @@ public class ChatService {
 		
 		public void filedelete(String filename) {
 			chatRepository.filedelete(filename);
-		}
-
-		public List<UC_Table> validunum() {
-			List<UC_Table> result = chatRepository.validunum();
-			return result;
-		}
-
-		public Optional<Fileupload_Table> findsockfile(String filename) {
-			Optional<Fileupload_Table> result = chatRepository.findsockfile(filename);
-			return result;
 		}
 
 		
