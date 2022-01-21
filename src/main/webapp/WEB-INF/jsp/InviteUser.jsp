@@ -34,7 +34,7 @@
 				<form method="POST" action="/inviteuser">
 					<div class="invite-box">
 						<div class="inputlabel">방제목</div>
-						<input type="text" name="cname" id="cname">
+						<input type="text" name="cname" id="cname" maxlength="20">
 						<div id="cname_error" class="error"></div>
 					</div>
 					
