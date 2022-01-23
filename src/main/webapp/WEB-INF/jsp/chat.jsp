@@ -27,6 +27,16 @@
 						<%
 							}
 						%>
+							
+						<%
+							String tempStart = request.getParameter("page");
+							if(request.getParameter("page") != null){
+						%>
+							downloadFile.showModal();
+						<%
+							}
+						%>
+						
 					});
 				</script>
 				
@@ -44,8 +54,7 @@
 				// filelist
 				ArrayList<String> totalfile = (ArrayList) request.getAttribute("totalfile");
 				int count = totalfile.size();
-				
-				String tempStart = request.getParameter("page");
+
 				
 				int startPage = 0;
 				int onePageCnt = 5;
@@ -161,11 +170,12 @@
 		
 						</form>
 					</dialog>
-					
-					<dialog id="downloadFile" class="downloadFile">
+
+					<dialog id="downloadFile" class="downloadFile" data-keyboard="false">
+						<form method="dialog">
   						  		<table id="filelist_table" class="filelist_table">
   						  		<tr>
-  						  			<th class="filelist_table_header_close" colspan="5"><button value="cancel">X</button></th>
+  						  			<th class="filelist_table_header_close" colspan="5"><button id="filelistexit" class="filelistexit" onclick="filelistexit()">X</button></th>
   						  		</tr>
   						  		<tr>
 									<th class="filelist_table_header" id="filename_width">파일명</th>
@@ -200,12 +210,13 @@
 									<%
 									for(int i=1; i<=count; i++){
 									%>
-											<a href="chat?cnumPK=<%=cnumPK %>&page=<%=i %>">[<%=i %>]</a>
+											 <a href="chat?cnumPK=<%=cnumPK %>&page=<%=i %>">[<%=i %>]</a>
+											<%-- <a><input type="button" id="page" name="page" value="<%=i %>" onclick="page()"></a> --%>
 									<%
 										}
 									%>
 								</div>
-						
+							</form>
 					</dialog>
 					
 				</div>
@@ -507,6 +518,12 @@ function uploadFile() {
 				alert("The <dialog> API is not supported by this browser");
 		  }
 	}
+	
+	function filelistexit(){
+		downloadFile.addEventListener('close', function onClose(){
+			
+		});
+	}
 
 
 	var invite = document.getElementById('invite');
@@ -517,6 +534,8 @@ function uploadFile() {
 			alert("The <dialog> API is not supported by this browser");
 		}
 	}
+
+	
 </script>
 <script src="/js/AjaxController.js" type="text/javascript" charset="UTF-8"></script>
 </html>
