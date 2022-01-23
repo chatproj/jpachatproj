@@ -63,6 +63,7 @@
 .chatheader .chatroomuserlist {
 	height: 150px;
 	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .chatroomuserlist .chatuserlist {
@@ -118,7 +119,7 @@
 
 .chatheader .downloadFile {
 	width: 500px;
-	height: 300px;
+	height: 250px;
 }
 
 .downloadFile .filelist_table {
@@ -171,6 +172,11 @@
 	background: red;
 	color: white;
 	font-size: 2px;
+}
+
+.downloadFile .chatlistpage {
+	width: 480px;
+	text-align: center;
 }
 
 .chatheader .chatroom_name {

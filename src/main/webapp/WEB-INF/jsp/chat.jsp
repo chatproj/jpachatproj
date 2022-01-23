@@ -86,7 +86,7 @@
 				ArrayList<String> chatuserlistimg = (ArrayList) request.getAttribute("chatuserlistimg");
 				%>
 				
-				<% if(fileList1 != null && fileList != null && !fileList1.equals("") && !fileList.equals("")){ %>
+				<%-- <% if(fileList1 != null && fileList != null && !fileList1.equals("") && !fileList.equals("")){ %>
 				<% for(int i=0; i<fileList.length; i++) { %>
 				<tr class="second_fileblock">
 					<td class="originalfilename"><%=original_filename.get(i) %></td>
@@ -114,7 +114,7 @@
 						<a href="chat?cnumPK=<%=cnumPK %>&page=<%=i %>">[<%=i %>]</a>
 				<%
 					}
-				%>
+				%> --%>
 				
 				<div class="chatheader">
 				
@@ -196,6 +196,15 @@
 
 								<% } %>
 								</table>
+								<div class="chatlistpage">
+									<%
+									for(int i=1; i<=count; i++){
+									%>
+											<a href="chat?cnumPK=<%=cnumPK %>&page=<%=i %>">[<%=i %>]</a>
+									<%
+										}
+									%>
+								</div>
 						
 					</dialog>
 					
