@@ -97,8 +97,13 @@ public class ChatService {
 			return null;	
 		}
 		
-		public List<Fileupload_Table> getfileinfo(int getfileinfo) {
-			List<Fileupload_Table> result = chatRepository.downloadfile(getfileinfo);
+		public List<Fileupload_Table> gettotalinfo(int getfileinfo) {
+			List<Fileupload_Table> result = chatRepository.gettotalinfo(getfileinfo);
+			return result;
+		}
+		
+		public List<Fileupload_Table> getfileinfo(int getfileinfo, int startPage, int onePageCnt) {
+			List<Fileupload_Table> result = chatRepository.getfileinfo(getfileinfo, startPage, onePageCnt);
 			return result;
 		}
 		

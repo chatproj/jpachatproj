@@ -113,12 +113,22 @@ public class JpaChatRepository implements ChatRepository{
 		em.persist(file_save);
 		return file_save;		
 	}
-
 	// 파일 다운로드
 	@Override
-	public List<Fileupload_Table> downloadfile(int downloadfile) {
-		List<Fileupload_Table> result = em.createQuery("select m from Fileupload_Table m where m.cnum = :downloadfile", Fileupload_Table.class)
-				.setParameter("downloadfile", downloadfile).getResultList();
+	public List<Fileupload_Table> gettotalinfo(int cnum) {
+		List<Fileupload_Table> result = em.createQuery("select m from Fileupload_Table m where m.cnum = :cnum", Fileupload_Table.class)
+				.setParameter("cnum", cnum).getResultList();
+		return result;
+	}
+	
+	// limit 5개씩 조회
+	@Override
+	public List<Fileupload_Table> getfileinfo(int cnum, int startPage, int onePageCnt) {
+		List<Fileupload_Table> result = em.createQuery("select m from Fileupload_Table m where m.cnum = :cnum order by id desc", Fileupload_Table.class)
+				.setParameter("cnum", cnum)
+				.setFirstResult(startPage)
+				.setMaxResults(onePageCnt)
+				.getResultList();
 		return result;
 	}
 	

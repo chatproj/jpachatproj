@@ -42,6 +42,22 @@
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
 				
 				// filelist
+				ArrayList<String> totalfile = (ArrayList) request.getAttribute("totalfile");
+				int count = totalfile.size();
+				
+				String tempStart = request.getParameter("page");
+				
+				int startPage = 0;
+				int onePageCnt = 5;
+				
+				count = (int)Math.ceil((double)count/(double)onePageCnt);
+				
+				if(tempStart != null){
+					startPage = (Integer.parseInt(tempStart)-1)*onePageCnt;
+				}
+				
+				
+				
 				String fileList1 = (String) request.getAttribute("filelist");
 
 				String[] fileList = fileList1.split("/");
@@ -69,6 +85,37 @@
 				ArrayList<String> chatuserlist = (ArrayList) request.getAttribute("chatuserlist");
 				ArrayList<String> chatuserlistimg = (ArrayList) request.getAttribute("chatuserlistimg");
 				%>
+				
+				<% if(fileList1 != null && fileList != null && !fileList1.equals("") && !fileList.equals("")){ %>
+				<% for(int i=0; i<fileList.length; i++) { %>
+				<tr class="second_fileblock">
+					<td class="originalfilename"><%=original_filename.get(i) %></td>
+				<td class="fileusername"><%=uname.get(i) %></td>
+				<td class="fileuploadtime"><%=time.get(i) %></td>
+				  <form method="POST" action="/download">
+				  	<input type="hidden" name="original_filename" value="<%=original_filename.get(i) %>">
+				<input type="hidden" name="filename" value="<%=filename.get(i) %>">
+				    <td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>	
+				</form>
+				<form method="POST" action="filedelete">
+					<input type="hidden" id="text" name="cnum" value="<%=cnumPK %>">
+				<input type="hidden" name="filename" value="<%=filename.get(i) %>">
+					    <td><input type="submit" id="filedeletebtn" value="삭제" class="filedeletebtn"></td>										
+					</form>
+				</tr>
+				<% } %>
+				<% }else{ %>
+				
+				<% } %>
+				
+				<%
+					for(int i=1; i<=count; i++){
+				%>
+						<a href="chat?cnumPK=<%=cnumPK %>&page=<%=i %>">[<%=i %>]</a>
+				<%
+					}
+				%>
+				
 				<div class="chatheader">
 				
 				<div class="chatroom_name"><%=cname %></div>
