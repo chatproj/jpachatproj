@@ -486,7 +486,8 @@ public class controller {
 	
 	// 채팅방
 	@RequestMapping("/chat")
-	public String chatpg(Model model, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="sockfilename", required=false) String sockfilename, @RequestParam(value="sockoriginalfilename", required=false) String sockoriginalfilename, @RequestParam(value="msg", required=false) String msg, @RequestParam(value="nowtime", required=false) String nowtime, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws IOException {
+	public String chatpg(Model model, @RequestParam(value="page", required=false) String page, @RequestParam("cnumPK") int cnumPK, @RequestParam(value="sockfilename", required=false) String sockfilename, @RequestParam(value="sockoriginalfilename", required=false) String sockoriginalfilename, @RequestParam(value="msg", required=false) String msg, @RequestParam(value="nowtime", required=false) String nowtime, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws IOException {
+		
 		// session
 		HttpSession session = request.getSession();
 		String sessionName = (String)session.getAttribute("sessionId");	
@@ -580,20 +581,51 @@ public class controller {
 
 		
 		//filelist
-		List<Fileupload_Table> fileinfo = chatService.getfileinfo(cnumPK);
+		int startPage = 0;
+		int onePageCnt = 5;
+		
+		System.out.println("pageeeeeeeee" + page);
+		
+		if(page != null) {
+			List<Fileupload_Table> totalfile = chatService.gettotalinfo(cnumPK);
 			
-			ArrayList<String> map1 = new ArrayList<>();
+			startPage = (Integer.parseInt(page)-1)*onePageCnt;
 			
-			for(int i=0; i<fileinfo.size(); i++) {
-				map1.add(fileinfo.get(i).getUname() + ","
-						+ fileinfo.get(i).getFilename() + ","
-						+ fileinfo.get(i).getOriginal_filename() + "," 
-						+ fileinfo.get(i).getTime() + "/");
-			}
+			System.out.println("ssssssssssss" + startPage);
 			
-			String map = String.join("", map1);
-			
-			model.addAttribute("filelist", map);
+			List<Fileupload_Table> fileinfo = chatService.getfileinfo(cnumPK, startPage, onePageCnt);
+				
+				ArrayList<String> map1 = new ArrayList<>();
+				
+				for(int i=0; i<fileinfo.size(); i++) {
+					map1.add(fileinfo.get(i).getUname() + ","
+							+ fileinfo.get(i).getFilename() + ","
+							+ fileinfo.get(i).getOriginal_filename() + "," 
+							+ fileinfo.get(i).getTime() + "/");
+				}
+				
+				String map = String.join("", map1);
+				
+				model.addAttribute("totalfile", totalfile);
+				model.addAttribute("filelist", map);			
+		}else {
+			List<Fileupload_Table> totalfile = chatService.gettotalinfo(cnumPK);
+			List<Fileupload_Table> fileinfo = chatService.getfileinfo(cnumPK, startPage, onePageCnt);
+				
+				ArrayList<String> map1 = new ArrayList<>();
+				
+				for(int i=0; i<fileinfo.size(); i++) {
+					map1.add(fileinfo.get(i).getUname() + ","
+							+ fileinfo.get(i).getFilename() + ","
+							+ fileinfo.get(i).getOriginal_filename() + "," 
+							+ fileinfo.get(i).getTime() + "/");
+				}
+				
+				String map = String.join("", map1);
+				
+				model.addAttribute("totalfile", totalfile);
+				model.addAttribute("filelist", map);			
+		}
 			
 		
 	     // 채팅방 참여자 목록
@@ -755,34 +787,34 @@ public class controller {
 		return "redirect:chatList";
 	}
 	
-	@RequestMapping("/2")
-	public String filedowntest(Model model) {
-		List<Fileupload_Table> fileinfo = chatService.getfileinfo(2);
-		
-		ArrayList<String> map1 = new ArrayList<>();
-		
-		for(int i=0; i<fileinfo.size(); i++) {
-			map1.add(fileinfo.get(i).getUname() + ","
-					+ fileinfo.get(i).getFilename() + ","
-					+ fileinfo.get(i).getOriginal_filename() + "," 
-					+ fileinfo.get(i).getTime() + "/");
-		}
-		
-		String map = String.join("", map1);
-		
-		model.addAttribute("filelist", map);
-		
-//		HashMap<String, String> map = new HashMap<String, String>();
+//	@RequestMapping("/2")
+//	public String filedowntest(Model model) {
+//		List<Fileupload_Table> fileinfo = chatService.getfileinfo(2);
+//		
+//		ArrayList<String> map1 = new ArrayList<>();
 //		
 //		for(int i=0; i<fileinfo.size(); i++) {
-//			System.out.println("ffffffffff " + fileinfo.get(i).getOriginal_filename());
-//			map.put(fileinfo.get(i).getFilename(), fileinfo.get(i).getOriginal_filename());
+//			map1.add(fileinfo.get(i).getUname() + ","
+//					+ fileinfo.get(i).getFilename() + ","
+//					+ fileinfo.get(i).getOriginal_filename() + "," 
+//					+ fileinfo.get(i).getTime() + "/");
 //		}
+//		
+//		String map = String.join("", map1);
 //		
 //		model.addAttribute("filelist", map);
 //		
-		return "2";
-	}
+////		HashMap<String, String> map = new HashMap<String, String>();
+////		
+////		for(int i=0; i<fileinfo.size(); i++) {
+////			System.out.println("ffffffffff " + fileinfo.get(i).getOriginal_filename());
+////			map.put(fileinfo.get(i).getFilename(), fileinfo.get(i).getOriginal_filename());
+////		}
+////		
+////		model.addAttribute("filelist", map);
+////		
+//		return "2";
+//	}
 	
 //	@GetMapping("/download")
 //	public void download(HttpServletResponse response) throws IOException {

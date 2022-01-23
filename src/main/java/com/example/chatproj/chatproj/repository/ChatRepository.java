@@ -22,7 +22,8 @@ public interface ChatRepository {
 	void exitUser(int cnumPK, int sessionNum);
 	void deleteChatRoom(int cnumPK);
 	Fileupload_Table uploadfile(Fileupload_Table fileinfo);
-	List<Fileupload_Table> downloadfile(int downloadfile);
+	List<Fileupload_Table> gettotalinfo(int downloadfile);
+	List<Fileupload_Table> getfileinfo(int getfileinfo, int startPage, int onePageCnt);
 	void filedelete(String filename);
 	UC_Table addUCTable(UC_Table uc_table);
 	Optional<UC_Table> ucfindbyid(int unum, int cnum);
