@@ -172,10 +172,11 @@
 					</dialog>
 
 					<dialog id="downloadFile" class="downloadFile" data-keyboard="false">
-						<form method="dialog">
   						  		<table id="filelist_table" class="filelist_table">
   						  		<tr>
-  						  			<th class="filelist_table_header_close" colspan="5"><button id="filelistexit" class="filelistexit" onclick="filelistexit()">X</button></th>
+  						  		<form method="dialog">
+  						  			<th class="filelist_table_header_close" colspan="5"><button id="filelistexit" class="filelistexit">X</button></th>
+  						  		</form>
   						  		</tr>
   						  		<tr>
 									<th class="filelist_table_header" id="filename_width">파일명</th>
@@ -216,7 +217,6 @@
 										}
 									%>
 								</div>
-							</form>
 					</dialog>
 					
 				</div>
@@ -519,13 +519,18 @@ function uploadFile() {
 		  }
 	}
 	
+	downloadFile.addEventListener('close', function onClose(){
+		
+	});
+	
+/* 	
 	function filelistexit(){
 		downloadFile.addEventListener('close', function onClose(){
 			
 		});
 	}
 
-
+ */
 	var invite = document.getElementById('invite');
 	function openinvite(){
 		if(typeof invite.showModal === "function") {
@@ -534,7 +539,11 @@ function uploadFile() {
 			alert("The <dialog> API is not supported by this browser");
 		}
 	}
-
+	
+	
+<%-- 	function filelistexit(){
+		window.location.href='/chat?cnumPK=<%=cnumPK %>';
+	} --%>
 	
 </script>
 <script src="/js/AjaxController.js" type="text/javascript" charset="UTF-8"></script>
