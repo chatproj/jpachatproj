@@ -4,7 +4,7 @@
 
 sudo apt-get update
 sudo apt-get install curl
-curl - s https://get.docker.com | sudo sh
+curl -s https://get.docker.com | sudo sh
 docker -v
 
 #  docker-compose install
@@ -22,11 +22,11 @@ sudo usermod -aG docker $username
 
 #  get ubuntu image
 
-docker pull ubuntu:20.04
+sudo docker pull ubuntu:20.04
 
 #  create container
 
-docker run -d -it --name ub ubuntu:20.04 /bin/bash
+sudo docker run -d -it --name ub ubuntu:20.04 /bin/bash
 
 #  connect container
 
@@ -35,7 +35,7 @@ read conndocker
 
 if [ $conndocker == "y" ];
 then
-        docker exec -it ub /bin/bash
+        sudo docker exec -it ub /bin/bash
 else
         exit 0
 fi
