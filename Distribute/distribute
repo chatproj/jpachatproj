@@ -1,0 +1,51 @@
+// Docker AWS 이미지 내려받기
+
+	sudo apt update
+	sudo apt install curl
+	curl -s https://get.docker.com | sudo sh
+	docker -v
+	
+	or
+	
+	sudo apt update
+	sudo apt install docker.io
+	sudo ln -sf /usr/bin/docker.io/usr/local/bin/docker
+	
+// docker-compose install
+
+	sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
+	docker-compose -v
+	
+// 일반 사용자 도커 그룹에 넣기
+
+	sudo usermod -aG docker $USER
+	sudo su - $USER
+	
+// 우분투 이미지 가져오기
+
+	docker pull ubuntu:20.04
+	
+// 컨테이너 생성
+
+	docker run -d -it --name ub ubuntu:20.04 /bin/bash
+	
+// 컨테이너 접속...
+	docker exec -it ub /bin/bash
+
+// 자바 설치
+
+	apt update
+	apt install curl
+	
+	cd ~
+	curl -O https://download.java.net/java/GA/jdk16.0.2/d4a915d82b4c4fbb9bde534da945d746/7/GPL/openjdk-16.0.2_linux-x64_bin.tar.gz
+	tar -xvf openjdk-16.0.2_linux-x64_bin.tar.gz
+	mv jdk-16.0.2 /opt/
+	vi /root/.bashrc
+	export JAVA_HOME=/opt/jdk-16.0.2
+	export PATH=$PATH:$JAVA_HOME/bin 
+	source ~/.bashrc
+	
+	java -version
+	
