@@ -44,7 +44,8 @@
 	mv jdk-16.0.2 /opt/
 	vi /root/.bashrc
 	export JAVA_HOME=/opt/jdk-16.0.2
-	export PATH=$PATH:$JAVA_HOME/bin 
+	export PATH=$PATH:$JAVA_HOME/bin
+	export CALSS_PATH=$CLASS_PATH:$JAVA_HOME/lib 
 	source ~/.bashrc
 	
 	java -version
