@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #  Docker AWS image
 
 sudo apt-get update
