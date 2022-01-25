@@ -14,7 +14,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 #  user dockergroup add
 
-echo "User name "
+echo "your name ? "
 read username
 
 sudo usermod -aG docker $username
@@ -30,7 +30,7 @@ sudo docker run -d -it --name ub ubuntu:20.04 /bin/bash
 
 #  connect container
 
-echo "Do you want to connect to the container? (Y) "
+echo "Do you want to connect to the container ? (Y) "
 read conndocker
 
 if [ $conndocker == "y" ];
