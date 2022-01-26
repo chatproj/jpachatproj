@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,6 +40,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -852,8 +855,11 @@ public class controller {
 //	}
 	
     @PostMapping(value = "/download")
-    public ResponseEntity<Object> download(FileuploadForm2 form, HttpServletRequest request) throws IOException {
+    public ResponseEntity<Object> download(FileuploadForm2 form, HttpServletRequest request, RedirectAttributes redirectAttributes) throws IOException, URISyntaxException {
     	String fileName = form.getFilename();
+		int cnumPK = form.getCnum();
+		System.out.println("cccccccccccc" + cnumPK);
+		
     	System.out.println("dddddddddddd" + fileName);
     	
     	String fileurl = "/uploadfile/";
@@ -873,7 +879,11 @@ public class controller {
 			headers.setContentDisposition(ContentDisposition.builder("attachment").filename(origin_filename, StandardCharsets.UTF_8).build());			
 			return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
 		} catch(Exception e) {
-			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+			
+			URI redirectUri = new URI("/chat?cnumPK=" + cnumPK + "&message=delfile");
+			HttpHeaders headers = new HttpHeaders();
+			headers.setLocation(redirectUri);
+			return new ResponseEntity<Object>(headers, HttpStatus.SEE_OTHER);
 		}
 
     }
