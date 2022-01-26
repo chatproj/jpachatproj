@@ -593,7 +593,7 @@ public class controller {
 				int count = totalfile.size();
 				count = (int)Math.ceil((double)count/(double)onePageCnt);
 				
-				if(Integer.parseInt(page) > count || Integer.parseInt(page) < 0) {
+				if(Integer.parseInt(page) > count || Integer.parseInt(page) <= 0) {
 					redirectAttributes.addAttribute("cnumPK", cnumPK);
 					redirectAttributes.addAttribute("page", 1);
 					return "redirect:chat";
