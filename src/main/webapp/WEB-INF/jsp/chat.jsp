@@ -27,6 +27,14 @@
 						<%
 							}
 						%>
+						
+						<%
+							if(request.getParameter("message") != null && request.getParameter("message").equals("delfile")){
+						%>
+								alert("삭제된 파일입니다.");
+						<%
+							}
+						%>
 							
 						<%
 							String tempStart = request.getParameter("page");
@@ -150,6 +158,7 @@
 											<td class="fileusername"><%=uname.get(i) %></td>
 											<td class="fileuploadtime"><%=time.get(i) %></td>
 										    <form method="POST" action="/download">
+										    	<input type="hidden" name="cnum" value="<%=cnumPK %>">
 										    	<input type="hidden" name="original_filename" value="<%=original_filename.get(i) %>">
 												<input type="hidden" name="filename" value="<%=filename.get(i) %>">
 											    <td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>	
@@ -200,6 +209,7 @@
 								}else if(chatlog.get(i).getDivision().equals("file")){
 							%>
 								<form method='POST' action='/download' id="upfile" class="upfile">
+									<input type="hidden" name="cnum" value="<%=cnumPK %>">
 									<input type='hidden' id="test" name='filename' value='<%=chatlog.get(i).getLog() %>'>
 									<input type='hidden' name='original_filename' value='<%=chatlog.get(i).getUp_filename() %>'>
 									<%-- <input type="text" name="sockoriginalfilename" value='<%=chatlog.get(i).getUp_filename() %>' readonly> --%>
@@ -228,6 +238,7 @@
 								}else if(chatlog.get(i).getDivision().equals("file")){
 							%>
 								<form method='POST' action='/download' id="upfile" class="upfile">
+									<input type="hidden" name="cnum" value="<%=cnumPK %>">
 									<input type='hidden' name='filename' value='<%=chatlog.get(i).getLog() %>'>
 									<input type='hidden' name='original_filename' value='<%=chatlog.get(i).getUp_filename() %>'>
 									<%-- <input type="text" name="sockoriginalfilename" value='<%=chatlog.get(i).getUp_filename() %>' readonly> --%>
