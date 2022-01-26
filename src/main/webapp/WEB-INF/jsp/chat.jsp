@@ -52,20 +52,7 @@
 				ArrayList<Chatlog_Table> chatlog = (ArrayList) request.getAttribute("chatlog");
 				
 				// filelist
-				ArrayList<String> totalfile = (ArrayList) request.getAttribute("totalfile");
-				int count = totalfile.size();
-
-				
-				int startPage = 0;
-				int onePageCnt = 5;
-				
-				count = (int)Math.ceil((double)count/(double)onePageCnt);
-				
-				if(tempStart != null){
-					startPage = (Integer.parseInt(tempStart)-1)*onePageCnt;
-				}
-				
-				
+				int count = (int) request.getAttribute("count");
 				
 				String fileList1 = (String) request.getAttribute("filelist");
 
@@ -93,38 +80,9 @@
 				//chatuserlist
 				ArrayList<String> chatuserlist = (ArrayList) request.getAttribute("chatuserlist");
 				ArrayList<String> chatuserlistimg = (ArrayList) request.getAttribute("chatuserlistimg");
+
 				%>
-				
-				<%-- <% if(fileList1 != null && fileList != null && !fileList1.equals("") && !fileList.equals("")){ %>
-				<% for(int i=0; i<fileList.length; i++) { %>
-				<tr class="second_fileblock">
-					<td class="originalfilename"><%=original_filename.get(i) %></td>
-				<td class="fileusername"><%=uname.get(i) %></td>
-				<td class="fileuploadtime"><%=time.get(i) %></td>
-				  <form method="POST" action="/download">
-				  	<input type="hidden" name="original_filename" value="<%=original_filename.get(i) %>">
-				<input type="hidden" name="filename" value="<%=filename.get(i) %>">
-				    <td><input type="submit" id="downloadbtn" value="다운로드" class="downloadbtn"></td>	
-				</form>
-				<form method="POST" action="filedelete">
-					<input type="hidden" id="text" name="cnum" value="<%=cnumPK %>">
-				<input type="hidden" name="filename" value="<%=filename.get(i) %>">
-					    <td><input type="submit" id="filedeletebtn" value="삭제" class="filedeletebtn"></td>										
-					</form>
-				</tr>
-				<% } %>
-				<% }else{ %>
-				
-				<% } %>
-				
-				<%
-					for(int i=1; i<=count; i++){
-				%>
-						<a href="chat?cnumPK=<%=cnumPK %>&page=<%=i %>">[<%=i %>]</a>
-				<%
-					}
-				%> --%>
-				
+
 				<div class="chatheader">
 				
 				<div class="chatroom_name"><%=cname %></div>
@@ -309,27 +267,6 @@
 		</div>
 	</div>
 </body>
-
-<!-- <script type="text/javascript">
-function uploadFile() {
-	  $.ajax({
-	    url: "/uploadFile",
-	    type: "POST",
-	    data: new FormData($("#upload-file-form")[0]),
-	    enctype: 'multipart/form-data',
-	    processData: false,
-	    contentType: false,
-	    cache: false,
-	    success: function () {
-
-	    },
-	    error: function () {
-
-	    }
-	  });
-	}
-
-</script> -->
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -522,15 +459,7 @@ function uploadFile() {
 	downloadFile.addEventListener('close', function onClose(){
 		
 	});
-	
-/* 	
-	function filelistexit(){
-		downloadFile.addEventListener('close', function onClose(){
-			
-		});
-	}
 
- */
 	var invite = document.getElementById('invite');
 	function openinvite(){
 		if(typeof invite.showModal === "function") {
@@ -539,11 +468,6 @@ function uploadFile() {
 			alert("The <dialog> API is not supported by this browser");
 		}
 	}
-	
-	
-<%-- 	function filelistexit(){
-		window.location.href='/chat?cnumPK=<%=cnumPK %>';
-	} --%>
 	
 </script>
 <script src="/js/AjaxController.js" type="text/javascript" charset="UTF-8"></script>

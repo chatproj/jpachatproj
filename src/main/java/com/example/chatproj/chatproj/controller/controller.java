@@ -585,46 +585,65 @@ public class controller {
 		int onePageCnt = 5;
 		
 		System.out.println("pageeeeeeeee" + page);
-		
-		if(page != null) {
-			List<Fileupload_Table> totalfile = chatService.gettotalinfo(cnumPK);
-			
-			startPage = (Integer.parseInt(page)-1)*onePageCnt;
-			
-			System.out.println("ssssssssssss" + startPage);
-			
-			List<Fileupload_Table> fileinfo = chatService.getfileinfo(cnumPK, startPage, onePageCnt);
+	
+		try {
+			if(page != null) {
+				List<Fileupload_Table> totalfile = chatService.gettotalinfo(cnumPK);
 				
-				ArrayList<String> map1 = new ArrayList<>();
+				int count = totalfile.size();
+				count = (int)Math.ceil((double)count/(double)onePageCnt);
 				
-				for(int i=0; i<fileinfo.size(); i++) {
-					map1.add(fileinfo.get(i).getUname() + ","
-							+ fileinfo.get(i).getFilename() + ","
-							+ fileinfo.get(i).getOriginal_filename() + "," 
-							+ fileinfo.get(i).getTime() + "/");
+				if(Integer.parseInt(page) > count || Integer.parseInt(page) < 0) {
+					redirectAttributes.addAttribute("cnumPK", cnumPK);
+					redirectAttributes.addAttribute("page", 1);
+					return "redirect:chat";
+				}else {
+					startPage = (Integer.parseInt(page)-1)*onePageCnt;
+					
+					System.out.println("ssssssssssss" + startPage);
+					
+					List<Fileupload_Table> fileinfo = chatService.getfileinfo(cnumPK, startPage, onePageCnt);
+						
+						ArrayList<String> map1 = new ArrayList<>();
+						
+						for(int i=0; i<fileinfo.size(); i++) {
+							map1.add(fileinfo.get(i).getUname() + ","
+									+ fileinfo.get(i).getFilename() + ","
+									+ fileinfo.get(i).getOriginal_filename() + "," 
+									+ fileinfo.get(i).getTime() + "/");
+						}
+						
+						String map = String.join("", map1);
+						
+						model.addAttribute("count", count);
+						model.addAttribute("filelist", map);	
 				}
+			}else {
+				List<Fileupload_Table> totalfile = chatService.gettotalinfo(cnumPK);
 				
-				String map = String.join("", map1);
+				int count = totalfile.size();
+				count = (int)Math.ceil((double)count/(double)onePageCnt);
 				
-				model.addAttribute("totalfile", totalfile);
-				model.addAttribute("filelist", map);			
-		}else {
-			List<Fileupload_Table> totalfile = chatService.gettotalinfo(cnumPK);
-			List<Fileupload_Table> fileinfo = chatService.getfileinfo(cnumPK, startPage, onePageCnt);
-				
-				ArrayList<String> map1 = new ArrayList<>();
-				
-				for(int i=0; i<fileinfo.size(); i++) {
-					map1.add(fileinfo.get(i).getUname() + ","
-							+ fileinfo.get(i).getFilename() + ","
-							+ fileinfo.get(i).getOriginal_filename() + "," 
-							+ fileinfo.get(i).getTime() + "/");
-				}
-				
-				String map = String.join("", map1);
-				
-				model.addAttribute("totalfile", totalfile);
-				model.addAttribute("filelist", map);			
+				List<Fileupload_Table> fileinfo = chatService.getfileinfo(cnumPK, startPage, onePageCnt);
+					
+					ArrayList<String> map1 = new ArrayList<>();
+					
+					for(int i=0; i<fileinfo.size(); i++) {
+						map1.add(fileinfo.get(i).getUname() + ","
+								+ fileinfo.get(i).getFilename() + ","
+								+ fileinfo.get(i).getOriginal_filename() + "," 
+								+ fileinfo.get(i).getTime() + "/");
+					}
+					
+					String map = String.join("", map1);
+					
+					model.addAttribute("count", count);
+					model.addAttribute("filelist", map);			
+			}
+		}catch(NumberFormatException e) {
+			redirectAttributes.addAttribute("cnumPK", cnumPK);
+			redirectAttributes.addAttribute("page", 1);
+			return "redirect:chat";			
 		}
 			
 		
