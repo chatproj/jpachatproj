@@ -110,6 +110,11 @@ public class ChatService {
 		public void filedelete(String filename) {
 			chatRepository.filedelete(filename);
 		}
+		
+		public List<UC_Table> findTotalchatlist(){
+			List<UC_Table> result = chatRepository.findTotalchatlist();
+			return result;
+		}
 
 		
 }

@@ -27,4 +27,5 @@ public interface ChatRepository {
 	void filedelete(String filename);
 	UC_Table addUCTable(UC_Table uc_table);
 	Optional<UC_Table> ucfindbyid(int unum, int cnum);
+	List<UC_Table> findTotalchatlist();
 }

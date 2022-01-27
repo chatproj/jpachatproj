@@ -499,19 +499,38 @@ public class controller {
 		Optional<User> getSessionName = userService.getSessionbyUid(sessionName);		
 		int sessionNum = getSessionName.get().getUnum();
 		
-		List<UC_Table> getUnum = chatService.getCnumToUserInfo(cnumPK);
 		
+		// 없는 cnum 매개변수에 대한 redirect
+		List<UC_Table> getCList = chatService.findTotalchatlist();
+		int cnumList[] = new int[getCList.size()];
+		
+		for(int i=0; i<getCList.size(); i++) {
+			cnumList[i] = getCList.get(i).getCnum();
+		}		
+		int chatroommatch = 0;
+		while(true) {
+			if(cnumPK != cnumList[chatroommatch]) {
+				chatroommatch++;
+				if(chatroommatch == getCList.size()) {
+					return "redirect:/signin";
+				}
+			}else {
+				break;
+			}
+		}
+		
+		// 채팅방에 포함되어있지 않는 unum이 접근 시 redirect
+		List<UC_Table> getUnum = chatService.getCnumToUserInfo(cnumPK);
 		int unumPk[] = new int[getUnum.size()];
 		
 		for(int i=0; i<getUnum.size(); i++) {
 			unumPk[i] = getUnum.get(i).getUnum();
 		}
-		
-		int match = 0;
+		int usermatch = 0;
 		while(true) {
-			if(sessionNum != unumPk[match]) {
-				match++;
-				if(match == getUnum.size()) {
+			if(sessionNum != unumPk[usermatch]) {
+				usermatch++;
+				if(usermatch == getUnum.size()) {
 					return "redirect:/signin";
 				}
 			}else {
