@@ -61,12 +61,19 @@ public class JpaChatRepository implements ChatRepository{
     	return result;
     }
     
+    // total uc_table size
+    @Override
+    public List<UC_Table> findTotalchatlist() {
+		List<UC_Table> result = em.createQuery("select m from UC_Table m", UC_Table.class)
+				.getResultList();
+		return result;
+    }
+    
     // cnum 기반 uc_table의 userinfo
     @Override
     public List<UC_Table> getCnumToUserInfo(int cnumPK){
     	List<UC_Table> result = em.createQuery("select m from UC_Table m where m.cnum = :cnumPK", UC_Table.class)
-    			.setParameter("cnumPK", cnumPK).getResultList();
-    	
+    			.setParameter("cnumPK", cnumPK).getResultList(); 	
     	return result;
     }
 
