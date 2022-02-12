@@ -222,7 +222,7 @@
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
       </menus>
-      <toolbar xmi:id="_lqM_sCS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.navigator.ProjectExplorer"/>
+      <toolbar xmi:id="_lqM_sCS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.navigator.ProjectExplorer" visible="false"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_lZdN8CS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.views.ResourceNavigator" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Navigator (Deprecated)" iconURI="platform:/plugin/org.eclipse.ui.ide/icons/full/eview16/filenav_nav.png" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.views.navigator.ResourceNavigator"/>
@@ -252,7 +252,7 @@
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
       </menus>
-      <toolbar xmi:id="_mHR9QCS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.views.AllMarkersView"/>
+      <toolbar xmi:id="_mHR9QCS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.views.AllMarkersView" visible="false"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_leiiQCS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.views.PropertySheet" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Properties" iconURI="platform:/plugin/org.eclipse.ui.views/icons/full/eview16/prop_ps.png" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.views.properties.PropertySheet"/>
@@ -324,7 +324,7 @@
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
       </menus>
-      <toolbar xmi:id="_mF3oASS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.views.ContentOutline"/>
+      <toolbar xmi:id="_mF3oASS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.views.ContentOutline" visible="false"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_lekXcSS-EeyT1r6g4Gs_bg" elementId="org.eclipse.mylyn.tasks.ui.views.tasks" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Task List" iconURI="platform:/plugin/org.eclipse.mylyn.tasks.ui/icons/eview16/task-list.png" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewClass" value="org.eclipse.mylyn.internal.tasks.ui.views.TaskListView"/>
@@ -345,7 +345,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_lLJsMCS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_bmdTADVKEeyhXfuketcisA" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_kHXUGiS-EeyT1r6g4Gs_bg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_WOPXkIA9Eeynrqj7qFdErQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_kHXUGiS-EeyT1r6g4Gs_bg"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_lLJsMSS-EeyT1r6g4Gs_bg" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -379,7 +379,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_lLKTQCS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_bmgWUDVKEeyhXfuketcisA" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_kHWtMSS-EeyT1r6g4Gs_bg"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_WORz0IA9Eeynrqj7qFdErQ" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" enabled="false" type="Check" command="_kHWtMSS-EeyT1r6g4Gs_bg"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_lLKTQSS-EeyT1r6g4Gs_bg" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -1879,7 +1879,7 @@
   <commands xmi:id="_kHSbdiS-EeyT1r6g4Gs_bg" elementId="org.eclipse.egit.ui.history.Merge" commandName="Merge" category="_kHOKGyS-EeyT1r6g4Gs_bg"/>
   <commands xmi:id="_kHSbdyS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.window.switchToEditor" commandName="Switch to Editor" description="Switch to an editor" category="_kHOKDiS-EeyT1r6g4Gs_bg"/>
   <commands xmi:id="_kHSbeCS-EeyT1r6g4Gs_bg" elementId="org.eclipse.wst.jsdt.ui.edit.text.java.find.broken.nls.keys" commandName="Find Broken Externalized Strings" description="Finds undefined, duplicate and unused externalized string keys in property files" category="_kHOKByS-EeyT1r6g4Gs_bg"/>
-  <commands xmi:id="_kHSbeSS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.help.dynamicHelp" commandName="Show Contextual Help" description="Open the contextual help" category="_kHOKLiS-EeyT1r6g4Gs_bg"/>
+  <commands xmi:id="_kHSbeSS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.help.dynamicHelp" commandName="Show Context Help" description="Open the contextual help" category="_kHOKLiS-EeyT1r6g4Gs_bg"/>
   <commands xmi:id="_kHSbeiS-EeyT1r6g4Gs_bg" elementId="org.eclipse.jdt.ui.edit.text.java.comment" commandName="Comment" description="Turn the selected lines into Java comments" category="_kHOKOSS-EeyT1r6g4Gs_bg"/>
   <commands xmi:id="_kHSbeyS-EeyT1r6g4Gs_bg" elementId="org.eclipse.mylyn.tasks.ui.command.activateTask" commandName="Activate Task" category="_kHOKJiS-EeyT1r6g4Gs_bg"/>
   <commands xmi:id="_kHSbfCS-EeyT1r6g4Gs_bg" elementId="org.eclipse.jdt.ui.edit.text.java.search.occurrences.in.file.quickMenu" commandName="Show Occurrences in File Quick Menu" description="Shows the Occurrences in File quick menu" category="_kHOKMiS-EeyT1r6g4Gs_bg"/>
@@ -2952,6 +2952,13 @@
   <commands xmi:id="_kvDmFyS-EeyT1r6g4Gs_bg" elementId="AUTOGEN:::org.eclipse.mylyn.tasks.ui.actions.view/org.eclipse.mylyn.context.ui.actions.tasklist.focus" commandName="Focus on Workweek" description="Focus on Workweek" category="_kHOKGyS-EeyT1r6g4Gs_bg"/>
   <commands xmi:id="_kvDmGCS-EeyT1r6g4Gs_bg" elementId="AUTOGEN:::org.eclipse.pde.ui.logViewActions/org.eclipse.jdt.debug.ui.LogViewActions.showStackTrace" commandName="Show Stack Trace in Console View" description="Show Stack Trace in Console View" category="_kHOKGyS-EeyT1r6g4Gs_bg"/>
   <commands xmi:id="_kvDmGSS-EeyT1r6g4Gs_bg" elementId="AUTOGEN:::org.eclipse.ui.articles.action.contribution.view/org.eclipse.wst.wsi.ui.internal.actions.actionDelegates.ValidateWSIProfileActionDelegate" commandName="WS-I Profile Validator" description="Validate WS-I Message Log File" category="_kHOKGyS-EeyT1r6g4Gs_bg"/>
+  <commands xmi:id="_V7v5YYA9Eeynrqj7qFdErQ" elementId="org.eclipse.compare.switchLeftAndRight" commandName="Swap Left and Right View" description="Switch the left and right sides in the compare editor" category="_kHOKKiS-EeyT1r6g4Gs_bg"/>
+  <commands xmi:id="_V7v5YoA9Eeynrqj7qFdErQ" elementId="org.eclipse.egit.ui.team.ReplaceWithTheirs" commandName="Replace Conflicting Files with Their Revision" category="_kHOKMyS-EeyT1r6g4Gs_bg"/>
+  <commands xmi:id="_V7wgcIA9Eeynrqj7qFdErQ" elementId="org.eclipse.egit.ui.internal.merge.ToggleCurrentChangesCommand" commandName="Ignore Changes from Ancestor to Current Version" description="Toggle ignoring changes only between the ancestor and the current version in a three-way merge comparison" category="_kHOKMyS-EeyT1r6g4Gs_bg"/>
+  <commands xmi:id="_V7wgcYA9Eeynrqj7qFdErQ" elementId="org.eclipse.egit.ui.team.ReplaceWithOurs" commandName="Replace Conflicting Files with Our Revision" category="_kHOKMyS-EeyT1r6g4Gs_bg"/>
+  <commands xmi:id="_V7wgcoA9Eeynrqj7qFdErQ" elementId="org.eclipse.debug.ui.commands.TerminateAll" commandName="Terminate/Disconnect All" description="Terminate/Disconnect All" category="_kHOKEiS-EeyT1r6g4Gs_bg"/>
+  <commands xmi:id="_V7wgc4A9Eeynrqj7qFdErQ" elementId="org.eclipse.jdt.ui.edit.text.java.raw.paste" commandName="Raw Paste" description="Paste and ignore smart insert setting" category="_kHOKASS-EeyT1r6g4Gs_bg"/>
+  <commands xmi:id="_V7wgdIA9Eeynrqj7qFdErQ" elementId="org.eclipse.egit.ui.CompareWithEachOther" commandName="Compare with Each Other" description="Compare two files selected in the Compare Editor with each other." category="_kHOKKiS-EeyT1r6g4Gs_bg"/>
   <addons xmi:id="_kEatrSS-EeyT1r6g4Gs_bg" elementId="org.eclipse.e4.core.commands.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_kEatriS-EeyT1r6g4Gs_bg" elementId="org.eclipse.e4.ui.contexts.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_kEatryS-EeyT1r6g4Gs_bg" elementId="org.eclipse.e4.ui.bindings.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
@@ -2963,7 +2970,7 @@
   <addons xmi:id="_kEattSS-EeyT1r6g4Gs_bg" elementId="MinMax Addon" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.MinMaxAddon"/>
   <addons xmi:id="_kEattiS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.workbench.addon.0" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
   <addons xmi:id="_kExS8CS-EeyT1r6g4Gs_bg" elementId="SplitterAddon" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.splitteraddon.SplitterAddon"/>
-  <addons xmi:id="_bWpVYDVKEeyhXfuketcisA" elementId="org.eclipse.ui.ide.addon.0" contributionURI="bundleclass://org.eclipse.ui.ide/org.eclipse.ui.internal.ide.addons.SaveAllDirtyPartsAddon"/>
+  <addons xmi:id="_IYS0IKimEeS11vbz3f9ezw" elementId="org.eclipse.ui.ide.addon.0" contributorURI="platform:/plugin/org.eclipse.ui.ide" contributionURI="bundleclass://org.eclipse.ui.ide/org.eclipse.ui.internal.ide.addons.SaveAllDirtyPartsAddon"/>
   <addons xmi:id="_dz0JgGOlEeSMMaPQU2nlzw" elementId="org.eclipse.ui.ide.application.addon.0" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.ui.ide.application/org.eclipse.ui.internal.ide.application.addons.ModelCleanupAddon"/>
   <categories xmi:id="_kHOKACS-EeyT1r6g4Gs_bg" elementId="org.springframework.tooling.ls.eclipse.gotosymbol.commands.category" name="STS4"/>
   <categories xmi:id="_kHOKASS-EeyT1r6g4Gs_bg" elementId="org.eclipse.ui.category.edit" name="Edit"/>
